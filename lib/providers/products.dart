@@ -36,7 +36,14 @@ class Products with ChangeNotifier {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgZ2bk6-c_8sqWvcrDUo-yJ8NW8E8DwqsZgpfYn5OglAxgANTFm1FbQ6usjBPmKMCBWwQ&usqp=CAU',
     ),
   ];
+  List<Product> get favoriteItems {
+    return _items.where((element) => element.isFavorite).toList();
+  }
+
   List<Product> get items {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((element) => element.isFavorite).toList();
+    // }
     return [..._items];
   }
 

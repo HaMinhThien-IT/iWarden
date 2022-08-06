@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/cart.dart';
 import '../providers/product.dart';
-import '../providers/products.dart';
 import '../screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
@@ -9,24 +9,35 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: true);
-    // print(product.isFavorite);
+    final product = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
+    print("hi");
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
             backgroundColor: Colors.black38,
-            leading: IconButton(
-              icon: Icon(
-                  product.isFavorite ? Icons.favorite : Icons.favorite_border),
-              onPressed: () {
-                product.toggleFavoriteStatus();
-              },
-              color: Theme.of(context).colorScheme.secondary,
+            leading: Consumer<Product>(
+              builder: (context, product, child) => IconButton(
+                icon: Icon(product.isFavorite
+                    ? Icons.favorite
+                    : Icons.favorite_border),
+                onPressed: () {
+                  product.toggleFavoriteStatus();
+                },
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
             trailing: IconButton(
               icon: const Icon(Icons.shopping_cart_outlined),
-              onPressed: () {},
+              onPressed: () {
+                cart.addToCart(CartItem(
+                    id: product.id,
+                    imageUrl: product.imageUrl,
+                    price: product.price,
+                    title: product.title,
+                    quantity: 0));
+              },
               color: Theme.of(context).colorScheme.secondary,
             ),
             title: Text(
