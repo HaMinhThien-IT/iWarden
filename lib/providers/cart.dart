@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class CartItem {
@@ -5,13 +7,13 @@ class CartItem {
   final String title;
   int quantity;
   final double price;
-  final String imageUrl;
+  final String? imageUrl;
   CartItem(
       {required this.id,
       required this.price,
       required this.quantity,
       required this.title,
-      required this.imageUrl});
+      this.imageUrl});
 }
 
 class Cart with ChangeNotifier {
@@ -22,23 +24,44 @@ class Cart with ChangeNotifier {
   }
 
   int get itemCount {
-    return _items == null ? 0 : _items.length;
+    return _items.length;
   }
 
-  void addToCart(CartItem cartItem) {
-    if (_items.containsKey(cartItem.id)) {
-      _items.update(
-          cartItem.id,
-          (value) => CartItem(
-              id: value.id,
-              price: value.price,
-              quantity: value.quantity + 1,
-              title: value.title,
-              imageUrl: value.imageUrl));
-    } else {
-      cartItem.id = DateTime.now().toString();
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, value) {
+      total += (value.price * value.quantity);
+    });
+    return total;
+  }
 
-      _items.putIfAbsent(cartItem.id, () => cartItem);
+  void addToCart(
+    String productId,
+    double price,
+    String title,
+  ) {
+    if (_items.containsKey(productId)) {
+      // change quantity...
+      _items.update(
+        productId,
+        (existingCartItem) => CartItem(
+          id: existingCartItem.id,
+          title: existingCartItem.title,
+          price: existingCartItem.price,
+          quantity: existingCartItem.quantity + 1,
+        ),
+      );
+    } else {
+      _items.putIfAbsent(
+        productId,
+        () => CartItem(
+          id: DateTime.now().toString(),
+          title: title,
+          price: price,
+          quantity: 1,
+        ),
+      );
     }
+    notifyListeners();
   }
 }
