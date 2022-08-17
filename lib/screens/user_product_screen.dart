@@ -7,11 +7,16 @@ import '../providers/products.dart';
 
 class UserProductScreen extends StatelessWidget {
   static const routeName = '/user-products';
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false)
+        .fetchAndSetProducts(true);
+  }
+
   const UserProductScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
+    // final productData = Provider.of<Products>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Products'),
@@ -31,19 +36,32 @@ class UserProductScreen extends StatelessWidget {
           )),
         ),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: ListView.builder(
-            itemBuilder: (ctx, i) => Column(
-              children: [
-                UserProductItem(
-                  product: productData.items[i],
-                ),
-                const Divider()
-              ],
-            ),
-            itemCount: productData.items.length,
-          )),
+      body: FutureBuilder(
+        future: _refreshProducts(context),
+        builder: (context, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: () => _refreshProducts(context),
+                    child: Consumer<Products>(
+                      builder: (context, value, child) => Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: ListView.builder(
+                            itemBuilder: (ctx, i) => Column(
+                              children: [
+                                UserProductItem(
+                                  product: value.items[i],
+                                ),
+                                const Divider()
+                              ],
+                            ),
+                            itemCount: value.items.length,
+                          )),
+                    ),
+                  ),
+      ),
       drawer: const AppDrawer(),
     );
   }
