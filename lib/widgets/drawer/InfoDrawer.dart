@@ -6,17 +6,20 @@ class InfoDrawer extends StatelessWidget {
   final String name;
   final String assetImage;
   final String email;
+  final bool isDrawer;
   const InfoDrawer(
       {Key? key,
       required this.assetImage,
       required this.name,
-      required this.email})
+      required this.email,
+      required this.isDrawer})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorTheme.background,
+      toolbarHeight: !isDrawer ? 64 : 56,
+      backgroundColor: !isDrawer ? Colors.white : ColorTheme.background,
       elevation: 0,
       title: ListTile(
         contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
@@ -29,7 +32,10 @@ class InfoDrawer extends StatelessWidget {
         ),
         title: Text(
           name,
-          style: CustomTextStyle.h6,
+          style: CustomTextStyle.h6.copyWith(
+            color: !isDrawer ? ColorTheme.textPrimary : Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         subtitle: Text(
           email,

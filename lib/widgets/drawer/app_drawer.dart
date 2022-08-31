@@ -32,6 +32,7 @@ class MyDrawer extends StatelessWidget {
               Column(
                 children: <Widget>[
                   const InfoDrawer(
+                      isDrawer: true,
                       assetImage:
                           "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
                       email: "tom.smiths@ukparkingcontrol.com",
@@ -71,7 +72,7 @@ class MyDrawer extends StatelessWidget {
                     child: Column(children: getList()),
                   ),
                   SizedBox(
-                    height: heightScreen / 10,
+                    height: heightScreen / 9,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -7,6 +7,7 @@ ThemeData themeMain() {
     drawerTheme: const DrawerThemeData(
       backgroundColor: Colors.white,
     ),
+    scaffoldBackgroundColor: ColorTheme.grey200,
     appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,

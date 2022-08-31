@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/screens/HomeOverview.dart';
 import 'package:iWarden/theme/theme.dart';
-
 import '../routes/routes.dart';
-import '../screens/login_screens.dart';
-import '../theme/color.dart';
 
 void main() => runApp(const MyApp());
 
