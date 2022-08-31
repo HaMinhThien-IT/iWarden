@@ -1,4 +1,4 @@
-name: shop_app
+name: iwarden
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -29,9 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.3
-  intl: ^0.17.0
-  http: ^0.13.5
+  flutter_svg: ^1.1.4
+  dropdown_button2: ^1.7.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,7 +39,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -61,9 +59,17 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/Logo.png
+    - assets/svg/Vector.svg
+    - assets/images/goku.jpg
+    - assets/svg/IconHome.svg
+    - assets/svg/IconCar.svg
+    - assets/svg/IconClock.svg
+    - assets/svg/IconForm.svg
+    - assets/svg/IconCall.svg
+    - assets/svg/IconPacking.svg
+    - assets/svg/CheckOut.svg 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -77,14 +83,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Anton
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Anton-Regular.ttf
-    - family: Lato
-      fonts:
-        - asset: assets/fonts/Lato-Regular.ttf
-        - asset: assets/fonts/Lato-Bold.ttf
-          weight: 700
+        - asset: assets/fonts/Poppins-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
