@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iwarden/theme/color.dart';
-import 'package:iwarden/theme/textTheme.dart';
+import 'package:iWarden/theme/color.dart';
+import 'package:iWarden/theme/textTheme.dart';
 
 class InfoDrawer extends StatelessWidget {
   final String name;

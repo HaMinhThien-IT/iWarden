@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:iwarden/theme/color.dart';
-import 'package:iwarden/theme/textTheme.dart';
+import 'package:iWarden/theme/color.dart';
+import 'package:iWarden/theme/textTheme.dart';
 
 class DropDownButton extends StatefulWidget {
   final String textLabel;

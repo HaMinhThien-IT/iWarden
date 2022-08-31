@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
-// import 'package:iwarden/theme/color.dart';
-// import 'package:iwarden/widgets/drawer/Info.dart';
+// import 'package:iWarden/theme/color.dart';
+// import 'package:iWarden/widgets/drawer/Info.dart';
 // import 'Drawer.dart' as d;
 
 // class AppDrawer extends StatelessWidget {

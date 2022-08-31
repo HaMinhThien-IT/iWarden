@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iwarden/theme/textTheme.dart';
+import 'package:iWarden/theme/textTheme.dart';
 import '../theme/color.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {

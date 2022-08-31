@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iwarden/theme/color.dart';
+import 'package:iWarden/theme/color.dart';
 
 ThemeData themeMain() {
   return ThemeData(

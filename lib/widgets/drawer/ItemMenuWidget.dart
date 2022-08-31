@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:iwarden/theme/color.dart';
-import 'package:iwarden/theme/textTheme.dart';
-import 'package:iwarden/widgets/drawer/model/MenuItem.dart';
+import 'package:iWarden/theme/color.dart';
+import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/widgets/drawer/model/MenuItem.dart';
 
 class ItemMenuWidget extends StatelessWidget {
   final ItemMenu itemMenu;

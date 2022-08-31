@@ -1,4 +1,4 @@
-import 'package:iwarden/widgets/drawer/model/MenuItem.dart';
+import 'package:iWarden/widgets/drawer/model/MenuItem.dart';
 
 class DataMenuItem {
   List<ItemMenu> data = [

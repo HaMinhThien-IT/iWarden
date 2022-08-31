@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iwarden/screens/HomeOverview.dart';
-import 'package:iwarden/theme/theme.dart';
+import 'package:iWarden/screens/HomeOverview.dart';
+import 'package:iWarden/theme/theme.dart';
 
 import '../routes/routes.dart';
 import '../screens/login_screens.dart';
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MyShop',
+      title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
       home: const HomeOverview(),
