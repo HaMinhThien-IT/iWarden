@@ -8,7 +8,9 @@ class ColorTheme {
   static const grey600 = Color(0xFF85858A);
   static const primary = Color.fromRGBO(62, 182, 228, 1);
   static const secondary = Color(0xFFFFB600);
+  static const lightSecondary = Color.fromRGBO(255, 182, 0, 0.1);
   static const danger = Color(0xFFE01B00);
+  static const lightDanger = Color.fromRGBO(224, 27, 0, 0.1);
   static const success = Color(0xFF009D4F);
   static const darkPrimary = Color.fromRGBO(26, 43, 109, 1);
   static final lightPrimary = const Color(0xFF3EB6E4).withOpacity(0.1);

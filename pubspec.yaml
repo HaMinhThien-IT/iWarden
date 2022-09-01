@@ -68,11 +68,12 @@ flutter:
     - assets/svg/IconClock.svg
     - assets/svg/IconForm.svg
     - assets/svg/IconCall.svg
-    - assets/svg/IconPacking.svg
     - assets/svg/IconFirstSeen.svg
     - assets/svg/IconGrace.svg 
-    - assets/svg/IconParking.svg 
     - assets/svg/CheckOut.svg 
+    - assets/svg/IconPlus.svg 
+    - assets/svg/IconView.svg 
+    - assets/svg/IconCharges.svg 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
