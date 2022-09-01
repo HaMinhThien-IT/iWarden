@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/theme/color.dart';
-import 'package:iWarden/theme/textTheme.dart';
 
 import 'package:iWarden/widgets/appBar.dart';
 import 'package:iWarden/widgets/drawer/InfoDrawer.dart';
@@ -15,7 +13,7 @@ class HomeOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: const MyAppBar(title: "Home"),
       drawer: const MyDrawer(),
       body: SingleChildScrollView(
         child: Column(

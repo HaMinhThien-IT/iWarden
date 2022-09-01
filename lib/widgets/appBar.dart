@@ -3,7 +3,8 @@ import 'package:iWarden/theme/textTheme.dart';
 import '../theme/color.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key}) : super(key: key);
+  final String title;
+  const MyAppBar({Key? key, required this.title}) : super(key: key);
   @override
   Size get preferredSize => const Size.fromHeight(54);
   @override
@@ -25,7 +26,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               width: 10,
             ),
             Text(
-              "Home",
+              title,
               style: CustomTextStyle.h4.copyWith(
                   color: ColorTheme.darkPrimary, fontWeight: FontWeight.w500),
             ),

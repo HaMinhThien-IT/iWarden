@@ -8,10 +8,13 @@ ThemeData themeMain() {
       backgroundColor: Colors.white,
     ),
     scaffoldBackgroundColor: ColorTheme.grey200,
+    indicatorColor: ColorTheme.success,
+
     appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: ColorTheme.darkPrimary)),
+    // tabBarTheme: ,
     colorScheme: ColorScheme.fromSwatch()
         .copyWith(primary: ColorTheme.primary, secondary: ColorTheme.secondary),
   );

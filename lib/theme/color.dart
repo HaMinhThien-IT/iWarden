@@ -15,6 +15,6 @@ class ColorTheme {
   static const darkPrimary = Color.fromRGBO(26, 43, 109, 1);
   static final lightPrimary = const Color(0xFF3EB6E4).withOpacity(0.1);
   static const textPrimary = Color(0xFF292929);
-  static const boxShadow = Color.fromRGBO(0, 0, 0, 0.25);
+  static const boxShadow = Color.fromRGBO(0, 0, 0, 0.1);
   static const background = Color.fromRGBO(5, 28, 44, 1);
 }

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
       home: const HomeOverview(),
+      initialRoute: HomeOverview.routerName,
       routes: routes,
     );
   }

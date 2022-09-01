@@ -22,14 +22,13 @@ class _DropDownButtonState extends State<DropDownButton> {
 
   String? selectedValue;
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField2(
       decoration: InputDecoration(
         label: Text(
           widget.textLabel,
+          style: CustomTextStyle.h6.copyWith(color: Colors.white),
         ),
         labelStyle: CustomTextStyle.h5.copyWith(fontSize: 16),
         isDense: true,
@@ -50,7 +49,7 @@ class _DropDownButtonState extends State<DropDownButton> {
       hint: Text(
         widget.hintLabel,
         overflow: TextOverflow.ellipsis,
-        style: CustomTextStyle.h6,
+        style: CustomTextStyle.h6.copyWith(color: Colors.white),
       ),
       icon: const Icon(
         Icons.arrow_drop_down,
@@ -68,7 +67,7 @@ class _DropDownButtonState extends State<DropDownButton> {
                 child: Text(
                   item,
                   overflow: TextOverflow.ellipsis,
-                  style: CustomTextStyle.h6,
+                  style: CustomTextStyle.h6.copyWith(color: Colors.white),
                 ),
               ))
           .toList(),
