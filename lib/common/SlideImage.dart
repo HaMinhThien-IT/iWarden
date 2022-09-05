@@ -36,61 +36,69 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
     super.initState();
   }
 
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          CarouselSlider(
-            items: imageSliders,
-            options: CarouselOptions(
-              enlargeCenterPage: false,
-              height: 200,
-              viewportFraction: 1,
-            ),
-            carouselController: _controller,
+    return Column(
+      children: <Widget>[
+        CarouselSlider(
+          items: imageSliders,
+          options: CarouselOptions(
+            enlargeCenterPage: false,
+            height: MediaQuery.of(context).size.width < 400 ? 200 : 300,
+            viewportFraction: 1,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
           ),
-          Container(
-            // padding: const EdgeInsets.all(8),
-            height: 70,
-            width: double.infinity,
-            margin: const EdgeInsets.only(top: 3),
-            color: Colors.white,
-            child: ListView(
-              // scrollDirection: Axis.horizontal,
-              // physics: ClampingScrollPhysics(),
-              children: <Widget>[
-                SizedBox(
-                  height: 56.0,
-                  child: InkWell(
-                    onTap: () {},
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
-                      child: SizedBox(
-                        width: 24.0,
-                        height: 24.0,
-                        child: SvgPicture.asset("assets/svg/IconCamera.svg"),
-                      ),
-                    ),
+          carouselController: _controller,
+        ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          height: 70,
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: 3),
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              Container(
+                height: 56.0,
+                width: 56.0,
+                margin: const EdgeInsets.only(right: 3),
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: ColorTheme.grey200,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: InkWell(
+                  onTap: () {},
+                  child: SizedBox(
+                    width: 24.0,
+                    height: 24.0,
+                    child: SvgPicture.asset("assets/svg/IconCamera.svg"),
                   ),
                 ),
-                SizedBox(
+              ),
+              Expanded(
+                child: SizedBox(
                   height: 56.0,
+                  width: 56.0,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: List.generate(imgList.length, (int index) {
-                      return Flexible(
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3),
                         child: InkWell(
                           onTap: () => _controller.animateToPage(index),
-                          child: Card(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5.0),
-                              child: SizedBox(
-                                width: 56.0,
-                                height: 56.0,
-                                child: Image.network(imgList[index],
-                                    fit: BoxFit.cover),
-                              ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: SizedBox(
+                              width: 56.0,
+                              height: 56.0,
+                              child: Image.network(imgList[index],
+                                  fit: BoxFit.cover),
                             ),
                           ),
                         ),
@@ -98,27 +106,11 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
                     }),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
-//  SingleChildScrollView(
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: <Widget>[
-//                 ...Iterable<int>.generate(imgList.length).map(
-//                   (int pageIndex) => Flexible(
-//                     child: ElevatedButton(
-//                       onPressed: () => _controller.animateToPage(pageIndex),
-//                       child:
-//                           Image.network(imgList[pageIndex], fit: BoxFit.cover),
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           )

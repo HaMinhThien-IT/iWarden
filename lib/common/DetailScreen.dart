@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/SlideImage.dart';
+import 'package:iWarden/config/const.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 
@@ -31,7 +32,7 @@ class DetailScreen extends StatelessWidget {
             children: <Widget>[
               TextButton.icon(
                   onPressed: () {},
-                  icon: SvgPicture.asset("assets/svg/IconPlus.svg"),
+                  icon: SvgPicture.asset("assets/svg/IconCar.svg"),
                   label: const Text(
                     "Car left",
                     style: CustomTextStyle.h6,
@@ -68,93 +69,54 @@ class DetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            margin: const EdgeInsets.only(top: 16),
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.width < 400
+                  ? 0
+                  : ConstSpacing.bottom),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                margin: const EdgeInsets.only(top: 16),
+                color: Colors.white,
+                child: Column(
                   children: <Widget>[
-                    Text(
-                      "bd5i smr".toUpperCase(),
-                      style: CustomTextStyle.h4,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "bd5i smr".toUpperCase(),
+                          style: CustomTextStyle.h4,
+                        ),
+                        const Text(
+                          "Bay number: 12",
+                          style: CustomTextStyle.h6,
+                        ),
+                      ],
                     ),
-                    const Text(
-                      "Bay number: 12",
-                      style: CustomTextStyle.h6,
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Expired in: 12:12:23",
+                            style: CustomTextStyle.h6
+                                .copyWith(color: ColorTheme.danger)),
+                        Text("Visited: 12:12:23 12/08/2022",
+                            style: CustomTextStyle.h6
+                                .copyWith(color: ColorTheme.grey600)),
+                      ],
+                    )
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Expired in: 12:12:23",
-                        style: CustomTextStyle.h6
-                            .copyWith(color: ColorTheme.danger)),
-                    Text("Visited: 12:12:23 12/08/2022",
-                        style: CustomTextStyle.h6
-                            .copyWith(color: ColorTheme.grey600)),
-                  ],
-                )
-              ],
-            ),
+              ),
+              ManuallyControlledSlider()
+            ],
           ),
-          // ManuallyControlledSlider()
-
-          Container(
-            height: 70,
-            width: double.infinity,
-            margin: const EdgeInsets.only(top: 3),
-            color: Colors.white,
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  height: 56.0,
-                  child: InkWell(
-                    onTap: () {},
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
-                      child: SizedBox(
-                        width: 24.0,
-                        height: 24.0,
-                        child: SvgPicture.asset("assets/svg/IconCamera.svg"),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                    height: 56.0,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: List.generate(imgList.length, (int index) {
-                        return Flexible(
-                          child: InkWell(
-                            onTap: () {},
-                            child: Card(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5.0),
-                                child: SizedBox(
-                                  width: 56.0,
-                                  height: 56.0,
-                                  child: Image.network(imgList[index],
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ))
-              ],
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
