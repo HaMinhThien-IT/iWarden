@@ -129,7 +129,7 @@ class _AddImageState extends State<AddImage> {
                         )),
                   ),
                 ],
-              )
+              ),
             ],
           )),
     );

@@ -26,7 +26,7 @@ class DetailScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,9 +97,10 @@ class DetailScreen extends StatelessWidget {
                           "bd5i smr".toUpperCase(),
                           style: CustomTextStyle.h4,
                         ),
-                        const Text(
-                          "Bay number: 12",
-                          style: CustomTextStyle.h6,
+                        Text(
+                          "Color: White",
+                          style: CustomTextStyle.h6
+                              .copyWith(color: ColorTheme.grey600),
                         ),
                       ],
                     ),
@@ -107,15 +108,41 @@ class DetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text("Expired in: 12:12:23",
+                        Text(
+                          "Make: Mercedes‑Benz",
+                          style: CustomTextStyle.h6
+                              .copyWith(color: ColorTheme.grey600),
+                        ),
+                        Text("Model: A‑Class",
                             style: CustomTextStyle.h6
-                                .copyWith(color: ColorTheme.danger)),
-                        Text("Visited: 12:12:23 12/08/2022",
+                                .copyWith(color: ColorTheme.grey600)),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Created at: 12/08/2022 12:20 pm ",
+                          style: CustomTextStyle.h6
+                              .copyWith(color: ColorTheme.grey600),
+                        ),
+                        Text("Bay: 12",
                             style: CustomTextStyle.h6
                                 .copyWith(color: ColorTheme.grey600)),
                       ],
                     )
                   ],
+                ),
+              ),
+              Container(
+                color: ColorTheme.secondary,
+                padding: const EdgeInsets.all(8),
+                width: double.infinity,
+                child: Text(
+                  "Expiring in: 1hr 12min",
+                  textAlign: TextAlign.center,
+                  style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
                 ),
               ),
               ManuallyControlledSlider(),
