@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
       home: const LocationScreen(),
       initialRoute: LocationScreen.routeName,
       routes: routes,
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
-      },
+      // onUnknownRoute: (settings) {
+      //   return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
+      // },
     );
   }
 }
