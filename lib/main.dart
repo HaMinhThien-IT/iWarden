@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/screens/DetailFirstSeen.dart';
 import 'package:iWarden/screens/HomeOverview.dart';
 import 'package:iWarden/theme/theme.dart';
 import '../routes/routes.dart';
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
       home: const HomeOverview(),
       initialRoute: HomeOverview.routerName,
       routes: routes,
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
+      },
     );
   }
 }

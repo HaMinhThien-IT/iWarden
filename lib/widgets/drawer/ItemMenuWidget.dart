@@ -45,9 +45,9 @@ class ItemMenuWidget extends StatelessWidget {
           child: Text(
             itemMenu.title,
             style: CustomTextStyle.h5.copyWith(
-                color: activeRoute()
-                    ? ColorTheme.darkPrimary
-                    : ColorTheme.grey600),
+              color:
+                  activeRoute() ? ColorTheme.darkPrimary : ColorTheme.grey600,
+            ),
           ),
         ),
         onTap: () {
