@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
       home: const HomeOverview(),
       initialRoute: HomeOverview.routerName,
       routes: routes,
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
-      },
+      // onUnknownRoute: (settings) {
+      //   return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
+      // },
     );
   }
 }

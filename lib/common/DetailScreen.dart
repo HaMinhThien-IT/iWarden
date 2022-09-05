@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/SlideImage.dart';
 import 'package:iWarden/config/const.dart';
+import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 
@@ -45,7 +46,11 @@ class DetailScreen extends StatelessWidget {
                             BorderSide(width: 0.5, color: ColorTheme.grey300))),
               ),
               TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                        IssuePCNFirstSeenScreen.routerName,
+                        arguments: {'id': 2});
+                  },
                   icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
                   label: const Text(
                     "Issue charge",
@@ -113,7 +118,7 @@ class DetailScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ManuallyControlledSlider()
+              ManuallyControlledSlider(),
             ],
           ),
         ),

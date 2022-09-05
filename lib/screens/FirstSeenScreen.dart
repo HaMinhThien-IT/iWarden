@@ -17,10 +17,7 @@ class FirstSeenScreen extends StatelessWidget {
       funcRefresh: () {},
       tabBarViewTab1: SingleChildScrollView(
           child: Container(
-        margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).size.width < 400
-                ? 0
-                : ConstSpacing.bottom),
+        margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
         child: Column(
           children: [
             CardItem(
