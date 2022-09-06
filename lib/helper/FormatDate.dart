@@ -13,11 +13,11 @@ class FormatDate {
   }
 
   //Visited: 12:12:23 12/08/2022
-  getLocalDate2(DateTime date) {
-    return DateFormat.Hm().addPattern('dd/MM/yyyy').format(date);
-  }
+  // getLocalDate2(DateTime date) {
+  //   return DateFormat.Hm().addPattern('dd/MM/yyyy').format(date);
+  // }
 
-  getLocalTime(DateTime date) {
-    return DateFormat('dd/MM/yyyy hh:mm a').format(date);
-  }
+  // getLocalTime(DateTime date) {
+  //   return DateFormat('dd/MM/yyyy hh:mm a').format(date);
+  // }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/screens/AbortingScreen.dart';
 import 'package:iWarden/screens/DetailFirstSeen.dart';
 import 'package:iWarden/screens/FirstSeenScreen.dart';
 import 'package:iWarden/screens/GracePeriodScreen.dart';
@@ -10,14 +11,15 @@ import 'package:iWarden/screens/ParkingChargesScreen.dart';
 import '../screens/login_screens.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  HomeOverview.routerName: (context) => const HomeOverview(),
+  HomeOverview.routeName: (context) => const HomeOverview(),
   LocationScreen.routeName: (context) => const LocationScreen(),
-  LoginScreen.routerName: (context) => const LoginScreen(),
-  GracePeriodScreen.routerName: (context) => const GracePeriodScreen(),
-  ParkingChargesScreen.routerName: (context) => const GracePeriodScreen(),
+  LoginScreen.routeName: (context) => const LoginScreen(),
+  GracePeriodScreen.routeName: (context) => const GracePeriodScreen(),
+  ParkingChargesScreen.routeName: (context) => const GracePeriodScreen(),
   // first seen
-  FirstSeenScreen.routerName: (context) => const FirstSeenScreen(),
-  DetailFirstSeen.routerName: (context) => const DetailFirstSeen(),
-  IssuePCNFirstSeenScreen.routerName: (context) =>
-      const IssuePCNFirstSeenScreen()
+  FirstSeenScreen.routeName: (context) => const FirstSeenScreen(),
+  DetailFirstSeen.routeName: (context) => const DetailFirstSeen(),
+  IssuePCNFirstSeenScreen.routeName: (context) =>
+      const IssuePCNFirstSeenScreen(),
+  AbortingScreen.routeName: (context) => const AbortingScreen()
 };

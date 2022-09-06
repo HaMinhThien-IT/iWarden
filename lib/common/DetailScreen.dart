@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/Customcheckbox.dart';
 import 'package:iWarden/common/SlideImage.dart';
 import 'package:iWarden/config/const.dart';
 import 'package:iWarden/helper/FormatDate.dart';
@@ -15,8 +16,6 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(FormatDate()
-        .getLocalDate2(DateTime.parse('2022-09-06 23:55:49.977445')));
     return Scaffold(
       appBar: MyAppBar(
           title: "bd5i smr".toUpperCase(), automaticallyImplyLeading: true),
@@ -51,7 +50,7 @@ class DetailScreen extends StatelessWidget {
               TextButton.icon(
                   onPressed: () {
                     Navigator.of(context).pushNamed(
-                        IssuePCNFirstSeenScreen.routerName,
+                        IssuePCNFirstSeenScreen.routeName,
                         arguments: {'id': 2});
                   },
                   icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
@@ -149,6 +148,11 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
               ManuallyControlledSlider(),
+              CustomCheckBox(
+                onChanged: (value) {},
+                value: false,
+                title: "Staff member",
+              )
             ],
           ),
         ),

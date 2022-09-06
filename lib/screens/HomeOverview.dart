@@ -7,7 +7,7 @@ import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:iWarden/widgets/home/CardHome.dart';
 
 class HomeOverview extends StatelessWidget {
-  static const routerName = '/home';
+  static const routeName = '/home';
   const HomeOverview({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

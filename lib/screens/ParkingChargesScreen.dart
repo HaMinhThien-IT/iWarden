@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class ParkingChargesScreen extends StatelessWidget {
-  static const routerName = '/parking_charges';
+  static const routeName = '/parking_charges';
   const ParkingChargesScreen({Key? key}) : super(key: key);
 
   @override
