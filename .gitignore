@@ -25,12 +25,12 @@ migrate_working_dir/
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
-/pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
+/pubspec.lock
 /build/
 # Web related
 lib/generated_plugin_registrant.dart
