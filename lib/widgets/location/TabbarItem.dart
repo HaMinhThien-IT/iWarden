@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iWarden/models/Site.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/widgets/location/SiteItem.dart';
 
 class TabbarItem extends StatefulWidget {
   final List<Site> sites;
@@ -12,20 +13,30 @@ class TabbarItem extends StatefulWidget {
 }
 
 class _TabbarItemState extends State<TabbarItem> {
+  int currentIndexTab = 0;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
+      initialIndex: currentIndexTab,
       child: Column(
         children: <Widget>[
           SizedBox(
             child: TabBar(
+              onTap: (index) {
+                setState(() {
+                  currentIndexTab = index;
+                });
+              },
               tabs: [
                 Tab(
                   child: Text(
                     'Sites near me (${widget.sites.length})',
                     style: CustomTextStyle.caption.copyWith(
-                      color: ColorTheme.grey600,
+                      color: currentIndexTab == 0
+                          ? ColorTheme.success
+                          : ColorTheme.grey600,
                     ),
                   ),
                 ),
@@ -33,7 +44,9 @@ class _TabbarItemState extends State<TabbarItem> {
                   child: Text(
                     'Saved sites (5)',
                     style: CustomTextStyle.caption.copyWith(
-                      color: ColorTheme.grey600,
+                      color: currentIndexTab == 1
+                          ? ColorTheme.success
+                          : ColorTheme.grey600,
                     ),
                   ),
                 ),
@@ -41,7 +54,7 @@ class _TabbarItemState extends State<TabbarItem> {
             ),
           ),
           SizedBox(
-            height: 250,
+            height: 280,
             child: TabBarView(
               children: [
                 Column(
@@ -76,48 +89,19 @@ class _TabbarItemState extends State<TabbarItem> {
                         color: ColorTheme.primary,
                       ),
                     ),
-                    Column(
-                      children: [
-                        ListTile(
-                          onTap: () {},
-                          visualDensity: const VisualDensity(
-                            horizontal: 0,
-                            vertical: -4,
-                          ),
-                          dense: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 5,
-                            vertical: 0,
-                          ),
-                          leading: Container(
-                            width: 5,
-                            height: 5,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: ColorTheme.primary,
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (_, i) => Column(
+                          children: [
+                            SiteItem(siteItem: widget.sites[i]),
+                            const Divider(
+                              height: 10,
                             ),
-                          ),
-                          horizontalTitleGap: -20,
-                          title: Text(
-                            'Brisker Count',
-                            style: CustomTextStyle.body1.copyWith(
-                              color: ColorTheme.textPrimary,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          subtitle: Text(
-                            '71 Cherry Court SOUTHAMPTON SO53 5PD UK',
-                            style: CustomTextStyle.chart.copyWith(
-                              color: ColorTheme.grey600,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
+                          ],
                         ),
-                        const Divider(
-                          height: 10,
-                        ),
-                      ],
+                        itemCount: widget.sites.length,
+                      ),
                     ),
                   ],
                 ),

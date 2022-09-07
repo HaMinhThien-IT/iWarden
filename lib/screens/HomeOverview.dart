@@ -33,7 +33,7 @@ class HomeOverview extends StatelessWidget {
             CardHome(
               width: width,
               assetIcon: "assets/svg/IconFirstSeen.svg",
-              backgroundIcon: ColorTheme.lightPrimary,
+              backgroundIcon: ColorTheme.lighterPrimary,
               title: "First seen",
               desc:
                   "First seen list description First seen list description description",
@@ -59,7 +59,7 @@ class HomeOverview extends StatelessWidget {
             CardHome(
               width: width,
               assetIcon: "assets/svg/IconCharges.svg",
-              backgroundIcon: ColorTheme.lightSecondary,
+              backgroundIcon: ColorTheme.lighterSecondary,
               title: "Parking Charges",
               desc:
                   "Parking charges list description Parking charges list description",
