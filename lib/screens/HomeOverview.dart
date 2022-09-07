@@ -65,7 +65,7 @@ class HomeOverview extends StatelessWidget {
                   "Parking charges list description Parking charges list description",
               infoRight: "Issued: 12",
               infoLeft: "Aborted: 12",
-            )
+            ),
           ],
         ),
       ),

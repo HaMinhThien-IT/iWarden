@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/common/CardItem.dart';
 import 'package:iWarden/common/Tabbar.dart';
-import 'package:iWarden/config/const.dart';
-import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
+import 'package:iWarden/configs/const.dart';
+import 'package:iWarden/screens/DetailFirstSeen.dart';
 import 'package:iWarden/theme/color.dart';
 
 class ActiveFirstSeenScreen extends StatelessWidget {
