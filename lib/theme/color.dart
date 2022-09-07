@@ -16,7 +16,6 @@ class ColorTheme {
   static const darkerPrimary = Color(0xFF051C2C);
   static final lighterPrimary = _primary.withOpacity(0.1);
   static final secondary = _secondary;
-  static final lightSecondary = _secondary.withOpacity(0.1);
   static final lighterSecondary = _secondary.withOpacity(0.1);
   static final danger = _danger;
   static final lightDanger = _danger.withOpacity(0.1);
