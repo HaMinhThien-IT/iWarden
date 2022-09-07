@@ -83,7 +83,6 @@ class _AddImageState extends State<AddImage> {
                   Expanded(
                     child: SizedBox(
                         height: 56.0,
-                        width: 56.0,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => Stack(

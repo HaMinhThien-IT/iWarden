@@ -18,6 +18,10 @@ ThemeData themeMain() {
         primary: ColorTheme.primary,
         secondary: ColorTheme.secondary,
       ),
+      scrollbarTheme: const ScrollbarThemeData().copyWith(
+          crossAxisMargin: -8,
+          thumbColor: MaterialStateProperty.all(ColorTheme.darkPrimary),
+          radius: const Radius.circular(3)),
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {

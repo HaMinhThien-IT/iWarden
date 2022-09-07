@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/DropDownButton.dart';
 import 'package:iWarden/common/SlideImage.dart';
+import 'package:iWarden/common/custom.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/helper/FormatDate.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
@@ -96,6 +98,54 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
               ManuallyControlledSlider(),
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                height: 100,
+                child: ListView(scrollDirection: Axis.horizontal, children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 16),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: SizedBox(
+                              width: 56.0,
+                              height: 56.0,
+                              child: Image.network(
+                                "https://www.mercedes-benz.com.vn/vi/passengercars/mercedes-benz-cars/amg/_jcr_content/par/textimagecombination_1732294460/image.MQ6.12.image.20200810140607.jpeg",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: -10,
+                        right: 5,
+                        child: InkWell(
+                          onTap: () {
+                            // remove(index);
+                          },
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            padding: const EdgeInsets.all(3.5),
+                            decoration: BoxDecoration(
+                                color: ColorTheme.grey400,
+                                borderRadius: BorderRadius.circular(20)),
+                            child:
+                                SvgPicture.asset("assets/svg/IconCannel.svg"),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ]),
+              ),
             ],
           ),
         ),
