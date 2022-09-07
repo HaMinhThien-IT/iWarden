@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/screens/AbortingScreen.dart';
-import 'package:iWarden/screens/DetailFirstSeen.dart';
-import 'package:iWarden/screens/FirstSeenScreen.dart';
+import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
+import 'package:iWarden/screens/first-seen/ActiveFirstSeenScreen.dart';
 import 'package:iWarden/screens/GracePeriodScreen.dart';
 import 'package:iWarden/screens/HomeOverview.dart';
 import 'package:iWarden/screens/LocationScreen.dart';
@@ -17,7 +17,7 @@ final Map<String, WidgetBuilder> routes = {
   GracePeriodScreen.routeName: (context) => const GracePeriodScreen(),
   ParkingChargesScreen.routeName: (context) => const GracePeriodScreen(),
   // first seen
-  FirstSeenScreen.routeName: (context) => const FirstSeenScreen(),
+  ActiveFirstSeenScreen.routeName: (context) => const ActiveFirstSeenScreen(),
   DetailFirstSeen.routeName: (context) => const DetailFirstSeen(),
   IssuePCNFirstSeenScreen.routeName: (context) =>
       const IssuePCNFirstSeenScreen(),

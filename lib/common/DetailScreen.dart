@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:iWarden/common/Customcheckbox.dart';
 import 'package:iWarden/common/SlideImage.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/helper/FormatDate.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/widgets/DetailIssue.dart';
 
 import 'package:iWarden/widgets/appBar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -84,59 +84,7 @@ class DetailScreen extends StatelessWidget {
                   : ConstSpacing.bottom),
           child: Column(
             children: <Widget>[
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                margin: const EdgeInsets.only(top: 16),
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "bd5i smr".toUpperCase(),
-                          style: CustomTextStyle.h4,
-                        ),
-                        Text(
-                          "Color: White",
-                          style: CustomTextStyle.h6
-                              .copyWith(color: ColorTheme.grey600),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Make: Mercedes‑Benz",
-                          style: CustomTextStyle.h6
-                              .copyWith(color: ColorTheme.grey600),
-                        ),
-                        Text("Model: A‑Class",
-                            style: CustomTextStyle.h6
-                                .copyWith(color: ColorTheme.grey600)),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Created at: 12/08/2022 12:20 pm ",
-                          style: CustomTextStyle.h6
-                              .copyWith(color: ColorTheme.grey600),
-                        ),
-                        Text("Bay: 12",
-                            style: CustomTextStyle.h6
-                                .copyWith(color: ColorTheme.grey600)),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              const DetailIssue(),
               Container(
                 color: ColorTheme.secondary,
                 padding: const EdgeInsets.all(8),
@@ -148,11 +96,6 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
               ManuallyControlledSlider(),
-              CustomCheckBox(
-                onChanged: (value) {},
-                value: false,
-                title: "Staff member",
-              )
             ],
           ),
         ),

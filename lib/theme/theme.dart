@@ -18,38 +18,6 @@ ThemeData themeMain() {
         primary: ColorTheme.primary,
         secondary: ColorTheme.secondary,
       ),
-      inputDecorationTheme: InputDecorationTheme(
-        hintStyle: const TextStyle(
-          color: ColorTheme.grey600,
-          fontSize: 14,
-        ),
-        labelStyle: const TextStyle(
-          color: ColorTheme.textPrimary,
-          fontSize: 14,
-        ),
-        floatingLabelStyle: const TextStyle(
-          color: ColorTheme.textPrimary,
-          fontSize: 18,
-        ),
-        contentPadding: const EdgeInsets.all(15),
-        fillColor: Colors.white,
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            width: 1,
-            color: ColorTheme.grey300,
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            width: 1,
-            color: ColorTheme.grey300,
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        filled: true,
-        isDense: true,
-      ),
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {

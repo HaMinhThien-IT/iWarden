@@ -80,6 +80,7 @@ class ManuallyControlledSlider extends StatefulWidget {
 }
 
 class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
+  final ScrollController _firstController = ScrollController();
   final CarouselController _controller = CarouselController();
 
   @override
@@ -88,6 +89,7 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
   }
 
   int _currentIndex = 0;
+  ScrollController scollBarController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -108,9 +110,9 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
         ),
         Container(
           padding: const EdgeInsets.all(8),
-          height: 70,
+          height: 76,
           width: double.infinity,
-          margin: const EdgeInsets.only(top: 3),
+          // margin: const EdgeInsets.only(top: 3),
           color: Colors.white,
           child: Row(
             children: <Widget>[
@@ -136,25 +138,30 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
                 child: SizedBox(
                   height: 56.0,
                   width: 56.0,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: List.generate(imgList.length, (int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: InkWell(
-                          onTap: () => _controller.animateToPage(index),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5.0),
-                            child: SizedBox(
-                              width: 56.0,
-                              height: 56.0,
-                              child: Image.network(imgList[index],
-                                  fit: BoxFit.cover),
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    controller: _firstController,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      controller: _firstController,
+                      children: List.generate(imgList.length, (int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: InkWell(
+                            onTap: () => _controller.animateToPage(index),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: SizedBox(
+                                width: 56.0,
+                                height: 56.0,
+                                child: Image.network(imgList[index],
+                                    fit: BoxFit.cover),
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                    ),
                   ),
                 ),
               ),
