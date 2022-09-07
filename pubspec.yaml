@@ -65,6 +65,7 @@ flutter:
     - assets/images/Logo.png
     - assets/images/avatar.png
     - assets/svg/Vector.svg
+    - assets/svg/IconNext.svg
     - assets/svg/PositionIcon.svg
     - assets/images/goku.jpg
     - assets/svg/IconHome.svg

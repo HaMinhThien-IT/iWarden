@@ -1,127 +1,150 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:iWarden/common/InputSearch.dart';
+import 'package:iWarden/models/Site.dart';
+import 'package:iWarden/widgets/location/TabbarItem.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/widgets/appBar.dart';
+import '../models/Location.dart';
+import 'package:flutter_svg/svg.dart';
 
-class LocationScreen extends StatelessWidget {
+class LocationScreen extends StatefulWidget {
   static const routeName = '/location';
   const LocationScreen({super.key});
 
   @override
+  State<LocationScreen> createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final locations = LocationList().locations.toList();
+    final siteList = SiteList().sites.toList();
 
-    return SingleChildScrollView(
-      child: Container(
-          decoration: const BoxDecoration(color: ColorTheme.primary),
-          child: Column(
+    String dropdownValue = locations[0].value;
+
+    void dropdownCallback(String? selectedValue) {
+      if (selectedValue is String) {
+        setState(() {
+          dropdownValue = selectedValue;
+        });
+      }
+    }
+
+    return Scaffold(
+      bottomSheet: TextButton(
+        onPressed: () {},
+        child: SizedBox(
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 200,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 48,
-                      height: 48,
-                      child: CircleAvatar(
-                        child: Image.asset('assets/images/avatar.png'),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Welcome John Wick!',
-                      style: CustomTextStyle.body1.copyWith(
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ],
+                width: 16,
+                height: 16,
+                child: SvgPicture.asset(
+                  "assets/svg/IconNext.svg",
+                  fit: BoxFit.contain,
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: screenHeight - 200,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      top: -30,
-                      width: 270,
-                      child: Material(
-                        borderRadius: BorderRadius.circular(100),
-                        child: const InputSearch(
-                          hintText: 'Search for your location',
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 70),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                width: 16,
-                                height: 21,
-                                child: Icon(Icons.location_on_outlined),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Set Your Location',
-                                style: CustomTextStyle.h4.copyWith(
-                                  decoration: TextDecoration.none,
-                                  color: ColorTheme.darkPrimary,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Form(
-                          child: Material(
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    labelText: 'Site Near Me!',
-                                  ),
-                                ),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    labelText: 'Site Near Me!',
-                                  ),
-                                ),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    labelText: 'Site Near Me!',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+              const SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Next',
+                textAlign: TextAlign.center,
+                style: CustomTextStyle.body2.copyWith(
+                  color: ColorTheme.primary,
                 ),
               ),
             ],
-          )),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          margin: EdgeInsets.only(
+            bottom: screenHeight > 400 ? screenHeight / 10 : screenHeight / 5,
+          ),
+          child: Column(
+            children: [
+              Card(
+                elevation: 0,
+                margin: EdgeInsets.only(top: screenHeight / 10),
+                child: ListTile(
+                  leading: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: CircleAvatar(
+                      child: Image.asset('assets/images/avatar.png'),
+                    ),
+                  ),
+                  title: Text(
+                    'Welcome Tom Smiths!',
+                    style: CustomTextStyle.h6.copyWith(
+                      color: ColorTheme.textPrimary,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Email: tom.smiths@ukparkingcontrol.com',
+                    style: CustomTextStyle.chart.copyWith(
+                      color: ColorTheme.grey600,
+                    ),
+                  ),
+                ),
+              ),
+              Card(
+                elevation: 0,
+                margin: const EdgeInsets.only(top: 20),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'Set your location',
+                        style: CustomTextStyle.body1.copyWith(
+                          color: ColorTheme.textPrimary,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DropdownButtonFormField2(
+                        isExpanded: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Location',
+                          hintText: 'Select location',
+                        ),
+                        items: locations
+                            .map(
+                              (item) => DropdownMenuItem<String>(
+                                value: item.value,
+                                child: Text(item.label),
+                              ),
+                            )
+                            .toList(),
+                        value: dropdownValue,
+                        onChanged: dropdownCallback,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TabbarItem(
+                        sites: siteList,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
