@@ -23,7 +23,7 @@ class ItemMenuWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: activeRoute()
-            ? ColorTheme.lightPrimary
+            ? ColorTheme.lighterPrimary
             : itemMenu.title == "Check out"
                 ? ColorTheme.grey200
                 : Colors.transparent,

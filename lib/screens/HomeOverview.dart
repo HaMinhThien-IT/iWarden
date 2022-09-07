@@ -33,7 +33,7 @@ class HomeOverview extends StatelessWidget {
             CardHome(
               width: width,
               assetIcon: "assets/svg/IconFirstSeen.svg",
-              backgroundIcon: ColorTheme.lightPrimary,
+              backgroundIcon: ColorTheme.lighterPrimary,
               title: "First seen",
               desc:
                   "First seen list description First seen list description description",
