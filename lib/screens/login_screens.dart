@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             OutlinedButton.icon(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(width: 1.0, color: ColorTheme.primary),
+                  side: BorderSide(width: 1.0, color: ColorTheme.primary),
                 ),
                 icon: SvgPicture.asset("assets/svg/IconMicrosoft.svg"),
                 label: const Text("Sign in with Microsoft"))
