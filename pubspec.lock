@@ -9,6 +9,7 @@ packages:
     source: hosted
     version: "2.9.0"
   boolean_selector:
+  
     dependency: transitive
     description:
       name: boolean_selector
