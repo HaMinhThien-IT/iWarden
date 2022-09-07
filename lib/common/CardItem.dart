@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:iWarden/screens/FirstSeenScreen.dart';
+import 'package:iWarden/screens/first-seen/ActiveFirstSeenScreen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 

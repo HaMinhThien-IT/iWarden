@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:iWarden/common/CardItem.dart';
 import 'package:iWarden/common/Tabbar.dart';
 import 'package:iWarden/config/const.dart';
-import 'package:iWarden/screens/DetailFirstSeen.dart';
+import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
 import 'package:iWarden/theme/color.dart';
 
-class FirstSeenScreen extends StatelessWidget {
+class ActiveFirstSeenScreen extends StatelessWidget {
   static const routeName = '/first-seen';
-  const FirstSeenScreen({Key? key}) : super(key: key);
+  const ActiveFirstSeenScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
