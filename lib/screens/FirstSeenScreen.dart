@@ -6,7 +6,7 @@ import 'package:iWarden/screens/DetailFirstSeen.dart';
 import 'package:iWarden/theme/color.dart';
 
 class FirstSeenScreen extends StatelessWidget {
-  static const routerName = '/first-seen';
+  static const routeName = '/first-seen';
   const FirstSeenScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: DetailFirstSeen.routerName,
+              route: DetailFirstSeen.routeName,
             ),
             CardItem(
               currentIndexTab: 0,
@@ -38,7 +38,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: DetailFirstSeen.routerName,
+              route: DetailFirstSeen.routeName,
             ),
             CardItem(
               currentIndexTab: 0,
@@ -48,7 +48,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: DetailFirstSeen.routerName,
+              route: DetailFirstSeen.routeName,
             ),
             CardItem(
               currentIndexTab: 0,
@@ -58,7 +58,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: DetailFirstSeen.routerName,
+              route: DetailFirstSeen.routeName,
             ),
             CardItem(
               currentIndexTab: 0,
@@ -68,7 +68,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: DetailFirstSeen.routerName,
+              route: DetailFirstSeen.routeName,
             ),
             CardItem(
               currentIndexTab: 0,
@@ -78,7 +78,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: DetailFirstSeen.routerName,
+              route: DetailFirstSeen.routeName,
             ),
           ],
         ),
@@ -99,7 +99,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: routerName,
+              route: routeName,
             ),
             CardItem(
               currentIndexTab: 1,
@@ -109,7 +109,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: routerName,
+              route: routeName,
             ),
             CardItem(
               currentIndexTab: 1,
@@ -119,7 +119,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: routerName,
+              route: routeName,
             ),
             CardItem(
               currentIndexTab: 1,
@@ -129,7 +129,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: routerName,
+              route: routeName,
             ),
             CardItem(
               currentIndexTab: 1,
@@ -139,7 +139,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: routerName,
+              route: routeName,
             ),
             CardItem(
               currentIndexTab: 1,
@@ -149,7 +149,7 @@ class FirstSeenScreen extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: routerName,
+              route: routeName,
             ),
           ],
         ),

@@ -4,7 +4,7 @@ import 'package:iWarden/widgets/appBar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 
 class IssuePCNFirstSeenScreen extends StatelessWidget {
-  static const routerName = '/issue-pcn';
+  static const routeName = '/issue-pcn';
   const IssuePCNFirstSeenScreen({Key? key}) : super(key: key);
 
   @override

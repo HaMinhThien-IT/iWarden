@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/screens/AbortingScreen.dart';
 import 'package:iWarden/screens/DetailFirstSeen.dart';
+import 'package:iWarden/screens/HomeOverview.dart';
 import 'package:iWarden/screens/LocationScreen.dart';
+import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/theme/theme.dart';
 import '../routes/routes.dart';
 
@@ -15,8 +18,8 @@ class MyApp extends StatelessWidget {
       title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
-      home: const LocationScreen(),
-      initialRoute: LocationScreen.routeName,
+      home: const LoginScreen(),
+      initialRoute: LoginScreen.routeName,
       routes: routes,
       // onUnknownRoute: (settings) {
       //   return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
