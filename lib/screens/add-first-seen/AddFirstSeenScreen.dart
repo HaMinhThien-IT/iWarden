@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/AddImage.dart';
 import 'package:iWarden/common/LabelRequire.dart';
+import 'package:iWarden/common/ButtonScan.dart';
 import 'package:iWarden/common/ToastSuccess.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/theme/color.dart';
@@ -84,32 +85,38 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
           ),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
+      body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 20),
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              Form(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      // height: 40,
-                      // width: 272,
-                      child: TextFormField(
-                        style: CustomTextStyle.h5,
-                        decoration: const InputDecoration(
-                          label: LabelRequire(labelText: 'VRN'),
-                          hintText: "Enter VRN",
-                        ),
-                      ),
+          margin: const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  color: Colors.white,
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            TextFormField(
+                                decoration: const InputDecoration(
+                              labelText: "VRN",
+                              hintText: "Enter VRN",
+                            )),
+                            ButtonScan(onTap: () {})
+                          ],
+                        )
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              // AddImage()
-            ],
+                // const SizedBox(
+                //   height: 8,
+                // ),
+                AddImage()
+              ],
+            ),
           ),
         ),
       ),
