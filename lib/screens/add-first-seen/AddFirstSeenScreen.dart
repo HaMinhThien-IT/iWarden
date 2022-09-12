@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/AddImage.dart';
+import 'package:iWarden/common/LabelRequire.dart';
 import 'package:iWarden/common/ButtonScan.dart';
 import 'package:iWarden/common/ToastSuccess.dart';
 import 'package:iWarden/configs/const.dart';
