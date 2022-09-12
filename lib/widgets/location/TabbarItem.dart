@@ -68,6 +68,7 @@ class _TabbarItemState extends State<TabbarItem> {
                         backgroundColor: MaterialStateProperty.all(
                           ColorTheme.lighterPrimary,
                         ),
+                        elevation: MaterialStateProperty.all(0),
                         padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(
                             horizontal: 5,

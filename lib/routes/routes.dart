@@ -4,7 +4,7 @@ import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
 import 'package:iWarden/screens/first-seen/ActiveFirstSeenScreen.dart';
 import 'package:iWarden/screens/GracePeriodScreen.dart';
 import 'package:iWarden/screens/HomeOverview.dart';
-import 'package:iWarden/screens/LocationScreen.dart';
+import 'package:iWarden/screens/location/LocationScreen.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/screens/ParkingChargesScreen.dart';

@@ -1,12 +1,13 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/Autocomplete.dart';
+import 'package:iWarden/models/Location.dart';
 import 'package:iWarden/models/Site.dart';
-import 'package:iWarden/widgets/location/TabbarItem.dart';
+import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
-import 'package:iWarden/widgets/appBar.dart';
-import '../models/Location.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/widgets/location/TabbarItem.dart';
+import 'package:provider/provider.dart';
 
 class LocationScreen extends StatefulWidget {
   static const routeName = '/location';
@@ -20,18 +21,7 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final locations = LocationList().locations.toList();
     final siteList = SiteList().sites.toList();
-
-    String dropdownValue = locations[0].value;
-
-    void dropdownCallback(String? selectedValue) {
-      if (selectedValue is String) {
-        setState(() {
-          dropdownValue = selectedValue;
-        });
-      }
-    }
 
     return Scaffold(
       bottomSheet: TextButton(
@@ -113,22 +103,27 @@ class _LocationScreenState extends State<LocationScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      DropdownButtonFormField2(
-                        isExpanded: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Location',
-                          hintText: 'Select location',
+                      SizedBox(
+                        child: Consumer<Locations>(
+                          builder: ((_, location, child) {
+                            return AutoCompleteWidget(
+                              labelText: 'Location',
+                              hintText: 'Select location',
+                              onSuggestionSelected: (suggestion) {
+                                print((suggestion as Location).value);
+                              },
+                              itemBuilder: (context, locationItem) {
+                                return ListTile(
+                                  title: Text((locationItem as Location).label),
+                                );
+                              },
+                              suggestionsCallback: (pattern) {
+                                return location.onSuggest(pattern);
+                              },
+                              initialValue: 'HaNoi',
+                            );
+                          }),
                         ),
-                        items: locations
-                            .map(
-                              (item) => DropdownMenuItem<String>(
-                                value: item.value,
-                                child: Text(item.label),
-                              ),
-                            )
-                            .toList(),
-                        value: dropdownValue,
-                        onChanged: dropdownCallback,
                       ),
                       const SizedBox(
                         height: 20,
