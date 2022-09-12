@@ -41,6 +41,7 @@ class AutoCompleteWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final Widget Function(BuildContext, Object?)? errorBuilder;
   final TextEditingController? controller;
+  final void Function(String?)? onSaved;
 
   const AutoCompleteWidget(
       {required this.labelText,
@@ -52,6 +53,7 @@ class AutoCompleteWidget extends StatelessWidget {
       this.validator,
       this.errorBuilder,
       this.controller,
+      this.onSaved,
       super.key});
 
   @override
@@ -84,7 +86,8 @@ class AutoCompleteWidget extends StatelessWidget {
           child: Text('No Items Found!'),
         );
       },
-      hideSuggestionsOnKeyboardHide: false,
+      onSaved: onSaved,
+      hideSuggestionsOnKeyboardHide: true,
     );
   }
 }

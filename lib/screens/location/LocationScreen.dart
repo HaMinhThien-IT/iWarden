@@ -18,11 +18,12 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  final TextEditingController _typeAheadController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final siteList = SiteList().sites.toList();
-    final TextEditingController _typeAheadController = TextEditingController();
 
     return Scaffold(
       bottomSheet: TextButton(
@@ -54,93 +55,98 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          margin: EdgeInsets.only(
-            bottom: screenHeight > 400 ? screenHeight / 10 : screenHeight / 5,
-          ),
-          child: Column(
-            children: [
-              Card(
-                elevation: 0,
-                margin: EdgeInsets.only(top: screenHeight / 10),
-                child: ListTile(
-                  leading: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: CircleAvatar(
-                      child: Image.asset('assets/images/avatar.png'),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            margin: EdgeInsets.only(
+              bottom: screenHeight > 400 ? screenHeight / 10 : screenHeight / 5,
+            ),
+            child: Column(
+              children: [
+                Card(
+                  elevation: 0,
+                  margin: EdgeInsets.only(top: screenHeight / 10),
+                  child: ListTile(
+                    leading: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: CircleAvatar(
+                        child: Image.asset('assets/images/avatar.png'),
+                      ),
                     ),
-                  ),
-                  title: Text(
-                    'Welcome Tom Smiths!',
-                    style: CustomTextStyle.h6.copyWith(
-                      color: ColorTheme.textPrimary,
+                    title: Text(
+                      'Welcome Tom Smiths!',
+                      style: CustomTextStyle.h6.copyWith(
+                        color: ColorTheme.textPrimary,
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    'Email: tom.smiths@ukparkingcontrol.com',
-                    style: CustomTextStyle.chart.copyWith(
-                      color: ColorTheme.grey600,
+                    subtitle: Text(
+                      'Email: tom.smiths@ukparkingcontrol.com',
+                      style: CustomTextStyle.chart.copyWith(
+                        color: ColorTheme.grey600,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Card(
-                elevation: 0,
-                margin: const EdgeInsets.only(top: 20),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        'Set your location',
-                        style: CustomTextStyle.body1.copyWith(
-                          color: ColorTheme.textPrimary,
+                Card(
+                  elevation: 0,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'Set your location',
+                          style: CustomTextStyle.body1.copyWith(
+                            color: ColorTheme.textPrimary,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        child: Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: 'Location',
-                              hintText: 'Select location',
-                              controller: _typeAheadController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _typeAheadController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                            );
-                          }),
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TabbarItem(
-                        sites: siteList,
-                      ),
-                    ],
+                        SizedBox(
+                          child: Consumer<Locations>(
+                            builder: ((_, location, child) {
+                              return AutoCompleteWidget(
+                                labelText: 'Location',
+                                hintText: 'Select location',
+                                controller: _typeAheadController,
+                                onSuggestionSelected: (suggestion) {
+                                  setState(() {
+                                    _typeAheadController.text =
+                                        (suggestion as Location).value;
+                                  });
+                                },
+                                itemBuilder: (context, locationItem) {
+                                  return ItemDataComplete(
+                                    itemData: (locationItem as Location).label,
+                                  );
+                                },
+                                suggestionsCallback: (pattern) {
+                                  return location.onSuggest(pattern);
+                                },
+                              );
+                            }),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TabbarItem(
+                          sites: siteList,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              //
-            ],
+                //
+              ],
+            ),
           ),
         ),
       ),
