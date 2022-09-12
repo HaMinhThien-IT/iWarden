@@ -1,6 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+class ItemDataComplete extends StatelessWidget {
+  final String itemData;
+  const ItemDataComplete({required this.itemData, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 0,
+          ),
+          visualDensity: const VisualDensity(
+            horizontal: 0,
+            vertical: -2,
+          ),
+          dense: true,
+          title: Text(
+            itemData,
+          ),
+        ),
+        const Divider(
+          height: 0,
+        ),
+      ],
+    );
+  }
+}
+
 class AutoCompleteWidget extends StatelessWidget {
   final String labelText;
   final String? hintText;
@@ -34,6 +64,10 @@ class AutoCompleteWidget extends StatelessWidget {
           suffixIcon: const Icon(
             Icons.expand_more_outlined,
             size: 24,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 0,
           ),
         ),
         controller: controller,
