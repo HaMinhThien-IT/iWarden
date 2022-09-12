@@ -22,6 +22,7 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final siteList = SiteList().sites.toList();
+    final TextEditingController _typeAheadController = TextEditingController();
 
     return Scaffold(
       bottomSheet: TextButton(
@@ -109,18 +110,21 @@ class _LocationScreenState extends State<LocationScreen> {
                             return AutoCompleteWidget(
                               labelText: 'Location',
                               hintText: 'Select location',
+                              controller: _typeAheadController,
                               onSuggestionSelected: (suggestion) {
-                                print((suggestion as Location).value);
+                                setState(() {
+                                  _typeAheadController.text =
+                                      (suggestion as Location).value;
+                                });
                               },
                               itemBuilder: (context, locationItem) {
-                                return ListTile(
-                                  title: Text((locationItem as Location).label),
+                                return ItemDataComplete(
+                                  itemData: (locationItem as Location).label,
                                 );
                               },
                               suggestionsCallback: (pattern) {
                                 return location.onSuggest(pattern);
                               },
-                              initialValue: 'HaNoi',
                             );
                           }),
                         ),
