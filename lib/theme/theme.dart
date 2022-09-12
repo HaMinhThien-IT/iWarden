@@ -46,6 +46,10 @@ ThemeData themeMain() {
         color: ColorTheme.grey600,
         fontSize: 14,
       ),
+      // suffixStyle: TextStyle(
+      //   color: ColorTheme.danger,
+      //   fontSize: 14,
+      // ),
       labelStyle: const TextStyle(
         color: ColorTheme.textPrimary,
         fontSize: 14,
