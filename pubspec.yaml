@@ -38,6 +38,7 @@ dependencies:
   intl: ^0.17.0
   timeago: ^3.3.0
   flutter_typeahead: ^4.1.0
+  fluttertoast: ^8.0.9
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -90,6 +91,8 @@ flutter:
     - assets/svg/IconCamera.svg
     - assets/svg/IconCannel.svg
     - assets/svg/IconMicrosoft.svg
+    - assets/svg/IconSave.svg
+    - assets/svg/IconSuccess.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
