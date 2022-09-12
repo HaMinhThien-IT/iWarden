@@ -91,21 +91,18 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
             child: Column(
               children: <Widget>[
                 Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
                   color: Colors.white,
                   child: Form(
                     child: Column(
                       children: <Widget>[
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            TextFormField(
-                                decoration: const InputDecoration(
+                        TextFormField(
+                            style: CustomTextStyle.h5,
+                            decoration: const InputDecoration(
                               labelText: "VRN",
                               hintText: "Enter VRN",
                             )),
-                            ButtonScan(onTap: () {})
-                          ],
-                        )
                       ],
                     ),
                   ),
