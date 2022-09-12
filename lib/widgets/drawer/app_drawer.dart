@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/Autocomplete.dart';
+import 'package:iWarden/models/Location.dart';
+import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/widgets/drawer/model/Data.dart';
 import 'package:iWarden/widgets/drawer/model/MenuItem.dart';
+import 'package:provider/provider.dart';
 import '../../theme/color.dart';
 import '../../theme/textTheme.dart';
 import '../../common/DropDownButton.dart';
 import '../../widgets/drawer/InfoDrawer.dart';
 import '../../widgets/drawer/ItemMenuWidget.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<MyDrawer> createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,16 +62,37 @@ class MyDrawer extends StatelessWidget {
                           margin: const EdgeInsets.only(top: 20),
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Column(
-                            children: const <Widget>[
-                              DropDownButton(
-                                  textLabel: "Location",
-                                  hintLabel: "McDonalds Chesterfield..."),
-                              SizedBox(
+                            children: <Widget>[
+                              Consumer<Locations>(
+                                builder: ((_, location, child) {
+                                  return AutoCompleteWidget(
+                                    labelText: 'Location',
+                                    hintText: 'Select location',
+                                    controller: _locationController,
+                                    onSuggestionSelected: (suggestion) {
+                                      setState(() {
+                                        _locationController.text =
+                                            (suggestion as Location).value;
+                                      });
+                                    },
+                                    itemBuilder: (context, locationItem) {
+                                      return ItemDataComplete(
+                                        itemData:
+                                            (locationItem as Location).label,
+                                      );
+                                    },
+                                    suggestionsCallback: (pattern) {
+                                      return location.onSuggest(pattern);
+                                    },
+                                  );
+                                }),
+                              ),
+                              const SizedBox(
                                 height: 25,
                               ),
-                              DropDownButton(
-                                  textLabel: "Zone",
-                                  hintLabel: "McDonalds Chesterfield..."),
+                              // DropDownButton(
+                              //     textLabel: "Zone",
+                              //     hintLabel: "McDonalds Chesterfield..."),
                             ],
                           ),
                         )),
