@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/AddImage.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 
@@ -110,23 +111,23 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
         ),
         Container(
           padding: const EdgeInsets.all(8),
-          height: 76,
-          width: double.infinity,
+          height: 70,
+          // width: double.infinity,
           // margin: const EdgeInsets.only(top: 3),
           color: Colors.white,
           child: Row(
             children: <Widget>[
-              Container(
-                height: 56.0,
-                width: 56.0,
-                margin: const EdgeInsets.only(right: 3),
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                  color: ColorTheme.grey200,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: InkWell(
-                  onTap: () {},
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  height: 56.0,
+                  width: 56.0,
+                  margin: const EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: ColorTheme.grey200,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                   child: SizedBox(
                     width: 24.0,
                     height: 24.0,
@@ -135,35 +136,57 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
                 ),
               ),
               Expanded(
-                child: SizedBox(
-                  height: 56.0,
-                  width: 56.0,
-                  child: Scrollbar(
+                child: Scrollbar(
                     thumbVisibility: true,
                     controller: _firstController,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
+                    child: ListView.builder(
                       controller: _firstController,
-                      children: List.generate(imgList.length, (int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
-                          child: InkWell(
-                            onTap: () => _controller.animateToPage(index),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5.0),
-                              child: SizedBox(
-                                width: 56.0,
-                                height: 56.0,
-                                child: Image.network(imgList[index],
-                                    fit: BoxFit.cover),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (_, index) {
+                        return Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () => _controller.animateToPage(index),
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 16),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: SizedBox(
+                                    width: 56.0,
+                                    height: 56.0,
+                                    child: Image.network(
+                                      imgList[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            Positioned(
+                              top: -10,
+                              right: 5,
+                              child: InkWell(
+                                onTap: () {
+                                  // remove(index);
+                                },
+                                child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  padding: const EdgeInsets.all(3.5),
+                                  decoration: BoxDecoration(
+                                      color: ColorTheme.grey400,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: SvgPicture.asset(
+                                      "assets/svg/IconCannel.svg"),
+                                ),
+                              ),
+                            )
+                          ],
                         );
-                      }),
-                    ),
-                  ),
-                ),
+                      },
+                      itemCount: imgList.length,
+                    )),
               ),
             ],
           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iWarden/common/DetailScreen.dart';
 
 class DetailFirstSeen extends StatelessWidget {
-  static const routeName = '/first-seen-detail';
+  static const routeName = '/first-seen-active-detail';
   const DetailFirstSeen({Key? key}) : super(key: key);
 
   @override
