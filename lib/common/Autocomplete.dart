@@ -82,7 +82,7 @@ class AutoCompleteWidget extends StatelessWidget {
       errorBuilder: errorBuilder,
       noItemsFoundBuilder: (value) {
         return const Padding(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(12),
           child: Text('No Items Found!'),
         );
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/theme/color.dart';
+import 'package:iWarden/theme/textTheme.dart';
 
 ThemeData themeMain() {
   return ThemeData(
@@ -9,7 +10,7 @@ ThemeData themeMain() {
     ),
     scaffoldBackgroundColor: ColorTheme.grey200,
     indicatorColor: ColorTheme.success,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
       iconTheme: IconThemeData(color: ColorTheme.darkPrimary),
@@ -42,9 +43,9 @@ ThemeData themeMain() {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      hintStyle: const TextStyle(
+      helperStyle: CustomTextStyle.body2.copyWith(color: ColorTheme.danger),
+      hintStyle: CustomTextStyle.body1.copyWith(
         color: ColorTheme.grey600,
-        fontSize: 14,
       ),
       // suffixStyle: TextStyle(
       //   color: ColorTheme.danger,
@@ -52,12 +53,13 @@ ThemeData themeMain() {
       // ),
       labelStyle: const TextStyle(
         color: ColorTheme.textPrimary,
-        fontSize: 14,
+        fontSize: 18,
       ),
       floatingLabelStyle: const TextStyle(
         color: ColorTheme.textPrimary,
         fontSize: 18,
       ),
+      alignLabelWithHint: true,
       floatingLabelBehavior: FloatingLabelBehavior.always,
       contentPadding: const EdgeInsets.all(12),
       fillColor: Colors.white,
