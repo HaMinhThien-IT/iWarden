@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/AddImage.dart';
+import 'package:iWarden/common/LabelRequire.dart';
 import 'package:iWarden/common/ToastSuccess.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/theme/color.dart';
@@ -99,7 +100,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                       child: TextFormField(
                         style: CustomTextStyle.h5,
                         decoration: const InputDecoration(
-                          labelText: "VRN",
+                          label: LabelRequire(labelText: 'VRN'),
                           hintText: "Enter VRN",
                         ),
                       ),
