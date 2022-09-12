@@ -31,6 +31,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     const padding = 30.0;
+
     fToast.init(context);
     return Scaffold(
       key: globalKey,
@@ -84,7 +85,30 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
       ),
       body: Container(
         margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
-        child: AddImage(),
+        child: Container(
+          margin: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              Form(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      // height: 40,
+                      // width: 272,
+                      child: TextFormField(
+                          decoration: const InputDecoration(
+                        labelText: "VRN",
+                        hintText: "Enter VRN",
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              // AddImage()
+            ],
+          ),
+        ),
       ),
     );
   }
