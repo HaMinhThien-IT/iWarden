@@ -54,7 +54,8 @@ ThemeData themeMain() {
         color: ColorTheme.textPrimary,
         fontSize: 18,
       ),
-      contentPadding: const EdgeInsets.all(15),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      contentPadding: const EdgeInsets.all(12),
       fillColor: Colors.white,
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(

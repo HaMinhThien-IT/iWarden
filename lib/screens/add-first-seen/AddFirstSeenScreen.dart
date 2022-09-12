@@ -10,7 +10,7 @@ import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AddFirstSeenScreen extends StatefulWidget {
-  static const routeName = '/add-first-seen';
+  static const routeName = 'add-first-seen';
   const AddFirstSeenScreen({super.key});
 
   @override

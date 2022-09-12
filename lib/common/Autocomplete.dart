@@ -68,7 +68,7 @@ class AutoCompleteWidget extends StatelessWidget {
             size: 24,
           ),
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: 15,
+            horizontal: 12,
             vertical: 0,
           ),
         ),
