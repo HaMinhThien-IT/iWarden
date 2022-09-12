@@ -12,7 +12,7 @@ class ToastSuccess extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5.0),
       child: Container(
-          margin: EdgeInsets.only(bottom: 20),
+          margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           decoration: const BoxDecoration(
               color: Colors.white,

@@ -29,6 +29,8 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    const padding = 30.0;
     fToast.init(context);
     return Scaffold(
       key: globalKey,
@@ -38,26 +40,48 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
       ),
       drawer: const MyDrawer(),
       bottomSheet: Container(
-          decoration: const BoxDecoration(
-              border:
-                  Border(top: BorderSide(width: 1, color: ColorTheme.grey300))),
-          width: double.infinity,
-          child: TextButton.icon(
-              onPressed: () {
-                fToast.showToast(
-                  child: const ToastSuccess(
-                    msg: "Saved successfully",
-                  ),
-                  gravity: ToastGravity.BOTTOM_LEFT,
-                  fadeDuration: 200,
-                  toastDuration: const Duration(seconds: 2),
-                );
-              },
-              icon: SvgPicture.asset("assets/svg/IconSave.svg"),
-              label: const Text(
-                "Save",
-                style: CustomTextStyle.h6,
-              ))),
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 1, color: ColorTheme.grey300),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: padding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: ((widthScreen / 2) - padding) - 12,
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: SvgPicture.asset("assets/svg/IconCar.svg"),
+                    label: const Text(
+                      "First seen list",
+                      style: CustomTextStyle.h6,
+                    )),
+              ),
+              Container(
+                height: 25,
+                decoration: const BoxDecoration(
+                    border: Border.symmetric(
+                        vertical:
+                            BorderSide(width: 0.5, color: ColorTheme.grey300))),
+              ),
+              SizedBox(
+                width: ((widthScreen / 2) - padding) - 12,
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: SvgPicture.asset("assets/svg/IconSave.svg"),
+                    label: const Text(
+                      "Save",
+                      style: CustomTextStyle.h6,
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Container(
         margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
         child: AddImage(),
