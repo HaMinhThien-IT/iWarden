@@ -97,10 +97,12 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                       // height: 40,
                       // width: 272,
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                        labelText: "VRN",
-                        hintText: "Enter VRN",
-                      )),
+                        style: CustomTextStyle.h5,
+                        decoration: const InputDecoration(
+                          labelText: "VRN",
+                          hintText: "Enter VRN",
+                        ),
+                      ),
                     ),
                   ],
                 ),
