@@ -51,6 +51,7 @@ ThemeData themeMain() {
       //   color: ColorTheme.danger,
       //   fontSize: 14,
       // ),
+
       labelStyle: CustomTextStyle.h5,
       floatingLabelStyle: CustomTextStyle.h5,
       alignLabelWithHint: true,
