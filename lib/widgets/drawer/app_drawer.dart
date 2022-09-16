@@ -66,7 +66,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               Consumer<Locations>(
                                 builder: ((_, location, child) {
                                   return AutoCompleteWidget(
-                                    labelText: 'Location',
+                                    labelText: const Text('Location'),
                                     hintText: 'Select location',
                                     controller: _locationController,
                                     onSuggestionSelected: (suggestion) {

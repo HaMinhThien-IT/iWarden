@@ -52,7 +52,9 @@ class _MyTabBarState extends State<MyTabBar> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.funcAdd();
+                    },
                     icon: SvgPicture.asset("assets/svg/IconPlus.svg"),
                     label: const Text(
                       "Add first seen",

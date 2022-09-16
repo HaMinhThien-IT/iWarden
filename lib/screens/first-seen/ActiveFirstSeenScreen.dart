@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iWarden/common/CardItem.dart';
 import 'package:iWarden/common/Tabbar.dart';
 import 'package:iWarden/configs/const.dart';
+import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
 import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
 import 'package:iWarden/theme/color.dart';
 
@@ -13,7 +14,9 @@ class ActiveFirstSeenScreen extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return MyTabBar(
       titleAppBar: "First seen",
-      funcAdd: () {},
+      funcAdd: () {
+        Navigator.of(context).pushNamed(AddFirstSeenScreen.routeName);
+      },
       funcRefresh: () {},
       tabBarViewTab1: SingleChildScrollView(
           child: Container(

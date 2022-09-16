@@ -10,9 +10,10 @@ class IssuePCNFirstSeenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-        appBar: MyAppBar(
-            title: "Issue parking charge", automaticallyImplyLeading: true),
-        drawer: MyDrawer(),
-        body: AddImage());
+      appBar: MyAppBar(
+          title: "Issue parking charge", automaticallyImplyLeading: true),
+      drawer: MyDrawer(),
+      // body: AddImage()
+    );
   }
 }

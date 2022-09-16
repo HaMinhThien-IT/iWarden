@@ -113,7 +113,7 @@ class _LocationScreenState extends State<LocationScreen> {
                           child: Consumer<Locations>(
                             builder: ((_, location, child) {
                               return AutoCompleteWidget(
-                                labelText: 'Location',
+                                labelText: const Text('Location'),
                                 hintText: 'Select location',
                                 controller: _typeAheadController,
                                 onSuggestionSelected: (suggestion) {

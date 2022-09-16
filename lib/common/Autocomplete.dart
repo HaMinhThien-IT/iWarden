@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:iWarden/theme/textTheme.dart';
 
 class ItemDataComplete extends StatelessWidget {
   final String itemData;
@@ -32,7 +33,7 @@ class ItemDataComplete extends StatelessWidget {
 }
 
 class AutoCompleteWidget extends StatelessWidget {
-  final String labelText;
+  final Widget labelText;
   final String? hintText;
   final Function(Object?) onSuggestionSelected;
   final Widget Function(BuildContext, Object?) itemBuilder;
@@ -60,8 +61,9 @@ class AutoCompleteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
+        style: CustomTextStyle.h5,
         decoration: InputDecoration(
-          labelText: labelText,
+          label: labelText,
           hintText: hintText,
           suffixIcon: const Icon(
             Icons.expand_more_outlined,

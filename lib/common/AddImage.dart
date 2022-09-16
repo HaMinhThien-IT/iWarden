@@ -84,6 +84,7 @@ class _AddImageState extends State<AddImage> {
                     child: SizedBox(
                         height: 56.0,
                         child: ListView.builder(
+                          // clipBehavior: Clip.none,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => Stack(
                             clipBehavior: Clip.none,
@@ -127,6 +128,58 @@ class _AddImageState extends State<AddImage> {
                           itemCount: arrayImage.length,
                         )),
                   ),
+                  Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(4),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: ColorTheme.success,
+                                    child: Container(
+                                        padding: EdgeInsets.all(4),
+                                        margin: EdgeInsets.all(3),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: ClipOval(
+                                          child: Container(
+                                            height: 250,
+                                            width: 250,
+                                            child: Image.network(
+                                              "https://toppng.com/uploads/preview/dragon-ball-super-goku-ssj-red-11549886012z2m2ronsyy.png",
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ))),
+                                Positioned(
+                                  bottom: 100,
+                                  right: 45,
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        backgroundColor: ColorTheme.success,
+                                        radius: 15.0,
+                                        child: Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                          size: 25,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ))
                 ],
               ),
             ],
