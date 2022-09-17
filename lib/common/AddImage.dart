@@ -18,8 +18,8 @@ class _AddImageState extends State<AddImage> {
   List<File> arrayImage = [];
   Future<void> _takePicture() async {
     final picker = ImagePicker();
-    final pickedImage =
-        await picker.pickImage(source: ImageSource.camera, maxWidth: 600);
+    final pickedImage = await picker.pickImage(
+        source: ImageSource.camera, maxWidth: 600, imageQuality: 90);
     if (pickedImage == null) {
       return;
     }
@@ -84,6 +84,8 @@ class _AddImageState extends State<AddImage> {
                     child: SizedBox(
                         height: 56.0,
                         child: ListView.builder(
+                          // clipBehavior: Clip.none,
+
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => Stack(
                             clipBehavior: Clip.none,

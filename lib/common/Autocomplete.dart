@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iWarden/theme/color.dart';
+import 'package:iWarden/theme/textTheme.dart';
 
 class ItemDataComplete extends StatelessWidget {
   final String itemData;
@@ -34,7 +35,7 @@ class ItemDataComplete extends StatelessWidget {
 
 // ignore: must_be_immutable
 class AutoCompleteWidget extends StatelessWidget {
-  final String labelText;
+  final Widget labelText;
   final String? hintText;
   final Function(Object?) onSuggestionSelected;
   final Widget Function(BuildContext, Object?) itemBuilder;
@@ -76,7 +77,7 @@ class AutoCompleteWidget extends StatelessWidget {
         ),
         decoration: InputDecoration(
           fillColor: fillColor,
-          labelText: labelText,
+          label: labelText,
           labelStyle: TextStyle(
             color: labelColor,
             fontSize: 18,

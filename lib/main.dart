@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         title: 'iWarden',
         theme: themeMain(),
         debugShowCheckedModeBanner: false,
-        home: const AddFirstSeenScreen(),
-        initialRoute: AddFirstSeenScreen.routeName,
+        home: const HomeOverview(),
+        initialRoute: HomeOverview.routeName,
         routes: routes,
         // onUnknownRoute: (settings) {
         //   return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());

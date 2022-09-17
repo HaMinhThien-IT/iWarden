@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/theme/textTheme.dart';
 
 class LabelRequire extends StatelessWidget {
   final String labelText;
@@ -9,7 +10,10 @@ class LabelRequire extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(labelText),
+        Text(
+          labelText,
+          // style: CustomTextStyle.h5,
+        ),
         const SizedBox(
           width: 5,
         ),

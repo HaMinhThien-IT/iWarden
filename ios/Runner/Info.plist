@@ -25,9 +25,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<String>We need to take a picture!</String>
+	<String>Allow access to photo library</String>
 	<key>NSCameraUsageDescription</key>
-	<String>We need to take a picture!</String>
+	<String>Need to access camera in order to get image</String>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

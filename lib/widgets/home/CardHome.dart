@@ -4,16 +4,17 @@ import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 
 class CardHome extends StatelessWidget {
-  const CardHome({
-    Key? key,
-    required this.width,
-    required this.assetIcon,
-    required this.backgroundIcon,
-    required this.desc,
-    required this.infoLeft,
-    required this.infoRight,
-    required this.title,
-  }) : super(key: key);
+  const CardHome(
+      {Key? key,
+      required this.width,
+      required this.assetIcon,
+      required this.backgroundIcon,
+      required this.desc,
+      required this.infoLeft,
+      required this.infoRight,
+      required this.title,
+      required this.route})
+      : super(key: key);
 
   final double width;
   final Color backgroundIcon;
@@ -22,7 +23,7 @@ class CardHome extends StatelessWidget {
   final String desc;
   final String infoRight;
   final String infoLeft;
-
+  final String route;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -86,7 +87,7 @@ class CardHome extends StatelessWidget {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          print("in");
+                          Navigator.pushNamed(context, route);
                         },
                         child: Container(
                           decoration: BoxDecoration(

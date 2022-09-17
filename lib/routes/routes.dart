@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/screens/AbortingScreen.dart';
+import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
 import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
 import 'package:iWarden/screens/first-seen/ActiveFirstSeenScreen.dart';
 import 'package:iWarden/screens/GracePeriodScreen.dart';
@@ -21,5 +22,6 @@ final Map<String, WidgetBuilder> routes = {
   DetailFirstSeen.routeName: (context) => const DetailFirstSeen(),
   IssuePCNFirstSeenScreen.routeName: (context) =>
       const IssuePCNFirstSeenScreen(),
-  AbortingScreen.routeName: (context) => const AbortingScreen()
+  AbortingScreen.routeName: (context) => const AbortingScreen(),
+  AddFirstSeenScreen.routeName: (context) => AddFirstSeenScreen()
 };

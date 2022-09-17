@@ -51,14 +51,9 @@ ThemeData themeMain() {
       //   color: ColorTheme.danger,
       //   fontSize: 14,
       // ),
-      labelStyle: const TextStyle(
-        color: ColorTheme.textPrimary,
-        fontSize: 18,
-      ),
-      floatingLabelStyle: const TextStyle(
-        color: ColorTheme.textPrimary,
-        fontSize: 18,
-      ),
+
+      labelStyle: CustomTextStyle.h5,
+      floatingLabelStyle: CustomTextStyle.h5,
       alignLabelWithHint: true,
       floatingLabelBehavior: FloatingLabelBehavior.always,
       contentPadding: const EdgeInsets.all(13),

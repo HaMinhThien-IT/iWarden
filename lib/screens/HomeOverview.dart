@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
 import 'package:iWarden/theme/color.dart';
 
 import 'package:iWarden/widgets/appBar.dart';
@@ -39,6 +40,7 @@ class HomeOverview extends StatelessWidget {
                   "First seen list description First seen list description description",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
+              route: AddFirstSeenScreen.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -52,6 +54,7 @@ class HomeOverview extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
+              route: AddFirstSeenScreen.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -65,6 +68,7 @@ class HomeOverview extends StatelessWidget {
                   "Parking charges list description Parking charges list description",
               infoRight: "Issued: 12",
               infoLeft: "Aborted: 12",
+              route: AddFirstSeenScreen.routeName,
             ),
           ],
         ),

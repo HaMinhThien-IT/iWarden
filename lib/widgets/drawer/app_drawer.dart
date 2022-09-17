@@ -63,7 +63,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                     fillColor: ColorTheme.darkPrimary,
                                     hintColor: ColorTheme.white,
                                     floatingLabelColor: ColorTheme.white,
-                                    labelText: 'Location',
+                                    labelText: const Text('Location'),
                                     hintText: 'Select location',
                                     controller: _locationController,
                                     onSuggestionSelected: (suggestion) {
@@ -94,7 +94,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                     fillColor: ColorTheme.darkPrimary,
                                     hintColor: ColorTheme.white,
                                     floatingLabelColor: ColorTheme.white,
-                                    labelText: 'Zone',
+                                    labelText: const Text('Zone'),
                                     hintText: 'Select zone',
                                     controller: _locationController,
                                     onSuggestionSelected: (suggestion) {
