@@ -62,7 +62,7 @@ ThemeData themeMain() {
       alignLabelWithHint: true,
       floatingLabelBehavior: FloatingLabelBehavior.always,
       contentPadding: const EdgeInsets.all(13),
-      fillColor: Colors.white,
+      fillColor: ColorTheme.white,
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           width: 1,

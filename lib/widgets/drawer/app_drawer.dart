@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/Autocomplete.dart';
 import 'package:iWarden/models/Location.dart';
 import 'package:iWarden/providers/locations.dart';
@@ -7,8 +6,6 @@ import 'package:iWarden/widgets/drawer/model/Data.dart';
 import 'package:iWarden/widgets/drawer/model/MenuItem.dart';
 import 'package:provider/provider.dart';
 import '../../theme/color.dart';
-import '../../theme/textTheme.dart';
-import '../../common/DropDownButton.dart';
 import '../../widgets/drawer/InfoDrawer.dart';
 import '../../widgets/drawer/ItemMenuWidget.dart';
 
@@ -21,12 +18,11 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
-    final checkScreen = heightScreen < 400 ? 2.5 : 5;
+    final checkScreen = heightScreen < 400 ? 2.5 : 4.5;
     List<Widget> getList() {
       return DataMenuItem()
           .data
@@ -44,20 +40,17 @@ class _MyDrawerState extends State<MyDrawer> {
               Column(
                 children: <Widget>[
                   const InfoDrawer(
-                      isDrawer: true,
-                      assetImage:
-                          "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
-                      email: "tom.smiths@ukparkingcontrol.com",
-                      name: "Tom Smiths"),
+                    isDrawer: true,
+                    assetImage:
+                        "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
+                    email: "tom.smiths@ukparkingcontrol.com",
+                    name: "Tom Smiths",
+                  ),
                   ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(8.0),
-                        bottomRight: Radius.circular(8.0)),
                     child: Container(
                         width: double.infinity,
                         height: heightScreen / checkScreen,
-                        decoration:
-                            const BoxDecoration(color: ColorTheme.background),
+                        color: ColorTheme.darkPrimary,
                         child: Container(
                           margin: const EdgeInsets.only(top: 20),
                           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -66,6 +59,10 @@ class _MyDrawerState extends State<MyDrawer> {
                               Consumer<Locations>(
                                 builder: ((_, location, child) {
                                   return AutoCompleteWidget(
+                                    labelColor: ColorTheme.white,
+                                    fillColor: ColorTheme.darkPrimary,
+                                    hintColor: ColorTheme.white,
+                                    floatingLabelColor: ColorTheme.white,
                                     labelText: 'Location',
                                     hintText: 'Select location',
                                     controller: _locationController,
@@ -88,11 +85,36 @@ class _MyDrawerState extends State<MyDrawer> {
                                 }),
                               ),
                               const SizedBox(
-                                height: 25,
+                                height: 20,
                               ),
-                              // DropDownButton(
-                              //     textLabel: "Zone",
-                              //     hintLabel: "McDonalds Chesterfield..."),
+                              Consumer<Locations>(
+                                builder: ((_, location, child) {
+                                  return AutoCompleteWidget(
+                                    labelColor: ColorTheme.white,
+                                    fillColor: ColorTheme.darkPrimary,
+                                    hintColor: ColorTheme.white,
+                                    floatingLabelColor: ColorTheme.white,
+                                    labelText: 'Zone',
+                                    hintText: 'Select zone',
+                                    controller: _locationController,
+                                    onSuggestionSelected: (suggestion) {
+                                      setState(() {
+                                        _locationController.text =
+                                            (suggestion as Location).value;
+                                      });
+                                    },
+                                    itemBuilder: (context, locationItem) {
+                                      return ItemDataComplete(
+                                        itemData:
+                                            (locationItem as Location).label,
+                                      );
+                                    },
+                                    suggestionsCallback: (pattern) {
+                                      return location.onSuggest(pattern);
+                                    },
+                                  );
+                                }),
+                              ),
                             ],
                           ),
                         )),
@@ -105,7 +127,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     child: Column(children: getList()),
                   ),
                   SizedBox(
-                    height: heightScreen / 9,
+                    height: heightScreen / 10,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),

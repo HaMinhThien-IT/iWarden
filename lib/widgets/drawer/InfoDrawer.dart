@@ -19,7 +19,7 @@ class InfoDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: !isDrawer ? 64 : 56,
-      backgroundColor: !isDrawer ? Colors.white : ColorTheme.background,
+      backgroundColor: !isDrawer ? Colors.white : ColorTheme.darkPrimary,
       elevation: 0,
       title: ListTile(
         contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
