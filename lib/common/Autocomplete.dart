@@ -61,7 +61,7 @@ class AutoCompleteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
-        style: CustomTextStyle.h5,
+        style: CustomTextStyle.h6,
         decoration: InputDecoration(
           label: labelText,
           hintText: hintText,
