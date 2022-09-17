@@ -5,6 +5,7 @@ Color _secondary = const Color(0xFFFFB600);
 Color _danger = const Color(0xFFE01B00);
 
 class ColorTheme {
+  static const white = Color(0xFFFFFFFF);
   static const grey100 = Color(0xFFFAFAFA);
   static const grey200 = Color(0xFFF1F4F5);
   static const grey300 = Color(0xFFDDDDDD);

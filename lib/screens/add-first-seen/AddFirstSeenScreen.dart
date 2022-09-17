@@ -69,19 +69,24 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
               Container(
                 height: 25,
                 decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical:
-                            BorderSide(width: 0.5, color: ColorTheme.grey300))),
+                  border: Border.symmetric(
+                    vertical: BorderSide(
+                      width: 0.5,
+                      color: ColorTheme.grey300,
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 width: ((widthScreen / 2) - padding) - 12,
                 child: TextButton.icon(
-                    onPressed: () {},
-                    icon: SvgPicture.asset("assets/svg/IconSave.svg"),
-                    label: const Text(
-                      "Save",
-                      style: CustomTextStyle.h6,
-                    )),
+                  onPressed: () {},
+                  icon: SvgPicture.asset("assets/svg/IconSave.svg"),
+                  label: const Text(
+                    "Save",
+                    style: CustomTextStyle.h6,
+                  ),
+                ),
               ),
             ],
           ),

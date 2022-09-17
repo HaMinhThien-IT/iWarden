@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 
 class ItemDataComplete extends StatelessWidget {
@@ -32,6 +33,7 @@ class ItemDataComplete extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class AutoCompleteWidget extends StatelessWidget {
   final Widget labelText;
   final String? hintText;
@@ -43,8 +45,12 @@ class AutoCompleteWidget extends StatelessWidget {
   final Widget Function(BuildContext, Object?)? errorBuilder;
   final TextEditingController? controller;
   final void Function(String?)? onSaved;
+  Color? labelColor = ColorTheme.textPrimary;
+  Color? fillColor = ColorTheme.white;
+  Color? hintColor = ColorTheme.grey600;
+  Color? floatingLabelColor = ColorTheme.textPrimary;
 
-  const AutoCompleteWidget(
+  AutoCompleteWidget(
       {required this.labelText,
       this.hintText,
       required this.onSuggestionSelected,
@@ -55,19 +61,39 @@ class AutoCompleteWidget extends StatelessWidget {
       this.errorBuilder,
       this.controller,
       this.onSaved,
+      this.labelColor,
+      this.fillColor,
+      this.hintColor,
+      this.floatingLabelColor,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
-        style: CustomTextStyle.h6,
+        style: TextStyle(
+          color: labelColor,
+          fontSize: 14,
+        ),
         decoration: InputDecoration(
+          fillColor: fillColor,
           label: labelText,
+          labelStyle: TextStyle(
+            color: labelColor,
+            fontSize: 18,
+          ),
           hintText: hintText,
+          hintStyle: TextStyle(
+            color: hintColor,
+          ),
+          floatingLabelStyle: TextStyle(
+            color: floatingLabelColor,
+            fontSize: 18,
+          ),
           suffixIcon: const Icon(
             Icons.expand_more_outlined,
             size: 24,
+            color: ColorTheme.grey600,
           ),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12,
