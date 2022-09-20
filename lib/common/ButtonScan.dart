@@ -10,11 +10,14 @@ class ButtonScan extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: ColorTheme.grey200, borderRadius: BorderRadius.circular(5)),
-      padding: EdgeInsets.all(2.9),
+        color: ColorTheme.grey200,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      padding: const EdgeInsets.all(2.9),
       child: IconButton(
-          onPressed: () => onTap,
-          icon: SvgPicture.asset("assets/svg/IconScan.svg")),
+        onPressed: () => onTap,
+        icon: SvgPicture.asset("assets/svg/IconScan.svg"),
+      ),
     );
   }
 }

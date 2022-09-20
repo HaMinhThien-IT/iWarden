@@ -116,6 +116,11 @@ class AutoCompleteWidget extends StatelessWidget {
       },
       onSaved: onSaved,
       hideSuggestionsOnKeyboardHide: true,
+      suggestionsBoxDecoration: SuggestionsBoxDecoration(
+        elevation: 1,
+        borderRadius: BorderRadius.circular(5),
+        color: ColorTheme.white,
+      ),
     );
   }
 }

@@ -1,0 +1,47 @@
+{
+  "license": "ewogICJsaWNlbnNlS2V5VmVyc2lvbiI6ICIzLjAiLAogICJkZWJ1Z1JlcG9ydGluZyI6ICJwaW5nIiwKICAibWFqb3JWZXJzaW9uIjogIjM3IiwKICAic2NvcGUiOiBbCiAgICAiQUxMIgogIF0sCiAgIm1heERheXNOb3RSZXBvcnRlZCI6IDUsCiAgImFkdmFuY2VkQmFyY29kZSI6IHRydWUsCiAgIm11bHRpQmFyY29kZSI6IHRydWUsCiAgInN1cHBvcnRlZEJhcmNvZGVGb3JtYXRzIjogWwogICAgIkFMTCIKICBdLAogICJwbGF0Zm9ybSI6IFsKICAgICJpT1MiLAogICAgIkFuZHJvaWQiCiAgXSwKICAic2hvd1dhdGVybWFyayI6IHRydWUsCiAgInRvbGVyYW5jZURheXMiOiAzMCwKICAidmFsaWQiOiAiMjAyMy0wMS0wMSIsCiAgImlvc0lkZW50aWZpZXIiOiBbCiAgICAiaW8uYW55bGluZS5mbHV0dGVyLmV4YW1wbGVzIgogIF0sCiAgImFuZHJvaWRJZGVudGlmaWVyIjogWwogICAgImlvLmFueWxpbmUuZmx1dHRlci5leGFtcGxlcyIKICBdCn0KbngwVmNGYW5nTWRBR1grMERKK1l4bXE2aCtkbWJyQmg2OVZFZFIyV0dpNkFpYUYvemhWbkdyNDI5NzdoK1c0dXF6R1I3MUZGOEhjZkh4ZlA0bTkvc3Ywa3F5T2V4UnhIUzJLSWxqNncrT25iakhPa0Z2K1BsN0tVS09oZXNqNTFPVXlEbkdZNlZqbWczeVgyTWdqd3cyZ2N4MTFvUHpBVXdPS3VyeUpBMEZuQndnQXdtVTgzaGFRQlVNTUI2UHZMQnpXYVh4a2x1ZnN0eVl3STY5YVo0dkc3a3lqYXFYOW5mcTM4Kzk0Y2R2ZTFqcE82Zjk3blVwVVhodHdnKytET3FaMjUvQVh6WmhhaXNqU2FaaUxiejJWcWk0MFh3UnVHdzMyYXlRMmcyUTBxMXk2MlppbDcvQUhvalFMNHNTTk93cjdjaGgwVTM1Q0czamNmMUU5RTZBPT0=",
+  "options": {
+    "camera": {
+      "captureResolution": "1080p",
+      "zoomGesture": true
+    },
+    "flash": {
+      "mode": "manual",
+      "alignment": "top_left"
+    },
+    "viewPlugin": {
+      "plugin": {
+        "id": "LicensePlate_ID",
+        "licensePlatePlugin": {
+        }
+      },
+      "cutoutConfig": {
+        "style": "rect",
+        "maxWidthPercent": "80%",
+        "maxHeightPercent": "80%",
+        "alignment": "top_half",
+        "width": 720,
+        "ratioFromSize": {
+          "width": 2,
+          "height": 1
+        },
+        "strokeWidth": 2,
+        "cornerRadius": 0,
+        "strokeColor": "FFFFFF",
+        "outerColor": "000000",
+        "outerAlpha": 0.3,
+        "feedbackStrokeColor": "0099FF"
+      },
+      "scanFeedback": {
+        "animationDuration": 0,
+        "style": "RECT",
+        "strokeWidth": 2,
+        "strokeColor": "0099FF",
+        "blinkOnResult": true,
+        "beepOnResult": true,
+        "vibrateOnResult": true
+      },
+      "cancelOnResult": true
+    }
+  }
+}

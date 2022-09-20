@@ -61,7 +61,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                   return AutoCompleteWidget(
                                     labelColor: ColorTheme.white,
                                     fillColor: ColorTheme.darkPrimary,
-                                    hintColor: ColorTheme.white,
+                                    hintColor: ColorTheme.grey600,
                                     floatingLabelColor: ColorTheme.white,
                                     labelText: const Text('Location'),
                                     hintText: 'Select location',
@@ -92,7 +92,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                   return AutoCompleteWidget(
                                     labelColor: ColorTheme.white,
                                     fillColor: ColorTheme.darkPrimary,
-                                    hintColor: ColorTheme.white,
+                                    hintColor: ColorTheme.grey600,
                                     floatingLabelColor: ColorTheme.white,
                                     labelText: const Text('Zone'),
                                     hintText: 'Select zone',

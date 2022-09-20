@@ -1,0 +1,95 @@
+{
+  "license": "ewogICJsaWNlbnNlS2V5VmVyc2lvbiI6ICIzLjAiLAogICJkZWJ1Z1JlcG9ydGluZyI6ICJwaW5nIiwKICAibWFqb3JWZXJzaW9uIjogIjM3IiwKICAic2NvcGUiOiBbCiAgICAiQUxMIgogIF0sCiAgIm1heERheXNOb3RSZXBvcnRlZCI6IDUsCiAgImFkdmFuY2VkQmFyY29kZSI6IHRydWUsCiAgIm11bHRpQmFyY29kZSI6IHRydWUsCiAgInN1cHBvcnRlZEJhcmNvZGVGb3JtYXRzIjogWwogICAgIkFMTCIKICBdLAogICJwbGF0Zm9ybSI6IFsKICAgICJpT1MiLAogICAgIkFuZHJvaWQiCiAgXSwKICAic2hvd1dhdGVybWFyayI6IHRydWUsCiAgInRvbGVyYW5jZURheXMiOiAzMCwKICAidmFsaWQiOiAiMjAyMy0wMS0wMSIsCiAgImlvc0lkZW50aWZpZXIiOiBbCiAgICAiaW8uYW55bGluZS5mbHV0dGVyLmV4YW1wbGVzIgogIF0sCiAgImFuZHJvaWRJZGVudGlmaWVyIjogWwogICAgImlvLmFueWxpbmUuZmx1dHRlci5leGFtcGxlcyIKICBdCn0KbngwVmNGYW5nTWRBR1grMERKK1l4bXE2aCtkbWJyQmg2OVZFZFIyV0dpNkFpYUYvemhWbkdyNDI5NzdoK1c0dXF6R1I3MUZGOEhjZkh4ZlA0bTkvc3Ywa3F5T2V4UnhIUzJLSWxqNncrT25iakhPa0Z2K1BsN0tVS09oZXNqNTFPVXlEbkdZNlZqbWczeVgyTWdqd3cyZ2N4MTFvUHpBVXdPS3VyeUpBMEZuQndnQXdtVTgzaGFRQlVNTUI2UHZMQnpXYVh4a2x1ZnN0eVl3STY5YVo0dkc3a3lqYXFYOW5mcTM4Kzk0Y2R2ZTFqcE82Zjk3blVwVVhodHdnKytET3FaMjUvQVh6WmhhaXNqU2FaaUxiejJWcWk0MFh3UnVHdzMyYXlRMmcyUTBxMXk2MlppbDcvQUhvalFMNHNTTk93cjdjaGgwVTM1Q0czamNmMUU5RTZBPT0=",
+  "options": {
+    "camera": {
+      "captureResolution": "1080p"
+    },
+    "flash": {
+      "mode": "manual",
+      "alignment": "top_right"
+    },
+    "parallelViewPluginComposite": {
+      "id": "DOUBLE_TARIFF_SEQUENTIAL",
+      "cancelOnResult": true,
+      "viewPlugins": [
+        {
+          "viewPlugin": {
+            "plugin": {
+              "id": "METER_PLUGIN",
+              "meterPlugin": {
+                "scanMode": "AUTO_ANALOG_DIGITAL_METER"
+              }
+            },
+            "cutoutConfig": {
+              "style": "rect",
+              "alignment": "top",
+              "strokeWidth": 2,
+              "strokeColor": "FFFFFF",
+              "cornerRadius": 4,
+              "outerColor": "000000",
+              "outerAlpha": 0.5,
+              "feedbackStrokeColor": "0099FF",
+              "offset": {
+                "x": 0,
+                "y": 120
+              }
+            },
+            "scanFeedback": {
+              "style": "CONTOUR_RECT",
+              "strokeColor": "0099FF",
+              "strokeWidth": 2,
+              "fillColor": "220099FF",
+              "cornerRadius": 2,
+              "redrawTimeout": 200,
+              "animationDuration": 75,
+              "blinkOnResult": true,
+              "beepOnResult": true,
+              "vibrateOnResult": true
+            },
+            "cancelOnResult": true
+          }
+        },
+        {
+          "viewPlugin": {
+            "plugin": {
+              "id": "USNR_ID",
+              "ocrPlugin": {
+                "ocrConfig": {}
+              },
+              "delayStartScanTime": 1000
+            },
+            "cutoutConfig": {
+              "style": "rect",
+              "width": 720,
+              "alignment": "center",
+              "maxWidthPercent": "80%",
+              "ratioFromSize": {
+                "width": 720,
+                "height": 144
+              },
+              "strokeWidth": 2,
+              "strokeColor": "FFFFFF",
+              "cornerRadius": 4,
+              "outerColor": "000000",
+              "outerAlpha": 0.5,
+              "feedbackStrokeColor": "0099FF",
+              "offset": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            "scanFeedback": {
+              "style": "CONTOUR_RECT",
+              "strokeColor": "0099FF",
+              "fillColor": "220099FF",
+              "beepOnResult": true,
+              "vibrateOnResult": true,
+              "blinkAnimationOnResult": true
+            },
+            "cancelOnResult": true
+          }
+        }
+      ]
+    }
+  }
+}

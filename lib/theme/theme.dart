@@ -47,11 +47,6 @@ ThemeData themeMain() {
       hintStyle: CustomTextStyle.body1.copyWith(
         color: ColorTheme.grey600,
       ),
-      // suffixStyle: TextStyle(
-      //   color: ColorTheme.danger,
-      //   fontSize: 14,
-      // ),
-
       labelStyle: CustomTextStyle.h5,
       floatingLabelStyle: CustomTextStyle.h5,
       alignLabelWithHint: true,
