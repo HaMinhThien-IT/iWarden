@@ -18,6 +18,7 @@ class _AddImageState extends State<AddImage> {
   List<File> arrayImage = [];
   Future<void> _takePicture() async {
     final picker = ImagePicker();
+
     final pickedImage = await picker.pickImage(
         source: ImageSource.camera, maxWidth: 600, imageQuality: 90);
     if (pickedImage == null) {

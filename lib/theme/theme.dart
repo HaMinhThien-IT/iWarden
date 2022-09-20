@@ -44,7 +44,7 @@ ThemeData themeMain() {
     ),
     inputDecorationTheme: InputDecorationTheme(
       helperStyle: CustomTextStyle.body2.copyWith(color: ColorTheme.danger),
-      hintStyle: CustomTextStyle.body1.copyWith(
+      hintStyle: CustomTextStyle.body2.copyWith(
         color: ColorTheme.grey600,
       ),
       labelStyle: CustomTextStyle.h5,
