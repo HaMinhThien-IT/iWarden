@@ -1,4 +1,4 @@
-package io.anyline.flutter.examples;
+package com.example.iWarden;
 
 import io.flutter.embedding.android.FlutterActivity;
 

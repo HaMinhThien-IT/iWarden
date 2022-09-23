@@ -38,7 +38,7 @@ class _DemoOCRState extends State<DemoOCR> {
     try {
       Result? result = await _anylineService.scan(mode);
       if (result != null) {
-        print(result.jsonMap![0].licensePlate as String);
+        print(result.jsonMap!.values.take(2));
       }
     } catch (e, s) {
       debugPrint('$e, $s');
