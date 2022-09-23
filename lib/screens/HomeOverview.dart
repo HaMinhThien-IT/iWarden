@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/common/MyAlertDialog.dart';
 import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
 import 'package:iWarden/theme/color.dart';
 
@@ -70,6 +71,16 @@ class HomeOverview extends StatelessWidget {
               infoLeft: "Aborted: 12",
               route: AddFirstSeenScreen.routeName,
             ),
+            MyAlertDialog(
+              title: "Can’t Complete",
+              subTitle: "Please take enough proof photos to complete",
+              func: ElevatedButton(
+                child: const Text('Confirm'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            )
           ],
         ),
       ),
