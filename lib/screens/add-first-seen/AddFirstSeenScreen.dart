@@ -8,6 +8,9 @@ import 'package:iWarden/common/ToastSuccess.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/Location.dart';
 import 'package:iWarden/providers/locations.dart';
+import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
+import 'package:iWarden/screens/demo-ocr/result.dart';
+import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 import 'package:iWarden/widgets/appBar.dart';
@@ -26,10 +29,48 @@ class AddFirstSeenScreen extends StatefulWidget {
 class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   late FToast fToast;
   final TextEditingController _locationController = TextEditingController();
+  late AnylineService _anylineService;
+  final TextEditingController vrnText = TextEditingController();
   @override
   void initState() {
     super.initState();
     fToast = FToast();
+    _anylineService = AnylineServiceImpl();
+  }
+
+  Future<void> scan(ScanMode mode) async {
+    try {
+      Result? result = await _anylineService.scan(mode);
+      if (result != null) {
+        String resultText = result.jsonMap!.values
+            .take(2)
+            .toString()
+            .split(',')[1]
+            .replaceAll(' ', '');
+        setState(() {
+          vrnText.text = resultText.substring(0, resultText.length - 1);
+        });
+      }
+    } catch (e, s) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          elevation: 0,
+          title: const FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              'Error',
+            ),
+          ),
+          content: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              '$e, $s',
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -111,6 +152,8 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                           Flexible(
                             flex: 8,
                             child: TextFormField(
+                                controller: vrnText,
+                                // initialValue: vrnText.text,
                                 style: CustomTextStyle.h5,
                                 decoration: const InputDecoration(
                                   label: LabelRequire(labelText: "VRN"),
@@ -120,7 +163,9 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                           Flexible(
                             flex: 2,
                             child: ButtonScan(
-                              onTap: () {},
+                              onTap: () {
+                                scan(ScanMode.LicensePlate);
+                              },
                             ),
                           )
                         ],
