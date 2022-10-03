@@ -6,7 +6,8 @@ import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 
 class AddImage extends StatefulWidget {
-  const AddImage({Key? key}) : super(key: key);
+  final String titleCamera;
+  const AddImage({Key? key, required this.titleCamera}) : super(key: key);
   @override
   State<AddImage> createState() => _AddImageState();
 }
@@ -46,7 +47,7 @@ class _AddImageState extends State<AddImage> {
                       final results =
                           await Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => CameraPicker(
-                                    titleCamera: "Ahihihih",
+                                    titleCamera: widget.titleCamera,
                                     initialFiles: files,
                                     onDelete: (file) {
                                       return true;

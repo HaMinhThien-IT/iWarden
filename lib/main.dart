@@ -42,9 +42,6 @@ class MyApp extends StatelessWidget {
         home: const DemoOCR(),
         initialRoute: DemoOCR.routeName,
         routes: routes,
-        // onUnknownRoute: (settings) {
-        //   return MaterialPageRoute(builder: (ctx) => const DetailFirstSeen());
-        // },
       ),
     );
   }

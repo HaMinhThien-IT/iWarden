@@ -8,6 +8,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
+import 'package:iWarden/theme/textTheme.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 export 'package:cross_file/cross_file.dart';
@@ -187,9 +188,19 @@ class CameraPicker extends HookWidget {
                                 if (showSwitchCameraButton &&
                                     cameras.value!.length > 1)
                                   Positioned(
-                                    top: 10,
-                                    left: 10,
-                                    child: Text(titleCamera),
+                                    top: 17,
+                                    left: 15,
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        padding: const EdgeInsets.all(5),
+                                        child: Text(
+                                          '• ${titleCamera}',
+                                          style: CustomTextStyle.body2.copyWith(
+                                              fontWeight: FontWeight.w500),
+                                        )),
                                   ),
                                 Padding(
                                   padding:

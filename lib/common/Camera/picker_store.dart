@@ -25,7 +25,7 @@ class PickerStore extends ChangeNotifier {
     try {
       await File(file.path).delete();
     } catch (ex) {
-      //nothing to do if delete file fails
+      print(ex);
     }
   }
 }
