@@ -3,6 +3,7 @@ import 'package:iWarden/common/AddImage.dart';
 import 'package:iWarden/common/Autocomplete.dart';
 import 'package:iWarden/common/ButtonScan.dart';
 import 'package:iWarden/common/LabelRequire.dart';
+import 'package:iWarden/common/SliderImage.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/Location.dart';
 import 'package:iWarden/providers/locations.dart';
@@ -186,7 +187,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                 // const SizedBox(
                 //   height: 8,
                 // ),
-                AddImage()
+                SliderImage()
               ],
             ),
           ),
