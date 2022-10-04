@@ -8,10 +8,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
+import 'package:iWarden/helper/FormatDate.dart';
 import 'package:iWarden/theme/textTheme.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
-export 'package:cross_file/cross_file.dart';
 import 'package:image/image.dart' as img;
 
 const _defaultPreviewHeight = 60.0;
@@ -19,7 +19,6 @@ const _defaultPreviewWidth = 80.0;
 
 /// A CameraPicker.
 class CameraPicker extends HookWidget {
-  /// Error callback when an error is throw on takePicture camera
   final Function(dynamic error, dynamic stack)? onError;
 
   /// Resolution preset of the camera
@@ -263,17 +262,19 @@ class CameraPicker extends HookWidget {
                                                 var decodeImg = img.decodeImage(
                                                     await file.readAsBytes());
 
+                                                img.Image fixed =
+                                                    img.copyRotate(
+                                                        decodeImg!, -90);
                                                 img.drawString(
-                                                    decodeImg!,
+                                                    fixed,
                                                     img.arial_24,
-                                                    0,
-                                                    1200,
-                                                    DateTime.now().toString());
-
+                                                    1030,
+                                                    680,
+                                                    FormatDate().getLocalDate(
+                                                        DateTime.now()));
                                                 var encodeImage = img.encodeJpg(
-                                                    decodeImg,
+                                                    fixed,
                                                     quality: 100);
-
                                                 var finalImage = files
                                                   ..writeAsBytesSync(
                                                       encodeImage);
@@ -430,9 +431,9 @@ class ImagePreview extends StatelessWidget {
             children: [
               Image.file(
                 file,
-                height: _defaultPreviewHeight,
-                width: _defaultPreviewWidth,
-                // fit: BoxFit.cover,
+                height: previewHeight,
+                width: previewWidth,
+                fit: BoxFit.cover,
               ),
               if (onDelete != null)
                 Positioned(

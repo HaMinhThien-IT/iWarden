@@ -23,5 +23,5 @@ final Map<String, WidgetBuilder> routes = {
   IssuePCNFirstSeenScreen.routeName: (context) =>
       const IssuePCNFirstSeenScreen(),
   AbortingScreen.routeName: (context) => const AbortingScreen(),
-  AddFirstSeenScreen.routeName: (context) => AddFirstSeenScreen()
+  AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen()
 };

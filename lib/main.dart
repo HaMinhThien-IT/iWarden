@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
         title: 'iWarden',
         theme: themeMain(),
         debugShowCheckedModeBanner: false,
-        home: const DemoOCR(),
-        initialRoute: DemoOCR.routeName,
+        home: const IssuePCNFirstSeenScreen(),
+        initialRoute: IssuePCNFirstSeenScreen.routeName,
         routes: routes,
       ),
     );

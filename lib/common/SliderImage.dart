@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/AddImage.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,22 +21,7 @@ class SliderImage extends StatefulWidget {
 class _SliderImageState extends State<SliderImage> {
   final ScrollController _firstController = ScrollController();
   final CarouselController _controller = CarouselController();
-  List<File> arrayImage = [];
-  Future<void> _takePicture() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(
-        source: ImageSource.camera, maxWidth: 800, maxHeight: 600);
-    if (pickedImage == null) {
-      return;
-    }
-    final pickedImageFile = File(pickedImage.path);
-    final appDir = await syspaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(pickedImageFile.path);
-    final savedImage = await pickedImageFile.copy('${appDir.path}/$fileName');
-    setState(() {
-      arrayImage.add(savedImage);
-    });
-  }
+  List<File> files = [];
 
   @override
   void initState() {
@@ -46,7 +32,7 @@ class _SliderImageState extends State<SliderImage> {
   ScrollController scollBarController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    final List<Widget> imageSliders = arrayImage.map((item) {
+    final List<Widget> imageSliders = files.map((item) {
       return Image.file(
         item,
         fit: BoxFit.cover,
@@ -77,7 +63,22 @@ class _SliderImageState extends State<SliderImage> {
           child: Row(
             children: <Widget>[
               InkWell(
-                onTap: _takePicture,
+                onTap: () async {
+                  final results =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CameraPicker(
+                                titleCamera: "Issue parking charge",
+                                initialFiles: files,
+                                onDelete: (file) {
+                                  return true;
+                                },
+                              )));
+                  if (results != null) {
+                    setState(() {
+                      files = List.from(results);
+                    });
+                  }
+                },
                 child: Container(
                   height: 56.0,
                   width: 56.0,
@@ -115,7 +116,7 @@ class _SliderImageState extends State<SliderImage> {
                                     width: 56.0,
                                     height: 56.0,
                                     child: Image.file(
-                                      arrayImage[index],
+                                      files[index],
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -144,7 +145,7 @@ class _SliderImageState extends State<SliderImage> {
                           ],
                         );
                       },
-                      itemCount: arrayImage.length,
+                      itemCount: files.length,
                     )),
               ),
             ],
