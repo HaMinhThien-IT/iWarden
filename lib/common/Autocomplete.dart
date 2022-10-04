@@ -87,7 +87,7 @@ class AutoCompleteWidget extends StatelessWidget {
             color: hintColor,
           ),
           floatingLabelStyle: TextStyle(
-            color: floatingLabelColor,
+            color: floatingLabelColor ?? ColorTheme.textPrimary,
             fontSize: 18,
           ),
           suffixIcon: const Icon(
@@ -97,7 +97,7 @@ class AutoCompleteWidget extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12,
-            vertical: 0,
+            vertical: 13,
           ),
         ),
         controller: controller,
@@ -120,6 +120,15 @@ class AutoCompleteWidget extends StatelessWidget {
         elevation: 1,
         borderRadius: BorderRadius.circular(5),
         color: ColorTheme.white,
+      ),
+      hideOnLoading: true,
+      transitionBuilder: (context, suggestionsBox, animationController) =>
+          FadeTransition(
+        opacity: CurvedAnimation(
+          parent: animationController as Animation<double>,
+          curve: Curves.fastLinearToSlowEaseIn,
+        ),
+        child: suggestionsBox,
       ),
     );
   }

@@ -1,20 +1,18 @@
 import 'package:flutter/foundation.dart';
+import 'package:iWarden/controllers/LocationController.dart';
 import 'package:iWarden/models/Location.dart';
 
 class Locations with ChangeNotifier {
-  final List<Location> _locations = [
-    Location(label: 'New York', value: 'New York'),
-    Location(label: 'London', value: 'London'),
-    Location(label: 'HaNoi', value: 'HaNoi'),
-    Location(label: 'Tokyo', value: 'Tokyo')
-  ];
+  var locationController = LocationController();
 
-  List<Location> get locations {
-    return [..._locations];
+  Future<List<Location>> getLocationList() async {
+    var locations = await locationController.getAll();
+    return locations;
   }
 
-  List<Location> onSuggest(String value) {
-    var locations = _locations
+  Future<List<Location>> onSuggest(String value) async {
+    var locationList = await locationController.getAll();
+    var locations = locationList
         .where(
           (location) => location.label.toLowerCase().contains(
                 value.toLowerCase(),
