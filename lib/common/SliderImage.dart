@@ -57,8 +57,6 @@ class _SliderImageState extends State<SliderImage> {
         Container(
           padding: const EdgeInsets.all(8),
           height: 70,
-          // width: double.infinity,
-          // margin: const EdgeInsets.only(top: 3),
           color: Colors.white,
           child: Row(
             children: <Widget>[

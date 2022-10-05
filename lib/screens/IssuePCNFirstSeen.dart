@@ -7,6 +7,9 @@ import 'package:iWarden/common/SliderImage.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/Location.dart';
 import 'package:iWarden/providers/locations.dart';
+import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
+import 'package:iWarden/screens/demo-ocr/result.dart';
+import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
 import 'package:iWarden/theme/textTheme.dart';
 import 'package:iWarden/widgets/appBar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -24,6 +27,48 @@ class IssuePCNFirstSeenScreen extends StatefulWidget {
 
 class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
   final TextEditingController _locationController = TextEditingController();
+  late AnylineService _anylineService;
+  final TextEditingController vrnText = TextEditingController();
+  @override
+  void initState() {
+    _anylineService = AnylineServiceImpl();
+    super.initState();
+  }
+
+  Future<void> scan(ScanMode mode) async {
+    try {
+      Result? result = await _anylineService.scan(mode);
+      if (result != null) {
+        String resultText = result.jsonMap!.values
+            .take(2)
+            .toString()
+            .split(',')[1]
+            .replaceAll(' ', '');
+        setState(() {
+          vrnText.text = resultText.substring(0, resultText.length - 1);
+        });
+      }
+    } catch (e, s) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          elevation: 0,
+          title: const FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              'Error',
+            ),
+          ),
+          content: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              '$e, $s',
+            ),
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +95,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                             Flexible(
                               flex: 8,
                               child: TextFormField(
+                                  controller: vrnText,
                                   style: CustomTextStyle.h5,
                                   decoration: const InputDecoration(
                                     label: LabelRequire(labelText: "VRN"),
@@ -59,7 +105,9 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                             Flexible(
                               flex: 2,
                               child: ButtonScan(
-                                onTap: () {},
+                                onTap: () {
+                                  scan(ScanMode.LicensePlate);
+                                },
                               ),
                             )
                           ],

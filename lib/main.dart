@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iWarden/providers/locations.dart';
+import 'package:iWarden/providers/print_issue_providers.dart';
 import 'package:iWarden/screens/AbortingScreen.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
@@ -9,6 +10,7 @@ import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
 import 'package:iWarden/screens/HomeOverview.dart';
 import 'package:iWarden/screens/location/LocationScreen.dart';
 import 'package:iWarden/screens/login_screens.dart';
+import 'package:iWarden/screens/print_issue.dart' as print;
 import 'package:iWarden/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../routes/routes.dart';
@@ -25,8 +27,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
       ),
     );
     return MultiProvider(
@@ -34,13 +36,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Locations(),
         ),
+        ChangeNotifierProvider.value(
+          value: PrintIssueProviders(),
+        ),
       ],
       child: MaterialApp(
         title: 'iWarden',
         theme: themeMain(),
         debugShowCheckedModeBanner: false,
-        home: const IssuePCNFirstSeenScreen(),
-        initialRoute: IssuePCNFirstSeenScreen.routeName,
+        home: const print.PrintIssue(),
+        initialRoute: print.PrintIssue.routeName,
         routes: routes,
       ),
     );
