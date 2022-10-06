@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/Camera/camera_picker.dart';
@@ -26,7 +27,7 @@ class _AddImageState extends State<AddImage> {
     return SingleChildScrollView(
       child: Container(
           margin: const EdgeInsets.only(top: 10),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(15),
           width: double.infinity,
           decoration: const BoxDecoration(color: Colors.white),
           child: Column(
@@ -62,7 +63,7 @@ class _AddImageState extends State<AddImage> {
                     child: Container(
                       height: 56.0,
                       width: 56.0,
-                      margin: const EdgeInsets.only(right: 16),
+                      margin: const EdgeInsets.only(right: 15),
                       padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
                         color: ColorTheme.grey200,
@@ -77,53 +78,56 @@ class _AddImageState extends State<AddImage> {
                   ),
                   Expanded(
                     child: SizedBox(
-                        height: 56.0,
-                        child: Scrollbar(
-                          thumbVisibility: true,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => Stack(
-                              clipBehavior: Clip.none,
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(right: 16),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    child: SizedBox(
-                                      width: 56.0,
-                                      height: 56.0,
-                                      child: Image.file(
-                                        files[index],
-                                        fit: BoxFit.cover,
-                                      ),
+                      height: 70.0,
+                      child: Scrollbar(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          // clipBehavior: Clip.none,
+                          itemBuilder: (context, index) => Stack(
+                            clipBehavior: Clip.none,
+                            children: <Widget>[
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(right: 15, top: 7),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: SizedBox(
+                                    width: 56.0,
+                                    height: 56.0,
+                                    child: Image.file(
+                                      files[index],
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  top: -10,
-                                  right: 5,
-                                  child: InkWell(
-                                    onTap: () {
-                                      remove(index);
-                                    },
-                                    child: Container(
-                                      width: 20,
-                                      height: 20,
-                                      padding: const EdgeInsets.all(3.5),
-                                      decoration: BoxDecoration(
-                                          color: ColorTheme.grey400,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: SvgPicture.asset(
-                                          "assets/svg/IconCannel.svg"),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 5,
+                                child: InkWell(
+                                  onTap: () {
+                                    remove(index);
+                                  },
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    padding: const EdgeInsets.all(3.5),
+                                    decoration: BoxDecoration(
+                                      color: ColorTheme.grey400,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: SvgPicture.asset(
+                                      "assets/svg/IconCannel.svg",
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            itemCount: files.length,
+                                ),
+                              ),
+                            ],
                           ),
-                        )),
+                          itemCount: files.length,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
