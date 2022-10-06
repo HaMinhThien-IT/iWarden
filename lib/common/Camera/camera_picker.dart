@@ -292,6 +292,7 @@ class CameraPicker extends HookWidget {
                                           ),
                                           HookBuilder(builder: (context) {
                                             useListenable(store);
+
                                             return IconButton(
                                               onPressed: store.canContinue
                                                   ? () {

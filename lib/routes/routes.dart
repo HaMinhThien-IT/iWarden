@@ -9,6 +9,7 @@ import 'package:iWarden/screens/location/LocationScreen.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
 import 'package:iWarden/screens/ParkingChargesScreen.dart';
+import 'package:iWarden/screens/print_issue.dart';
 import '../screens/login_screens.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -23,5 +24,6 @@ final Map<String, WidgetBuilder> routes = {
   IssuePCNFirstSeenScreen.routeName: (context) =>
       const IssuePCNFirstSeenScreen(),
   AbortingScreen.routeName: (context) => const AbortingScreen(),
-  AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen()
+  AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen(),
+  PrintIssue.routeName: (context) => const PrintIssue()
 };
