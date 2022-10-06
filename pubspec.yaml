@@ -102,6 +102,8 @@ flutter:
     - assets/svg/IconSave.svg
     - assets/svg/IconSuccess.svg
     - assets/svg/IconScan.svg
+    - assets/svg/IconComplete.svg
+    - assets/svg/IconDelete.svg
     - config/
     - assets/
 

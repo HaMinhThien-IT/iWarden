@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/screens/AbortingScreen.dart';
 import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
 import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
@@ -25,5 +26,5 @@ final Map<String, WidgetBuilder> routes = {
       const IssuePCNFirstSeenScreen(),
   AbortingScreen.routeName: (context) => const AbortingScreen(),
   AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen(),
-  PrintIssue.routeName: (context) => const PrintIssue()
+  PrintIssue.routeName: (context) => const PrintIssue(),
 };
