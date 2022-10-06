@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/Customcheckbox.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
@@ -17,46 +20,95 @@ class PrintIssue extends StatefulWidget {
 }
 
 class _PrintIssueState extends State<PrintIssue> {
-  bool _checked = true;
   @override
   void initState() {
     super.initState();
   }
 
+  List<File> files = [];
   @override
   Widget build(BuildContext context) {
-    final ar = Provider.of<PrintIssueProviders>(context);
-
-    return Scaffold(
-      appBar: const MyAppBar(
-        title: "UKPC take picture",
-        automaticallyImplyLeading: true,
-      ),
-      drawer: const MyDrawer(),
-      body: Container(
-        // width: double.infinity,
-        margin: const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        color: Colors.white,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "The following Photo are required",
-                style: CustomTextStyle.h5.copyWith(color: ColorTheme.grey600),
-              ),
-              Expanded(
+    return ChangeNotifierProvider(
+      create: (_) => PrintIssueProviders(),
+      child: Scaffold(
+        appBar: const MyAppBar(
+          title: "UKPC take picture",
+          automaticallyImplyLeading: true,
+        ),
+        drawer: const MyDrawer(),
+        body: Container(
+          margin: const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: Colors.white,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+                  Widget>[
+            Text(
+              "The following Photo are required",
+              style: CustomTextStyle.h5.copyWith(color: ColorTheme.grey600),
+            ),
+            Consumer<PrintIssueProviders>(
+              builder: (_, value, __) => Expanded(
                 child: ListView.builder(
-                  itemBuilder: (_, index) => CustomCheckBox(
-                      value: ar.listChecked[index],
-                      onChanged: (val) {
-                        ar.onChecked(val, index);
-                      },
-                      title: ar.data[index].title),
-                  itemCount: ar.data.length,
+                  itemBuilder: (_, index) => InkWell(
+                    onTap: () async {
+                      final results =
+                          await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CameraPicker(
+                                    titleCamera: value.data[index].title,
+                                    onDelete: (file) {
+                                      return true;
+                                    },
+                                  )));
+                      if (results != null) {
+                        showGeneralDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            barrierLabel: MaterialLocalizations.of(context)
+                                .modalBarrierDismissLabel,
+                            barrierColor: Colors.black45,
+                            transitionDuration:
+                                const Duration(milliseconds: 200),
+                            pageBuilder: (BuildContext buildContext,
+                                Animation animation,
+                                Animation secondaryAnimation) {
+                              return Scaffold(
+                                  appBar: const MyAppBar(
+                                      title: "UKPC take picture"),
+                                  drawer: const MyDrawer(),
+                                  body: Expanded(
+                                    child: Container(
+                                      // margin: const EdgeInsets.only(
+                                      //     bottom: ConstSpacing.bottom, top: 20),
+                                      // padding: const EdgeInsets.symmetric(
+                                      //     horizontal: 16, vertical: 8),
+                                      color: Colors.white,
+                                      child: Column(children: <Widget>[
+                                        Text(
+                                          "The following Photo are required",
+                                          style: CustomTextStyle.h5.copyWith(
+                                              color: ColorTheme.grey600),
+                                        ),
+                                      ]),
+                                    ),
+                                  ));
+                            });
+                        value.addImageToIssue(value.data[index].id, results[0]);
+                      }
+                    },
+                    child: CustomCheckBox(
+                        value: value.data[index].image != null,
+                        onChanged: (val) {
+                          value.onChecked(val, index);
+                        },
+                        title: value.data[index].title),
+                  ),
+                  itemCount: value.data.length,
                 ),
               ),
-            ]),
+            ),
+          ]),
+        ),
       ),
     );
   }

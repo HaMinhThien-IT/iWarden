@@ -267,7 +267,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
               // const SizedBox(
               //   height: 8,
               // ),
-              AddImage(
+              const AddImage(
                 titleCamera: "Add first seen",
               )
             ],
