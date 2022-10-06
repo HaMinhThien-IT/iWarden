@@ -56,7 +56,7 @@ class _SliderImageState extends State<SliderImage> {
         ),
         Container(
           padding: const EdgeInsets.all(8),
-          height: 70,
+          height: 90,
           // width: double.infinity,
           // margin: const EdgeInsets.only(top: 3),
           color: Colors.white,
@@ -97,7 +97,6 @@ class _SliderImageState extends State<SliderImage> {
               ),
               Expanded(
                 child: Scrollbar(
-                    thumbVisibility: true,
                     controller: _firstController,
                     child: ListView.builder(
                       controller: _firstController,
@@ -109,7 +108,10 @@ class _SliderImageState extends State<SliderImage> {
                             InkWell(
                               onTap: () => _controller.animateToPage(index),
                               child: Container(
-                                margin: const EdgeInsets.only(right: 16),
+                                margin: const EdgeInsets.only(
+                                  right: 15,
+                                  top: 9,
+                                ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(5.0),
                                   child: SizedBox(
@@ -124,7 +126,7 @@ class _SliderImageState extends State<SliderImage> {
                               ),
                             ),
                             Positioned(
-                              top: -10,
+                              top: 0,
                               right: 5,
                               child: InkWell(
                                 onTap: () {
