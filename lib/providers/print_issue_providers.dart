@@ -20,6 +20,11 @@ class PrintIssueProviders with ChangeNotifier {
   ];
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
+  late int idIssue;
+  void getIdIssue(id) {
+    idIssue = id;
+    notifyListeners();
+  }
 
   void onChecked(bool checked, int index) {
     listChecked[index] = checked;
@@ -29,8 +34,6 @@ class PrintIssueProviders with ChangeNotifier {
   void addImageToIssue(int id, File image) {
     final PrintIssue temp = _data.firstWhere((element) => element.id == id);
     temp.image = image;
-    print("id ${id}");
-    // print(_data.map((e) => print({e.id, e.image, e.title})));
     notifyListeners();
   }
 

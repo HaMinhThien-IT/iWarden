@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Locations(),
         ),
+        ChangeNotifierProvider.value(
+          value: PrintIssueProviders(),
+        ),
       ],
       child: MaterialApp(
         title: 'iWarden',

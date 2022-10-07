@@ -7,12 +7,18 @@ import 'package:camera/camera.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
 import 'package:iWarden/helpers/FormatDate.dart';
+import 'package:iWarden/providers/print_issue_providers.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/widgets/appBar.dart';
+import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:image/image.dart' as img;
+import 'package:provider/provider.dart';
 
 const _defaultPreviewHeight = 60.0;
 const _defaultPreviewWidth = 80.0;
@@ -57,6 +63,7 @@ class CameraPicker extends HookWidget {
   /// Custom builder to show "no camera" widget
   final WidgetBuilder? noCameraBuilder;
   final String titleCamera;
+  final bool? previewImage;
   const CameraPicker(
       {Key? key,
       this.initialFiles,
@@ -72,6 +79,7 @@ class CameraPicker extends HookWidget {
       this.onError,
       this.maxPicture,
       this.minPicture = 1,
+      this.previewImage = false,
       required this.titleCamera})
       : super(key: key);
 
@@ -83,6 +91,108 @@ class CameraPicker extends HookWidget {
         maxPicture: maxPicture));
     final availableCamerasFuture = useMemoized(() => availableCameras());
     final cameras = useState<List<CameraDescription>?>(null);
+    final printIssue = Provider.of<PrintIssueProviders>(context);
+    final widthScreen = MediaQuery.of(context).size.width;
+    const padding = 30.0;
+    void showDiaLog(
+        double widthScreen, double padding, BuildContext context, File img) {
+      showGeneralDialog(
+          context: context,
+          barrierDismissible: true,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          barrierColor: Colors.black45,
+          transitionDuration: const Duration(milliseconds: 200),
+          pageBuilder: (BuildContext buildContext, Animation animation,
+              Animation secondaryAnimation) {
+            return Scaffold(
+                appBar: const MyAppBar(
+                  title: "UKPC take picture",
+                  automaticallyImplyLeading: true,
+                ),
+                drawer: const MyDrawer(),
+                bottomSheet: Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(width: 1, color: ColorTheme.grey300),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: padding),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          width: ((widthScreen / 2) - padding) - 12,
+                          child: TextButton.icon(
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                              },
+                              icon:
+                                  SvgPicture.asset("assets/svg/IconDelete.svg"),
+                              label: const Text(
+                                "Delete",
+                                style: CustomTextStyle.h6,
+                              )),
+                        ),
+                        Container(
+                          height: 25,
+                          decoration: const BoxDecoration(
+                            border: Border.symmetric(
+                              vertical: BorderSide(
+                                width: 0.5,
+                                color: ColorTheme.grey300,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: ((widthScreen / 2) - padding) - 12,
+                          child: TextButton.icon(
+                            onPressed: () {
+                              printIssue.addImageToIssue(
+                                  printIssue.idIssue, img);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            icon:
+                                SvgPicture.asset("assets/svg/IconComplete.svg"),
+                            label: const Text(
+                              "Accept",
+                              style: CustomTextStyle.h6,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                body: Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          color: Colors.white,
+                          child: Text(
+                            "Please Accept or Delete the Photo",
+                            style: CustomTextStyle.h5
+                                .copyWith(color: ColorTheme.grey600),
+                          ),
+                        ),
+                        Image.file(
+                          img,
+                          fit: BoxFit.cover,
+                        )
+                      ]),
+                ));
+          });
+    }
+
     return Material(
       child: SizedBox(
         width: double.infinity,
@@ -279,6 +389,13 @@ class CameraPicker extends HookWidget {
                                                   ..writeAsBytesSync(
                                                       encodeImage);
                                                 store.addFile(finalImage);
+                                                previewImage == true
+                                                    ? showDiaLog(
+                                                        widthScreen,
+                                                        padding,
+                                                        context,
+                                                        finalImage)
+                                                    : null;
                                               } catch (ex, stack) {
                                                 onError?.call(ex, stack);
                                               }
