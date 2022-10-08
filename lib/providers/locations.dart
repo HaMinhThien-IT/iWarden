@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:iWarden/controllers/LocationController.dart';
-import 'package:iWarden/models/Location.dart';
+import 'package:iWarden/controllers/location_controller.dart';
+import 'package:iWarden/models/location.dart';
 
 class Locations with ChangeNotifier {
   var locationController = LocationController();

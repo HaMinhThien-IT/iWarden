@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/screens/AbortingScreen.dart';
-import 'package:iWarden/screens/add-first-seen/AddFirstSeenScreen.dart';
-import 'package:iWarden/screens/first-seen/DetailFirstSeen.dart';
-import 'package:iWarden/screens/first-seen/ActiveFirstSeenScreen.dart';
-import 'package:iWarden/screens/GracePeriodScreen.dart';
-import 'package:iWarden/screens/HomeOverview.dart';
-import 'package:iWarden/screens/location/LocationScreen.dart';
-import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
-import 'package:iWarden/screens/IssuePCNFirstSeen.dart';
-import 'package:iWarden/screens/ParkingChargesScreen.dart';
+import 'package:iWarden/screens/aborting_screen.dart';
+import 'package:iWarden/screens/add-first-seen/add_first_seen_screen.dart';
+import 'package:iWarden/screens/first-seen/detail_first_seen.dart';
+import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
+import 'package:iWarden/screens/grace_period_screen.dart';
+import 'package:iWarden/screens/home_overview.dart';
+import 'package:iWarden/screens/location/location_screen.dart';
+import 'package:iWarden/screens/issue_pcn_first_seen.dart';
+import 'package:iWarden/screens/parking_charges_screen.dart';
 import 'package:iWarden/screens/print_issue.dart';
 import '../screens/login_screens.dart';
 

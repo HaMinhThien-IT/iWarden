@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/theme/color.dart';
-import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/theme/text_theme.dart';
 
 ThemeData themeMain() {
   return ThemeData(
@@ -43,15 +43,33 @@ ThemeData themeMain() {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      helperStyle: CustomTextStyle.body2.copyWith(color: ColorTheme.danger),
       hintStyle: CustomTextStyle.body2.copyWith(
-        color: ColorTheme.grey600,
+        color: ColorTheme.grey400,
       ),
-      labelStyle: CustomTextStyle.h5,
-      floatingLabelStyle: CustomTextStyle.h5,
+      labelStyle:
+          MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+        return TextStyle(
+          color: states.contains(MaterialState.error)
+              ? ColorTheme.danger
+              : ColorTheme.textPrimary,
+          fontSize: 18,
+        );
+      }),
+      floatingLabelStyle:
+          MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+        return TextStyle(
+          color: states.contains(MaterialState.error)
+              ? ColorTheme.danger
+              : ColorTheme.textPrimary,
+          fontSize: 18,
+        );
+      }),
       alignLabelWithHint: true,
       floatingLabelBehavior: FloatingLabelBehavior.always,
-      contentPadding: const EdgeInsets.all(13),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 15,
+      ),
       fillColor: ColorTheme.white,
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(
@@ -69,6 +87,21 @@ ThemeData themeMain() {
       ),
       filled: true,
       isDense: true,
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorTheme.danger,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: ColorTheme.danger,
+        ),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      errorStyle: TextStyle(
+        color: ColorTheme.danger,
+      ),
     ),
   );
 }

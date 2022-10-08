@@ -1,13 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:iWarden/common/Camera/camera_picker.dart';
-import 'package:iWarden/common/Customcheckbox.dart';
+import 'package:iWarden/common/custom_checkbox.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
 import 'package:iWarden/theme/color.dart';
-import 'package:iWarden/theme/textTheme.dart';
-import 'package:iWarden/widgets/appBar.dart';
+import 'package:iWarden/theme/text_theme.dart';
+import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:provider/provider.dart';
 

@@ -32,14 +32,12 @@ dependencies:
   flutter_svg: ^1.1.4
   dropdown_button2: ^1.7.2
   carousel_slider: ^4.1.1
-  image_picker: ^0.8.5+3
   path_provider: ^2.0.11
   provider: ^6.0.3
   intl: ^0.17.0
   timeago: ^3.3.0
   flutter_typeahead: ^4.1.0
   fluttertoast: ^8.0.9
-  photo_view: ^0.14.0
   shared_preferences: ^2.0.15
   anyline_plugin: ^41.0.1
   http: ^0.13.5
@@ -47,6 +45,7 @@ dependencies:
   camera: ^0.10.0+3
   collection: ">=1.15.0 <2.0.0"
   flutter_hooks: ^0.18.5+1
+  location: ^4.4.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -102,6 +101,8 @@ flutter:
     - assets/svg/IconSave.svg
     - assets/svg/IconSuccess.svg
     - assets/svg/IconScan.svg
+    - assets/svg/IconCancel2.svg
+    - assets/svg/IconFinish.svg
     - config/
     - assets/
 

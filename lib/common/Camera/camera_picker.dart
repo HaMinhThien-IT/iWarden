@@ -8,8 +8,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
-import 'package:iWarden/helpers/FormatDate.dart';
-import 'package:iWarden/theme/textTheme.dart';
+import 'package:iWarden/helpers/format_date.dart';
+import 'package:iWarden/theme/text_theme.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:image/image.dart' as img;
@@ -196,7 +197,7 @@ class CameraPicker extends HookWidget {
                                                 BorderRadius.circular(5)),
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                          '• ${titleCamera}',
+                                          '• $titleCamera',
                                           style: CustomTextStyle.body2.copyWith(
                                               fontWeight: FontWeight.w500),
                                         )),
@@ -256,7 +257,7 @@ class CameraPicker extends HookWidget {
                                                 final fileName =
                                                     path.basename(file.path);
                                                 File files = await File(
-                                                        '${tempDir.path}/${fileName}')
+                                                        '${tempDir.path}/$fileName')
                                                     .create();
 
                                                 var decodeImg = img.decodeImage(

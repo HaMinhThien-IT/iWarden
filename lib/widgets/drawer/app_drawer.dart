@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/common/Autocomplete.dart';
-import 'package:iWarden/models/Location.dart';
+import 'package:iWarden/common/autocomplete.dart';
+import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
-import 'package:iWarden/widgets/drawer/model/Data.dart';
-import 'package:iWarden/widgets/drawer/model/MenuItem.dart';
+import 'package:iWarden/widgets/drawer/model/data.dart';
+import 'package:iWarden/widgets/drawer/model/menu_item.dart';
 import 'package:provider/provider.dart';
 import '../../theme/color.dart';
-import '../../widgets/drawer/InfoDrawer.dart';
-import '../../widgets/drawer/ItemMenuWidget.dart';
+import 'info_drawer.dart';
+import 'item_menu_widget.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);

@@ -20,6 +20,7 @@ class AnylineServiceImpl implements AnylineService {
   List<Result> _results = [];
   String? _sdkVersion = 'Unknown';
 
+  @override
   Future<Result?> scan(ScanMode mode) async {
     Result? result = await _callAnyline(mode);
     if (result == null) {
@@ -29,6 +30,7 @@ class AnylineServiceImpl implements AnylineService {
     return result;
   }
 
+  @override
   List<Result> getResultList() {
     return _results;
   }
@@ -38,6 +40,7 @@ class AnylineServiceImpl implements AnylineService {
     _initResultListFromSharedPreferences();
   }
 
+  @override
   String? getSdkVersion() {
     return _sdkVersion;
   }

@@ -25,6 +25,7 @@ class PickerStore extends ChangeNotifier {
     try {
       await File(file.path).delete();
     } catch (ex) {
+      // ignore: avoid_print
       print(ex);
     }
   }
