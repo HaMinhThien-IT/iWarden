@@ -104,6 +104,11 @@ flutter:
     - assets/svg/IconScan.svg
     - assets/svg/IconComplete.svg
     - assets/svg/IconDelete.svg
+    - assets/svg/OnFlash.svg
+    - assets/svg/OffFlash.svg
+    - assets/svg/IconCloseCamera.svg
+    - assets/svg/IconCom.svg
+    - assets/svg/IconCamera2.svg
     - config/
     - assets/
 
