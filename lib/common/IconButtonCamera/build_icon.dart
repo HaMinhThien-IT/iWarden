@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BuildIcon extends StatelessWidget {
-  final String asssetIcon;
+  final String assetIcon;
   final double width;
   final double height;
   final Color? color;
   const BuildIcon(
       {super.key,
-      required this.asssetIcon,
+      required this.assetIcon,
       required this.height,
       required this.width,
       this.color = Colors.white});
@@ -20,7 +20,7 @@ class BuildIcon extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration:
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(30)),
-      child: SvgPicture.asset(asssetIcon),
+      child: SvgPicture.asset(assetIcon),
     );
   }
 }

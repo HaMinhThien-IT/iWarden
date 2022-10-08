@@ -252,6 +252,7 @@ class CameraPicker extends HookWidget {
                     DeviceOrientation.portraitUp,
                     DeviceOrientation.portraitDown,
                   ]);
+                  return null;
                 }, []);
 
                 final cameraController = cameraControllerState.value;
@@ -349,7 +350,7 @@ class CameraPicker extends HookWidget {
                                       child: const BuildIcon(
                                         width: 32,
                                         height: 32,
-                                        asssetIcon:
+                                        assetIcon:
                                             "assets/svg/IconCloseCamera.svg",
                                       ),
                                     ),
@@ -363,7 +364,7 @@ class CameraPicker extends HookWidget {
                                           final fileName =
                                               path.basename(file.path);
                                           File files = await File(
-                                                  '${tempDir.path}/${fileName}')
+                                                  '${tempDir.path}/$fileName')
                                               .create();
 
                                           var decodeImg = img.decodeImage(
@@ -397,8 +398,7 @@ class CameraPicker extends HookWidget {
                                         height: 64,
                                         color:
                                             Color.fromRGBO(255, 255, 255, 0.2),
-                                        asssetIcon:
-                                            "assets/svg/IconCamera2.svg",
+                                        assetIcon: "assets/svg/IconCamera2.svg",
                                       ),
                                     ),
                                     HookBuilder(builder: (context) {
@@ -416,7 +416,7 @@ class CameraPicker extends HookWidget {
                                         child: const BuildIcon(
                                           width: 32,
                                           height: 32,
-                                          asssetIcon: "assets/svg/IconCom.svg",
+                                          assetIcon: "assets/svg/IconCom.svg",
                                         ),
                                       );
                                     }),
