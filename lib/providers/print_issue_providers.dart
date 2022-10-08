@@ -20,6 +20,11 @@ class PrintIssueProviders with ChangeNotifier {
   ];
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
+  late int idIssue;
+  void getIdIssue(id) {
+    idIssue = id;
+    notifyListeners();
+  }
 
   void onChecked(bool checked, int index) {
     listChecked[index] = checked;

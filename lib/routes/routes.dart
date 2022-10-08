@@ -24,5 +24,5 @@ final Map<String, WidgetBuilder> routes = {
       const IssuePCNFirstSeenScreen(),
   AbortingScreen.routeName: (context) => const AbortingScreen(),
   AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen(),
-  PrintIssue.routeName: (context) => const PrintIssue()
+  PrintIssue.routeName: (context) => const PrintIssue(),
 };

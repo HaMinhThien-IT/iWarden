@@ -6,14 +6,23 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
 import 'package:iWarden/helpers/format_date.dart';
 import 'package:iWarden/theme/text_theme.dart';
 // ignore: depend_on_referenced_packages
+import 'package:iWarden/common/IconButtonCamera/build_icon.dart';
+import 'package:iWarden/providers/print_issue_providers.dart';
+import 'package:iWarden/theme/color.dart';
+import 'package:iWarden/widgets/app_bar.dart';
+import 'package:iWarden/widgets/drawer/app_drawer.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:image/image.dart' as img;
+import 'package:provider/provider.dart';
 
 const _defaultPreviewHeight = 60.0;
 const _defaultPreviewWidth = 80.0;
@@ -58,6 +67,7 @@ class CameraPicker extends HookWidget {
   /// Custom builder to show "no camera" widget
   final WidgetBuilder? noCameraBuilder;
   final String titleCamera;
+  final bool? previewImage;
   const CameraPicker(
       {Key? key,
       this.initialFiles,
@@ -73,6 +83,7 @@ class CameraPicker extends HookWidget {
       this.onError,
       this.maxPicture,
       this.minPicture = 1,
+      this.previewImage = false,
       required this.titleCamera})
       : super(key: key);
 
@@ -84,6 +95,108 @@ class CameraPicker extends HookWidget {
         maxPicture: maxPicture));
     final availableCamerasFuture = useMemoized(() => availableCameras());
     final cameras = useState<List<CameraDescription>?>(null);
+    final printIssue = Provider.of<PrintIssueProviders>(context);
+    final widthScreen = MediaQuery.of(context).size.width;
+    const padding = 30.0;
+    Future<void> showDiaLog(double widthScreen, double padding,
+        BuildContext context, File img) async {
+      showGeneralDialog(
+          context: context,
+          barrierDismissible: true,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          barrierColor: Colors.black45,
+          transitionDuration: const Duration(milliseconds: 200),
+          pageBuilder: (BuildContext buildContext, Animation animation,
+              Animation secondaryAnimation) {
+            return Scaffold(
+                appBar: const MyAppBar(
+                  title: "UKPC take picture",
+                  automaticallyImplyLeading: true,
+                ),
+                drawer: const MyDrawer(),
+                bottomSheet: Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(width: 1, color: ColorTheme.grey300),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: padding),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          width: ((widthScreen / 2) - padding) - 12,
+                          child: TextButton.icon(
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                              },
+                              icon:
+                                  SvgPicture.asset("assets/svg/IconDelete.svg"),
+                              label: const Text(
+                                "Delete",
+                                style: CustomTextStyle.h6,
+                              )),
+                        ),
+                        Container(
+                          height: 25,
+                          decoration: const BoxDecoration(
+                            border: Border.symmetric(
+                              vertical: BorderSide(
+                                width: 0.5,
+                                color: ColorTheme.grey300,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: ((widthScreen / 2) - padding) - 12,
+                          child: TextButton.icon(
+                            onPressed: () {
+                              printIssue.addImageToIssue(
+                                  printIssue.idIssue, img);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            },
+                            icon:
+                                SvgPicture.asset("assets/svg/IconComplete.svg"),
+                            label: const Text(
+                              "Accept",
+                              style: CustomTextStyle.h6,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                body: Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          color: Colors.white,
+                          child: Text(
+                            "Please Accept or Delete the Photo",
+                            style: CustomTextStyle.h5
+                                .copyWith(color: ColorTheme.grey600),
+                          ),
+                        ),
+                        Image.file(
+                          img,
+                          fit: BoxFit.cover,
+                        )
+                      ]),
+                ));
+          });
+    }
+
     return Material(
       child: SizedBox(
         width: double.infinity,
@@ -134,7 +247,13 @@ class CameraPicker extends HookWidget {
                   resolutionPreset,
                   enableAudio: false,
                 ));
-                final isBackCamera = useState(true);
+                useEffect(() {
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.portraitUp,
+                    DeviceOrientation.portraitDown,
+                  ]);
+                }, []);
+
                 final cameraController = cameraControllerState.value;
                 final initializeCamera = useMemoized(
                     () => cameraController.initialize(), [cameraController]);
@@ -142,6 +261,7 @@ class CameraPicker extends HookWidget {
                 return WillPopScope(
                   onWillPop: () async {
                     cameraController.dispose();
+
                     return true;
                   },
                   child: FutureBuilder(
@@ -157,17 +277,24 @@ class CameraPicker extends HookWidget {
                           cameraController,
                           key: Key(cameraController.description.name),
                           child: SafeArea(
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                if (showTorchButton && isBackCamera.value)
-                                  Positioned(
-                                    top: 10,
-                                    right: 10,
-                                    child: HookBuilder(builder: (context) {
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                color: ColorTheme.backdrop2,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(titleCamera,
+                                        style: CustomTextStyle.h4
+                                            .copyWith(color: Colors.white)),
+                                    HookBuilder(builder: (context) {
                                       final mode = useState(FlashMode.auto);
-                                      return IconButton(
-                                        onPressed: () {
+                                      return InkWell(
+                                        onTap: () {
                                           if (mode.value == FlashMode.auto) {
                                             mode.value = FlashMode.torch;
                                             cameraController
@@ -178,148 +305,126 @@ class CameraPicker extends HookWidget {
                                                 .setFlashMode(FlashMode.auto);
                                           }
                                         },
-                                        icon: Icon(mode.value == FlashMode.auto
-                                            ? Icons.flashlight_on_outlined
-                                            : Icons.flashlight_on),
-                                        color: iconColor,
+                                        child: SvgPicture.asset(
+                                            mode.value == FlashMode.auto
+                                                ? "assets/svg/OffFlash.svg"
+                                                : "assets/svg/OnFlash.svg"),
+                                      );
+                                    })
+                                  ],
+                                ),
+                              ),
+                              if (previewImage == false)
+                                HookBuilder(builder: (context) {
+                                  useListenable(store);
+                                  return ImagesPreview(
+                                    files: store.filesData,
+                                    iconColor: iconColor,
+                                    borderColor: iconColor,
+                                    previewWidth: previewWidth,
+                                    previewHeight: previewHeight,
+                                    onDelete: (index) async {
+                                      if (onDelete == null ||
+                                          await onDelete!(
+                                              store.filesData[index])) {
+                                        store
+                                            .removeFile(store.filesData[index]);
+                                      }
+                                    },
+                                  );
+                                }),
+                              Container(
+                                color: ColorTheme.backdrop2,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 70),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        cameraController.dispose();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const BuildIcon(
+                                        width: 32,
+                                        height: 32,
+                                        asssetIcon:
+                                            "assets/svg/IconCloseCamera.svg",
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        try {
+                                          final file = await cameraController
+                                              .takePicture();
+                                          final tempDir = await syspaths
+                                              .getTemporaryDirectory();
+                                          final fileName =
+                                              path.basename(file.path);
+                                          File files = await File(
+                                                  '${tempDir.path}/${fileName}')
+                                              .create();
+
+                                          var decodeImg = img.decodeImage(
+                                              await file.readAsBytes());
+
+                                          img.Image fixed =
+                                              img.copyRotate(decodeImg!, -90);
+                                          img.drawString(
+                                              fixed,
+                                              img.arial_24,
+                                              1030,
+                                              680,
+                                              FormatDate().getLocalDate(
+                                                  DateTime.now()));
+                                          var encodeImage = img.encodeJpg(fixed,
+                                              quality: 100);
+                                          var finalImage = files
+                                            ..writeAsBytesSync(encodeImage);
+                                          store.addFile(finalImage);
+                                          previewImage == true
+                                              // ignore: use_build_context_synchronously
+                                              ? showDiaLog(widthScreen, padding,
+                                                  context, finalImage)
+                                              : null;
+                                        } catch (ex, stack) {
+                                          onError?.call(ex, stack);
+                                        }
+                                      },
+                                      child: const BuildIcon(
+                                        width: 64,
+                                        height: 64,
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 0.2),
+                                        asssetIcon:
+                                            "assets/svg/IconCamera2.svg",
+                                      ),
+                                    ),
+                                    HookBuilder(builder: (context) {
+                                      useListenable(store);
+
+                                      return InkWell(
+                                        onTap: store.canContinue
+                                            ? () {
+                                                cameraController.dispose();
+                                                Navigator.of(context)
+                                                    .pop(store.filesData);
+                                              }
+                                            : null,
+                                        enableFeedback: true,
+                                        child: const BuildIcon(
+                                          width: 32,
+                                          height: 32,
+                                          asssetIcon: "assets/svg/IconCom.svg",
+                                        ),
                                       );
                                     }),
-                                  ),
-                                if (showSwitchCameraButton &&
-                                    cameras.value!.length > 1)
-                                  Positioned(
-                                    top: 17,
-                                    left: 15,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                          '• $titleCamera',
-                                          style: CustomTextStyle.body2.copyWith(
-                                              fontWeight: FontWeight.w500),
-                                        )),
-                                  ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      HookBuilder(builder: (context) {
-                                        useListenable(store);
-                                        return ImagesPreview(
-                                          files: store.filesData,
-                                          iconColor: iconColor,
-                                          borderColor: iconColor,
-                                          previewWidth: previewWidth,
-                                          previewHeight: previewHeight,
-                                          onDelete: (index) async {
-                                            if (onDelete == null ||
-                                                await onDelete!(
-                                                    store.filesData[index])) {
-                                              store.removeFile(
-                                                  store.filesData[index]);
-                                            }
-                                          },
-                                        );
-                                      }),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          if (showCancelButton)
-                                            IconButton(
-                                              onPressed: () {
-                                                cameraController.dispose();
-                                                Navigator.of(context).pop();
-                                              },
-                                              tooltip: MaterialLocalizations.of(
-                                                      context)
-                                                  .cancelButtonLabel,
-                                              color: iconColor,
-                                              enableFeedback: true,
-                                              icon: const Icon(Icons.close),
-                                            ),
-                                          IconButton(
-                                            onPressed: () async {
-                                              try {
-                                                final file =
-                                                    await cameraController
-                                                        .takePicture();
-                                                final tempDir = await syspaths
-                                                    .getTemporaryDirectory();
-                                                final fileName =
-                                                    path.basename(file.path);
-                                                File files = await File(
-                                                        '${tempDir.path}/$fileName')
-                                                    .create();
-
-                                                var decodeImg = img.decodeImage(
-                                                    await file.readAsBytes());
-
-                                                img.Image fixed =
-                                                    img.copyRotate(
-                                                        decodeImg!, -90);
-                                                img.drawString(
-                                                    fixed,
-                                                    img.arial_24,
-                                                    1030,
-                                                    680,
-                                                    FormatDate().getLocalDate(
-                                                        DateTime.now()));
-                                                var encodeImage = img.encodeJpg(
-                                                    fixed,
-                                                    quality: 100);
-                                                var finalImage = files
-                                                  ..writeAsBytesSync(
-                                                      encodeImage);
-                                                store.addFile(finalImage);
-                                              } catch (ex, stack) {
-                                                onError?.call(ex, stack);
-                                              }
-                                            },
-                                            enableFeedback: true,
-                                            color: iconColor,
-                                            iconSize: 40,
-                                            icon: const Icon(
-                                              Icons.photo_camera_outlined,
-                                            ),
-                                          ),
-                                          HookBuilder(builder: (context) {
-                                            useListenable(store);
-
-                                            return IconButton(
-                                              onPressed: store.canContinue
-                                                  ? () {
-                                                      cameraController
-                                                          .dispose();
-                                                      Navigator.of(context)
-                                                          .pop(store.filesData);
-                                                    }
-                                                  : null,
-                                              enableFeedback: true,
-                                              tooltip: MaterialLocalizations.of(
-                                                      context)
-                                                  .okButtonLabel,
-                                              icon: const Icon(Icons.check),
-                                              disabledColor: Colors.grey[600],
-                                              color: iconColor,
-                                            );
-                                          }),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
+                              )
+                            ],
+                          )),
                         );
                       }),
                 );
