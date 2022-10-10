@@ -6,22 +6,26 @@ class InfoDrawer extends StatelessWidget {
   final String name;
   final String assetImage;
   final String email;
+  final String? location;
+  final String? zone;
   final bool isDrawer;
   const InfoDrawer(
       {Key? key,
       required this.assetImage,
       required this.name,
       required this.email,
-      required this.isDrawer})
+      required this.isDrawer,
+      this.location,
+      this.zone})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      toolbarHeight: !isDrawer ? 64 : 56,
-      backgroundColor: !isDrawer ? Colors.white : ColorTheme.darkPrimary,
-      elevation: 0,
-      title: ListTile(
+    return Container(
+      padding:
+          EdgeInsets.symmetric(horizontal: 16, vertical: !isDrawer ? 16 : 0),
+      color: isDrawer ? ColorTheme.darkPrimary : Colors.white,
+      child: ListTile(
         contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
         leading: SizedBox(
           width: 45,
@@ -37,13 +41,29 @@ class InfoDrawer extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        subtitle: Text(
-          email,
-          overflow: TextOverflow.ellipsis,
-          style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Email: ${email}",
+              overflow: TextOverflow.ellipsis,
+              style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+            ),
+            if (!isDrawer)
+              Text(
+                "Location: ${location!}",
+                overflow: TextOverflow.ellipsis,
+                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+              ),
+            if (!isDrawer)
+              Text(
+                "Zone: ${zone!}",
+                overflow: TextOverflow.ellipsis,
+                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+              ),
+          ],
         ),
       ),
-      automaticallyImplyLeading: false,
     );
   }
 }

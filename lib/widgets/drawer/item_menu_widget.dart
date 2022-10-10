@@ -32,8 +32,8 @@ class ItemMenuWidget extends StatelessWidget {
       child: ListTile(
         leading: SvgPicture.asset(
           itemMenu.assetIcon,
-          width: 24,
-          height: 24,
+          width: 20,
+          height: 20,
           color: activeRoute()
               ? ColorTheme.darkPrimary
               : itemMenu.title == "Check out"
