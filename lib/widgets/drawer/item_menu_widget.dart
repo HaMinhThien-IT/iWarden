@@ -20,39 +20,37 @@ class ItemMenuWidget extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: activeRoute()
-            ? ColorTheme.lighterPrimary
-            : itemMenu.title == "Check out"
-                ? ColorTheme.grey200
-                : Colors.transparent,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: ListTile(
-        leading: SvgPicture.asset(
-          itemMenu.assetIcon,
-          width: 20,
-          height: 20,
-          color: activeRoute()
-              ? ColorTheme.darkPrimary
-              : itemMenu.title == "Check out"
-                  ? ColorTheme.danger
-                  : ColorTheme.grey600,
-        ),
-        title: Transform.translate(
-          offset: const Offset(-16, 0),
-          child: Text(
-            itemMenu.title,
-            style: CustomTextStyle.h5.copyWith(
-              color:
-                  activeRoute() ? ColorTheme.darkPrimary : ColorTheme.grey600,
-            ),
-          ),
-        ),
+          color: activeRoute() ? ColorTheme.lighterPrimary : null),
+      child: InkWell(
         onTap: () {
           Navigator.of(context).pushReplacementNamed(itemMenu.route);
         },
+        child: Row(
+          children: [
+            Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: SvgPicture.asset(itemMenu.assetIcon,
+                    color: itemMenu.route == "checkout"
+                        ? ColorTheme.danger
+                        : activeRoute()
+                            ? ColorTheme.darkPrimary
+                            : ColorTheme.grey600)),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                itemMenu.title,
+                style: CustomTextStyle.h6.copyWith(
+                    color: itemMenu.route == "checkout"
+                        ? ColorTheme.danger
+                        : activeRoute()
+                            ? ColorTheme.darkPrimary
+                            : ColorTheme.textPrimary),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

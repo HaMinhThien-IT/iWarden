@@ -46,7 +46,8 @@ class InfoDrawer extends StatelessWidget {
           children: [
             Text(
               "Email: ${email}",
-              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              // overflow: TextOverflow.ellipsis,
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
             ),
             if (!isDrawer)

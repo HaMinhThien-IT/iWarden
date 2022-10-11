@@ -117,7 +117,7 @@ class HomeOverview extends StatelessWidget {
             ),
             CardHome(
               width: width,
-              assetIcon: "assets/svg/IconCharges.svg",
+              assetIcon: "assets/svg/IconCharges2.svg",
               backgroundIcon: ColorTheme.lighterSecondary,
               title: "Parking Charges",
               desc:
