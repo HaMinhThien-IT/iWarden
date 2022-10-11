@@ -16,9 +16,7 @@ import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../routes/routes.dart';
-import 'dart:async';
 import 'package:anyline_plugin/anyline_plugin.dart';
-import 'dart:convert';
 
 void main() => runApp(const MyApp());
 

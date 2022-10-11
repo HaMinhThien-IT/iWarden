@@ -110,6 +110,10 @@ flutter:
     - assets/svg/IconCloseCamera.svg
     - assets/svg/IconCom.svg
     - assets/svg/IconCamera2.svg
+    - assets/svg/IconPrinter.svg
+    - assets/svg/IconStatistic.svg
+    - assets/svg/IconCall2.svg
+    - assets/svg/IconCall3.svg
     - config/
     - assets/
 

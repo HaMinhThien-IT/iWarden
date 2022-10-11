@@ -76,11 +76,14 @@ class HomeOverview extends StatelessWidget {
               height: 10,
             ),
             const InfoDrawer(
-                isDrawer: false,
-                assetImage:
-                    "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
-                email: "tom.smiths@ukparkingcontrol.com",
-                name: "Tom Smiths"),
+              isDrawer: false,
+              assetImage:
+                  "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
+              email: "tom.smiths@ukparkingcontrol.com",
+              name: "Tom Smiths",
+              location: "London",
+              zone: "Car park 1",
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -114,7 +117,7 @@ class HomeOverview extends StatelessWidget {
             ),
             CardHome(
               width: width,
-              assetIcon: "assets/svg/IconCharges.svg",
+              assetIcon: "assets/svg/IconCharges2.svg",
               backgroundIcon: ColorTheme.lighterSecondary,
               title: "Parking Charges",
               desc:

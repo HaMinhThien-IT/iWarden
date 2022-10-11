@@ -14,6 +14,14 @@ class DataMenuItem {
     ItemMenu('Parking Charges', 'assets/svg/IconCharges.svg',
         ParkingChargesScreen.routeName),
     ItemMenu('Forms', 'assets/svg/IconForm.svg', '/Forms'),
-    ItemMenu('Emergency call', 'assets/svg/IconCall.svg', '/route'),
+    // ItemMenu('Emergency call', 'assets/svg/IconCall.svg', '/route'),
+  ];
+  List<ItemMenu> navItem = [
+    ItemMenu(
+        'Test printer', 'assets/svg/IconPrinter.svg', HomeOverview.routeName),
+    ItemMenu(
+        'Statistic', 'assets/svg/IconStatistic.svg', HomeOverview.routeName),
+    ItemMenu('Emerg. call', 'assets/svg/IconCall2.svg', HomeOverview.routeName),
+    ItemMenu('999', 'assets/svg/IconCall3.svg', HomeOverview.routeName),
   ];
 }
