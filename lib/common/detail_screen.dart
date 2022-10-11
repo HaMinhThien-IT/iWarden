@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/slide_image.dart';
 import 'package:iWarden/configs/const.dart';
-import 'package:iWarden/screens/issue_pcn_first_seen.dart';
+import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/detail_issue.dart';
@@ -54,7 +54,7 @@ class DetailScreen extends StatelessWidget {
                   },
                   icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
                   label: const Text(
-                    "Issue charge",
+                    "Issue PCN",
                     style: CustomTextStyle.h6,
                   )),
               Container(
