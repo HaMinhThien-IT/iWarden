@@ -23,11 +23,24 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarIconBrightness: Brightness.dark,
+    //     statusBarColor: ColorTheme.backdrop2,
+    //   ),
+    // );
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarColor: ColorTheme.backdrop2),
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
     );
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight
+    ]);
 
     return MultiProvider(
       providers: [
@@ -42,8 +55,8 @@ class MyApp extends StatelessWidget {
         title: 'iWarden',
         theme: themeMain(),
         debugShowCheckedModeBanner: false,
-        home: const AddFirstSeenScreen(),
-        initialRoute: AddFirstSeenScreen.routeName,
+        home: const print.PrintIssue(),
+        initialRoute: print.PrintIssue.routeName,
         routes: routes,
       ),
     );
