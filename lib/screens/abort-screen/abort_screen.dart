@@ -59,7 +59,9 @@ class _AbortScreenState extends State<AbortScreen> {
               SizedBox(
                 width: ((widthScreen / 2) - padding) - 12,
                 child: TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   icon: SvgPicture.asset("assets/svg/IconCancel2.svg"),
                   label: const Text(
                     'Cancel',

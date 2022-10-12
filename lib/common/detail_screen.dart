@@ -64,7 +64,10 @@ class DetailScreen extends StatelessWidget {
                 SizedBox(
                   width: ((widthScreen / divisor) - padding) - divisor2,
                   child: TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(IssuePCNFirstSeenScreen.routeName);
+                      },
                       icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
                       label: const Text(
                         "Issue PCN",
