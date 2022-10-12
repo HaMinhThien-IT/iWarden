@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/button_scan.dart';
 import 'package:iWarden/common/label_require.dart';
@@ -6,9 +7,11 @@ import 'package:iWarden/common/slider_image.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
+import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -71,13 +74,71 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    const padding = 30.0;
     return Scaffold(
         appBar: const MyAppBar(
             title: "Issue parking charge", automaticallyImplyLeading: true),
         drawer: const MyDrawer(),
+        bottomSheet: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 1, color: ColorTheme.grey300),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: ((widthScreen / 2) - padding) - 12,
+                  child: TextButton.icon(
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                      },
+                      icon: SvgPicture.asset("assets/svg/IconCanel.svg"),
+                      label: const Text(
+                        "Cancel",
+                        style: CustomTextStyle.h6,
+                      )),
+                ),
+                Container(
+                  height: 25,
+                  decoration: const BoxDecoration(
+                    border: Border.symmetric(
+                      vertical: BorderSide(
+                        width: 0.5,
+                        color: ColorTheme.grey300,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: ((widthScreen / 2) - padding) - 12,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AbortScreen.routeName);
+                    },
+                    icon: SvgPicture.asset(
+                      "assets/svg/IconComplete.svg",
+                      color: ColorTheme.success,
+                    ),
+                    label: const Text(
+                      "Next",
+                      style: CustomTextStyle.h6,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Container(
-            margin: const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
+            margin: const EdgeInsets.only(
+                bottom: ConstSpacing.bottom + 20, top: 20),
             child: Column(
               children: <Widget>[
                 Container(
@@ -227,13 +288,22 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                             );
                           }),
                         ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                            style: CustomTextStyle.h6,
+                            keyboardType: TextInputType.multiline,
+                            minLines: 2,
+                            maxLines: 5,
+                            decoration: const InputDecoration(
+                              labelText: "Comment",
+                              hintText: "Enter bay comment",
+                            )),
                       ],
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   height: 8,
-                // ),
                 const SliderImage(),
               ],
             ),

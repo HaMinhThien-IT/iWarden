@@ -36,20 +36,21 @@ class _SliderImageState extends State<SliderImage> {
     }).toList();
     return Column(
       children: <Widget>[
-        CarouselSlider(
-          items: imageSliders,
-          options: CarouselOptions(
-            enlargeCenterPage: false,
-            height: MediaQuery.of(context).size.width < 400 ? 200 : 300,
-            viewportFraction: 1,
-            onPageChanged: (index, reason) {
-              setState(() {});
-            },
+        if (files.isNotEmpty)
+          CarouselSlider(
+            items: imageSliders,
+            options: CarouselOptions(
+              enlargeCenterPage: false,
+              height: MediaQuery.of(context).size.width < 400 ? 200 : 300,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                setState(() {});
+              },
+            ),
+            carouselController: _controller,
           ),
-          carouselController: _controller,
-        ),
         Container(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(15),
           height: 90,
           // width: double.infinity,
           // margin: const EdgeInsets.only(top: 3),
@@ -90,59 +91,63 @@ class _SliderImageState extends State<SliderImage> {
                 ),
               ),
               Expanded(
-                child: Scrollbar(
-                    controller: _firstController,
-                    child: ListView.builder(
+                child: SizedBox(
+                  height: 70,
+                  child: Scrollbar(
                       controller: _firstController,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (_, index) {
-                        return Stack(
-                          clipBehavior: Clip.none,
-                          children: <Widget>[
-                            InkWell(
-                              onTap: () => _controller.animateToPage(index),
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                  right: 15,
-                                  top: 9,
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  child: SizedBox(
-                                    width: 56.0,
-                                    height: 56.0,
-                                    child: Image.file(
-                                      files[index],
-                                      fit: BoxFit.cover,
+                      child: ListView.builder(
+                        controller: _firstController,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) {
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            children: <Widget>[
+                              InkWell(
+                                onTap: () => _controller.animateToPage(index),
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                    right: 15,
+                                    top: 9,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    child: SizedBox(
+                                      width: 56.0,
+                                      height: 56.0,
+                                      child: Image.file(
+                                        files[index],
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              top: 0,
-                              right: 5,
-                              child: InkWell(
-                                onTap: () {
-                                  // remove(index);
-                                },
-                                child: Container(
-                                  width: 20,
-                                  height: 20,
-                                  padding: const EdgeInsets.all(3.5),
-                                  decoration: BoxDecoration(
-                                      color: ColorTheme.grey400,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: SvgPicture.asset(
-                                      "assets/svg/IconCannel.svg"),
+                              Positioned(
+                                top: 0,
+                                right: 5,
+                                child: InkWell(
+                                  onTap: () {
+                                    // remove(index);
+                                  },
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    padding: const EdgeInsets.all(3.5),
+                                    decoration: BoxDecoration(
+                                        color: ColorTheme.grey400,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: SvgPicture.asset(
+                                        "assets/svg/IconCannel.svg"),
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        );
-                      },
-                      itemCount: files.length,
-                    )),
+                              )
+                            ],
+                          );
+                        },
+                        itemCount: files.length,
+                      )),
+                ),
               ),
             ],
           ),
