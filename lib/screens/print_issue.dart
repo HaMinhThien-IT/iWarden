@@ -53,14 +53,17 @@ class _PrintIssueState extends State<PrintIssue> {
                     itemBuilder: (_, index) => InkWell(
                       onTap: () async {
                         value.getIdIssue(value.data[index].id);
-                        await Navigator.of(context).push(MaterialPageRoute(
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
                             builder: (context) => CameraPicker(
-                                  titleCamera: value.data[index].title,
-                                  previewImage: true,
-                                  onDelete: (file) {
-                                    return true;
-                                  },
-                                )));
+                              titleCamera: value.data[index].title,
+                              previewImage: true,
+                              onDelete: (file) {
+                                return true;
+                              },
+                            ),
+                          ),
+                        );
                       },
                       child: CustomCheckBox(
                           value: value.data[index].image != null,

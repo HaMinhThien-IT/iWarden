@@ -96,7 +96,6 @@ class CameraPicker extends HookWidget {
         maxPicture: maxPicture));
     final availableCamerasFuture = useMemoized(() => availableCameras());
     final cameras = useState<List<CameraDescription>?>(null);
-    final printIssue = Provider.of<PrintIssueProviders>(context);
     final widthScreen = MediaQuery.of(context).size.width;
     const padding = 30.0;
     bool isCamera = true;
@@ -134,7 +133,7 @@ class CameraPicker extends HookWidget {
                           width: ((widthScreen / 2) - padding) - 12,
                           child: TextButton.icon(
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
                             },
                             icon: SvgPicture.asset("assets/svg/IconDelete.svg"),
                             label: const Text(
@@ -155,14 +154,14 @@ class CameraPicker extends HookWidget {
                           ),
                         ),
                         SizedBox(
-                          width: ((widthScreen / 2) - padding) - 12,
+                          width: ((widthScreen / 2) - padding),
                           child: TextButton.icon(
                             onPressed: () {
-                              isCamera = false;
-                              printIssue.addImageToIssue(
-                                  printIssue.idIssue, img);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
+                              // isCamera = false;
+                              // printIssue.addImageToIssue(
+                              //     printIssue.idIssue, img);
+                              // Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
                             },
                             icon:
                                 SvgPicture.asset("assets/svg/IconComplete.svg"),
@@ -208,8 +207,8 @@ class CameraPicker extends HookWidget {
           ]);
           SystemChrome.setSystemUIOverlayStyle(
             const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
               statusBarIconBrightness: Brightness.dark,
+              statusBarColor: Colors.transparent,
             ),
           );
         } else {
@@ -227,316 +226,314 @@ class CameraPicker extends HookWidget {
       });
     }
 
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Material(
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: ColoredBox(
-            color: Colors.black,
-            child: FutureBuilder<List<CameraDescription>>(
-              builder: (context, snapshot) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    cameras.value ??= snapshot.data ?? [];
-                  }
-                });
-
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    cameras.value == null) {
-                  return const Center(child: CircularProgressIndicator());
+    return Material(
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: ColoredBox(
+          color: Colors.black,
+          child: FutureBuilder<List<CameraDescription>>(
+            builder: (context, snapshot) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  cameras.value ??= snapshot.data ?? [];
                 }
+              });
 
-                if (cameras.value!.isEmpty) {
-                  return noCameraBuilder?.call(context) ??
-                      Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'No camera available',
-                              style: TextStyle(
-                                  color: Theme.of(context).errorColor),
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Back'))
-                          ],
-                        ),
-                      );
-                }
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  cameras.value == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-                return HookBuilder(builder: (context) {
-                  final cameraControllerState = useState(CameraController(
-                    cameras.value!.firstWhereOrNull((element) =>
-                            element.lensDirection ==
-                            CameraLensDirection.back) ??
-                        cameras.value!.first,
-                    resolutionPreset,
-                    enableAudio: false,
-                  ));
+              if (cameras.value!.isEmpty) {
+                return noCameraBuilder?.call(context) ??
+                    Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'No camera available',
+                            style:
+                                TextStyle(color: Theme.of(context).errorColor),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Back'))
+                        ],
+                      ),
+                    );
+              }
 
+              return HookBuilder(builder: (context) {
+                final cameraControllerState = useState(CameraController(
+                  cameras.value!.firstWhereOrNull((element) =>
+                          element.lensDirection == CameraLensDirection.back) ??
+                      cameras.value!.first,
+                  resolutionPreset,
+                  enableAudio: false,
+                ));
+
+                useEffect(() {
                   SystemChrome.setSystemUIOverlayStyle(
                     const SystemUiOverlayStyle(
                       statusBarIconBrightness: Brightness.dark,
                       statusBarColor: ColorTheme.backdrop2,
                     ),
                   );
+                  SystemChrome.setPreferredOrientations([
+                    DeviceOrientation.portraitUp,
+                    DeviceOrientation.portraitDown,
+                  ]);
 
-                  useEffect(() {
+                  return null;
+                }, []);
+
+                final cameraController = cameraControllerState.value;
+                final initializeCamera = useMemoized(
+                    () => cameraController.initialize(), [cameraController]);
+
+                return WillPopScope(
+                  onWillPop: () async {
+                    cameraController.dispose();
                     SystemChrome.setPreferredOrientations([
                       DeviceOrientation.portraitUp,
                       DeviceOrientation.portraitDown,
+                      DeviceOrientation.landscapeLeft,
+                      DeviceOrientation.landscapeRight
                     ]);
+                    SystemChrome.setSystemUIOverlayStyle(
+                      const SystemUiOverlayStyle(
+                        statusBarColor: Colors.transparent,
+                        statusBarIconBrightness: Brightness.dark,
+                      ),
+                    );
+                    return true;
+                  },
+                  child: FutureBuilder(
+                      future: initializeCamera,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
 
-                    return null;
-                  }, []);
-
-                  final cameraController = cameraControllerState.value;
-                  final initializeCamera = useMemoized(
-                      () => cameraController.initialize(), [cameraController]);
-
-                  return WillPopScope(
-                    onWillPop: () async {
-                      cameraController.dispose();
-
-                      return true;
-                    },
-                    child: FutureBuilder(
-                        future: initializeCamera,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-
-                          return CameraPreview(
-                            cameraController,
-                            key: Key(cameraController.description.name),
-                            child: SafeArea(
-                                child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  color: ColorTheme.backdrop2,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(titleCamera,
-                                          style: CustomTextStyle.h4
-                                              .copyWith(color: Colors.white)),
-                                      HookBuilder(builder: (context) {
-                                        final mode = useState(FlashMode.auto);
-                                        return InkWell(
-                                          onTap: () {
-                                            if (mode.value == FlashMode.auto) {
-                                              mode.value = FlashMode.torch;
-                                              cameraController.setFlashMode(
-                                                  FlashMode.torch);
-                                            } else {
-                                              mode.value = FlashMode.auto;
-                                              cameraController
-                                                  .setFlashMode(FlashMode.auto);
-                                            }
-                                          },
-                                          child: SvgPicture.asset(
-                                              mode.value == FlashMode.auto
-                                                  ? "assets/svg/OffFlash.svg"
-                                                  : "assets/svg/OnFlash.svg"),
-                                        );
-                                      })
-                                    ],
-                                  ),
+                        return CameraPreview(
+                          cameraController,
+                          key: Key(cameraController.description.name),
+                          child: SafeArea(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                color: ColorTheme.backdrop2,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(titleCamera,
+                                        style: CustomTextStyle.h4
+                                            .copyWith(color: Colors.white)),
+                                    HookBuilder(builder: (context) {
+                                      final mode = useState(FlashMode.auto);
+                                      return InkWell(
+                                        onTap: () {
+                                          if (mode.value == FlashMode.auto) {
+                                            mode.value = FlashMode.torch;
+                                            cameraController
+                                                .setFlashMode(FlashMode.torch);
+                                          } else {
+                                            mode.value = FlashMode.auto;
+                                            cameraController
+                                                .setFlashMode(FlashMode.auto);
+                                          }
+                                        },
+                                        child: SvgPicture.asset(
+                                            mode.value == FlashMode.auto
+                                                ? "assets/svg/OffFlash.svg"
+                                                : "assets/svg/OnFlash.svg"),
+                                      );
+                                    })
+                                  ],
                                 ),
-                                if (previewImage == false)
-                                  HookBuilder(builder: (context) {
-                                    useListenable(store);
-                                    return ImagesPreview(
-                                      files: store.filesData,
-                                      iconColor: iconColor,
-                                      borderColor: iconColor,
-                                      previewWidth: previewWidth,
-                                      previewHeight: previewHeight,
-                                      onDelete: (index) async {
-                                        if (onDelete == null ||
-                                            await onDelete!(
-                                                store.filesData[index])) {
-                                          store.removeFile(
-                                              store.filesData[index]);
+                              ),
+                              if (previewImage == false)
+                                HookBuilder(builder: (context) {
+                                  useListenable(store);
+                                  return ImagesPreview(
+                                    files: store.filesData,
+                                    iconColor: iconColor,
+                                    borderColor: iconColor,
+                                    previewWidth: previewWidth,
+                                    previewHeight: previewHeight,
+                                    onDelete: (index) async {
+                                      if (onDelete == null ||
+                                          await onDelete!(
+                                              store.filesData[index])) {
+                                        store
+                                            .removeFile(store.filesData[index]);
+                                      }
+                                    },
+                                  );
+                                }),
+                              Container(
+                                color: ColorTheme.backdrop2,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 70),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        cameraController.dispose();
+                                        Navigator.of(context).pop();
+                                        SystemChrome.setPreferredOrientations([
+                                          DeviceOrientation.portraitUp,
+                                          DeviceOrientation.portraitDown,
+                                          DeviceOrientation.landscapeLeft,
+                                          DeviceOrientation.landscapeRight
+                                        ]);
+                                        SystemChrome.setSystemUIOverlayStyle(
+                                          const SystemUiOverlayStyle(
+                                            statusBarColor: Colors.transparent,
+                                            statusBarIconBrightness:
+                                                Brightness.dark,
+                                          ),
+                                        );
+                                      },
+                                      child: const BuildIcon(
+                                        width: 32,
+                                        height: 32,
+                                        assetIcon:
+                                            "assets/svg/IconCloseCamera.svg",
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        try {
+                                          final file = await cameraController
+                                              .takePicture();
+                                          final tempDir = await syspaths
+                                              .getTemporaryDirectory();
+                                          final fileName =
+                                              path.basename(file.path);
+                                          File files = await File(
+                                                  '${tempDir.path}/$fileName')
+                                              .create();
+
+                                          var decodeImg = img.decodeImage(
+                                              await file.readAsBytes());
+
+                                          img.Image fixed =
+                                              img.copyRotate(decodeImg!, -90);
+                                          img.drawString(
+                                              fixed,
+                                              img.arial_24,
+                                              1030,
+                                              680,
+                                              FormatDate().getLocalDate(
+                                                  DateTime.now()));
+                                          var encodeImage = img.encodeJpg(fixed,
+                                              quality: 100);
+                                          var finalImage = files
+                                            ..writeAsBytesSync(encodeImage);
+                                          store.addFile(finalImage);
+                                          previewImage == true
+                                              ? SystemChrome
+                                                  .setPreferredOrientations([
+                                                  DeviceOrientation.portraitUp,
+                                                  DeviceOrientation
+                                                      .portraitDown,
+                                                  DeviceOrientation
+                                                      .landscapeLeft,
+                                                  DeviceOrientation
+                                                      .landscapeRight
+                                                ])
+                                              : null;
+                                          previewImage == true
+                                              ? SystemChrome
+                                                  .setSystemUIOverlayStyle(
+                                                  const SystemUiOverlayStyle(
+                                                    statusBarColor:
+                                                        Colors.transparent,
+                                                    statusBarIconBrightness:
+                                                        Brightness.dark,
+                                                  ),
+                                                )
+                                              : null;
+                                          previewImage == true
+                                              // ignore: use_build_context_synchronously
+                                              ? showDiaLog(widthScreen, padding,
+                                                  context, finalImage)
+                                              : null;
+                                        } catch (ex, stack) {
+                                          onError?.call(ex, stack);
                                         }
                                       },
-                                    );
-                                  }),
-                                Container(
-                                  color: ColorTheme.backdrop2,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 70),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          cameraController.dispose();
-                                          Navigator.of(context).pop();
-                                          SystemChrome
-                                              .setPreferredOrientations([
-                                            DeviceOrientation.portraitUp,
-                                            DeviceOrientation.portraitDown,
-                                            DeviceOrientation.landscapeLeft,
-                                            DeviceOrientation.landscapeRight
-                                          ]);
-                                          SystemChrome.setSystemUIOverlayStyle(
-                                            const SystemUiOverlayStyle(
-                                              statusBarColor:
-                                                  Colors.transparent,
-                                              statusBarIconBrightness:
-                                                  Brightness.dark,
-                                            ),
-                                          );
-                                        },
+                                      child: const BuildIcon(
+                                        width: 64,
+                                        height: 64,
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 0.2),
+                                        assetIcon: "assets/svg/IconCamera2.svg",
+                                      ),
+                                    ),
+                                    HookBuilder(builder: (context) {
+                                      useListenable(store);
+
+                                      return InkWell(
+                                        onTap: store.canContinue
+                                            ? () {
+                                                cameraController.dispose();
+                                                Navigator.of(context)
+                                                    .pop(store.filesData);
+                                                SystemChrome
+                                                    .setPreferredOrientations([
+                                                  DeviceOrientation.portraitUp,
+                                                  DeviceOrientation
+                                                      .portraitDown,
+                                                  DeviceOrientation
+                                                      .landscapeLeft,
+                                                  DeviceOrientation
+                                                      .landscapeRight
+                                                ]);
+                                                SystemChrome
+                                                    .setSystemUIOverlayStyle(
+                                                  const SystemUiOverlayStyle(
+                                                    statusBarColor:
+                                                        Colors.transparent,
+                                                    statusBarIconBrightness:
+                                                        Brightness.dark,
+                                                  ),
+                                                );
+                                              }
+                                            : null,
+                                        enableFeedback: true,
                                         child: const BuildIcon(
                                           width: 32,
                                           height: 32,
-                                          assetIcon:
-                                              "assets/svg/IconCloseCamera.svg",
+                                          assetIcon: "assets/svg/IconCom.svg",
                                         ),
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          try {
-                                            final file = await cameraController
-                                                .takePicture();
-                                            final tempDir = await syspaths
-                                                .getTemporaryDirectory();
-                                            final fileName =
-                                                path.basename(file.path);
-                                            File files = await File(
-                                                    '${tempDir.path}/$fileName')
-                                                .create();
-
-                                            var decodeImg = img.decodeImage(
-                                                await file.readAsBytes());
-
-                                            img.Image fixed =
-                                                img.copyRotate(decodeImg!, -90);
-                                            img.drawString(
-                                                fixed,
-                                                img.arial_24,
-                                                1030,
-                                                680,
-                                                FormatDate().getLocalDate(
-                                                    DateTime.now()));
-                                            var encodeImage = img
-                                                .encodeJpg(fixed, quality: 100);
-                                            var finalImage = files
-                                              ..writeAsBytesSync(encodeImage);
-                                            store.addFile(finalImage);
-                                            previewImage == true
-                                                ? SystemChrome
-                                                    .setPreferredOrientations([
-                                                    DeviceOrientation
-                                                        .portraitUp,
-                                                    DeviceOrientation
-                                                        .portraitDown,
-                                                    DeviceOrientation
-                                                        .landscapeLeft,
-                                                    DeviceOrientation
-                                                        .landscapeRight
-                                                  ])
-                                                : null;
-                                            previewImage == true
-                                                ? SystemChrome
-                                                    .setSystemUIOverlayStyle(
-                                                    const SystemUiOverlayStyle(
-                                                      statusBarColor:
-                                                          Colors.transparent,
-                                                      statusBarIconBrightness:
-                                                          Brightness.dark,
-                                                    ),
-                                                  )
-                                                : null;
-                                            previewImage == true
-                                                // ignore: use_build_context_synchronously
-                                                ? showDiaLog(
-                                                    widthScreen,
-                                                    padding,
-                                                    context,
-                                                    finalImage)
-                                                : null;
-                                          } catch (ex, stack) {
-                                            onError?.call(ex, stack);
-                                          }
-                                        },
-                                        child: const BuildIcon(
-                                          width: 64,
-                                          height: 64,
-                                          color: Color.fromRGBO(
-                                              255, 255, 255, 0.2),
-                                          assetIcon:
-                                              "assets/svg/IconCamera2.svg",
-                                        ),
-                                      ),
-                                      HookBuilder(builder: (context) {
-                                        useListenable(store);
-
-                                        return InkWell(
-                                          onTap: store.canContinue
-                                              ? () {
-                                                  cameraController.dispose();
-                                                  Navigator.of(context)
-                                                      .pop(store.filesData);
-                                                  SystemChrome
-                                                      .setPreferredOrientations([
-                                                    DeviceOrientation
-                                                        .portraitUp,
-                                                    DeviceOrientation
-                                                        .portraitDown,
-                                                    DeviceOrientation
-                                                        .landscapeLeft,
-                                                    DeviceOrientation
-                                                        .landscapeRight
-                                                  ]);
-                                                  SystemChrome
-                                                      .setSystemUIOverlayStyle(
-                                                    const SystemUiOverlayStyle(
-                                                      statusBarColor:
-                                                          Colors.transparent,
-                                                      statusBarIconBrightness:
-                                                          Brightness.dark,
-                                                    ),
-                                                  );
-                                                }
-                                              : null,
-                                          enableFeedback: true,
-                                          child: const BuildIcon(
-                                            width: 32,
-                                            height: 32,
-                                            assetIcon: "assets/svg/IconCom.svg",
-                                          ),
-                                        );
-                                      }),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )),
-                          );
-                        }),
-                  );
-                });
-              },
-              future: availableCamerasFuture,
-            ),
+                                      );
+                                    }),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )),
+                        );
+                      }),
+                );
+              });
+            },
+            future: availableCamerasFuture,
           ),
         ),
       ),
@@ -669,7 +666,7 @@ class ImagePreview extends StatelessWidget {
                               .deleteButtonTooltip,
                           icon: const Icon(Icons.cancel),
                         ),
-                      )
+                      ),
                   ],
                 ),
               ),
