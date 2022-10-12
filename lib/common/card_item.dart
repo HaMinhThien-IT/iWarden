@@ -8,7 +8,6 @@ import 'package:iWarden/theme/text_theme.dart';
 class CardItem extends StatelessWidget {
   const CardItem(
       {Key? key,
-      required this.width,
       required this.expiring,
       required this.visited,
       required this.title,
@@ -16,7 +15,6 @@ class CardItem extends StatelessWidget {
       required this.route})
       : super(key: key);
 
-  final double width;
   final String title;
   final DateTime expiring;
   final DateTime visited;

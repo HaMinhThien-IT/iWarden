@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
-import 'package:iWarden/screens/first-seen/detail_first_seen.dart';
+import 'package:iWarden/screens/first-seen/active_detail_first_seen.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
+import 'package:iWarden/screens/first-seen/expired_detail_first_seen.dart';
 import 'package:iWarden/screens/grace_period_screen.dart';
 import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';
@@ -25,4 +26,5 @@ final Map<String, WidgetBuilder> routes = {
   AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen(),
   PrintIssue.routeName: (context) => const PrintIssue(),
   AbortScreen.routeName: (context) => const AbortScreen(),
+  DetailExpriedFirstSeen.routeName: (context) => const DetailExpriedFirstSeen()
 };
