@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/slide_image.dart';
 import 'package:iWarden/configs/const.dart';
+import 'package:iWarden/models/first_seen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
@@ -11,66 +12,86 @@ import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  final TypeFirstSeen type;
+
+  const DetailScreen({Key? key, required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    final padding = type == TypeFirstSeen.Expired ? 30.0 : 05.0;
+    final divisor = type == TypeFirstSeen.Expired ? 3 : 2;
+    final divisor2 = type == TypeFirstSeen.Expired ? 0.00 : 12;
     return Scaffold(
       appBar: MyAppBar(
           title: "bd5i smr".toUpperCase(), automaticallyImplyLeading: true),
       drawer: const MyDrawer(),
       bottomSheet: Container(
         decoration: const BoxDecoration(
-          color: Colors.white,
           border: Border(
             top: BorderSide(width: 1, color: ColorTheme.grey300),
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: padding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              TextButton.icon(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/svg/IconCar.svg"),
-                  label: const Text(
-                    "Car left",
-                    style: CustomTextStyle.h6,
-                  )),
+              SizedBox(
+                width: ((widthScreen / divisor) - padding) - divisor2,
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: SvgPicture.asset("assets/svg/IconCar.svg"),
+                    label: const Text(
+                      "Car left",
+                      style: CustomTextStyle.h6,
+                    )),
+              ),
+              if (type == TypeFirstSeen.Expired)
+                Container(
+                  height: 25,
+                  decoration: const BoxDecoration(
+                    border: Border.symmetric(
+                      vertical: BorderSide(
+                        width: 0.5,
+                        color: ColorTheme.grey300,
+                      ),
+                    ),
+                  ),
+                ),
+              if (type == TypeFirstSeen.Expired)
+                SizedBox(
+                  width: ((widthScreen / divisor) - padding) - divisor2,
+                  child: TextButton.icon(
+                      onPressed: () {},
+                      icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
+                      label: const Text(
+                        "Issue PCN",
+                        style: CustomTextStyle.h6,
+                      )),
+                ),
               Container(
                 height: 25,
                 decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical:
-                            BorderSide(width: 0.5, color: ColorTheme.grey300))),
+                  border: Border.symmetric(
+                    vertical: BorderSide(
+                      width: 0.5,
+                      color: ColorTheme.grey300,
+                    ),
+                  ),
+                ),
               ),
-              TextButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(
-                        IssuePCNFirstSeenScreen.routeName,
-                        arguments: {'id': 2});
-                  },
-                  icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
-                  label: const Text(
-                    "Issue PCN",
-                    style: CustomTextStyle.h6,
-                  )),
-              Container(
-                height: 25,
-                decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                        vertical:
-                            BorderSide(width: 0.5, color: ColorTheme.grey300))),
+              SizedBox(
+                width: ((widthScreen / divisor) - padding) - divisor2,
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: SvgPicture.asset("assets/svg/IconLocation.svg"),
+                    label: const Text(
+                      "Located",
+                      style: CustomTextStyle.h6,
+                    )),
               ),
-              TextButton.icon(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/svg/IconLocation.svg"),
-                  label: const Text(
-                    "Locate car",
-                    style: CustomTextStyle.h6,
-                  )),
             ],
           ),
         ),

@@ -7,6 +7,7 @@ import 'package:iWarden/common/slider_image.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
+import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
@@ -117,7 +118,9 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                 SizedBox(
                   width: ((widthScreen / 2) - padding) - 12,
                   child: TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AbortScreen.routeName);
+                    },
                     icon: SvgPicture.asset(
                       "assets/svg/IconComplete.svg",
                       color: ColorTheme.success,

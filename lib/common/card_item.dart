@@ -50,7 +50,7 @@ class CardItem extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
                             child: Image.network(
-                              "https://giaxenhap.com/wp-content/uploads/2021/03/audi-a4-1-1.jpg",
+                              "https://static.danhgiaxe.com/data/review/thanhnhan_auto_audi-a4-2014-35_737.jpg",
                               width: 72,
                               height: 72,
                               fit: BoxFit.cover,

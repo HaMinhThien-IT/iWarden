@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:iWarden/screens/add-first-seen/add_first_seen_screen.dart';
+import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 

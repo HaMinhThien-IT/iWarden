@@ -4,7 +4,7 @@ import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/screens/abort-screen/abort_screen.dart';
-import 'package:iWarden/screens/add-first-seen/add_first_seen_screen.dart';
+import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/screens/first-seen/detail_first_seen.dart';
 import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';

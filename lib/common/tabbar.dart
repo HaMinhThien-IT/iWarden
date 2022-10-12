@@ -71,7 +71,7 @@ class _MyTabBarState extends State<MyTabBar> {
                     onPressed: () {},
                     icon: SvgPicture.asset("assets/svg/IconRefresh.svg"),
                     label: const Text(
-                      "Refresh list",
+                      "Refresh",
                       style: CustomTextStyle.h6,
                     )),
               ],

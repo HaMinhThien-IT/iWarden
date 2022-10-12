@@ -13,7 +13,7 @@ class Abort {
 }
 
 class AbortScreen extends StatefulWidget {
-  static const routeName = 'abort';
+  static const routeName = '/abort';
   const AbortScreen({super.key});
 
   @override
