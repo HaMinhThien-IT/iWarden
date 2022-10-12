@@ -87,7 +87,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: padding),
+            padding: const EdgeInsets.symmetric(horizontal: padding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
