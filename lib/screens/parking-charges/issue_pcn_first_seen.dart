@@ -11,6 +11,7 @@ import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -119,7 +120,8 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                   width: ((widthScreen / 2) - padding) - 12,
                   child: TextButton.icon(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(AbortScreen.routeName);
+                      Navigator.of(context)
+                          .pushNamed(ParkingChargeDetail.routeName);
                     },
                     icon: SvgPicture.asset(
                       "assets/svg/IconComplete.svg",

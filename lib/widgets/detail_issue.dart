@@ -3,14 +3,20 @@ import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
 class DetailIssue extends StatelessWidget {
-  const DetailIssue({Key? key}) : super(key: key);
+  final bool borderBottom;
 
+  const DetailIssue({Key? key, this.borderBottom = false}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: borderBottom
+              ? const Border(
+                  bottom: BorderSide(width: 1, color: ColorTheme.grey300))
+              : null),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       margin: const EdgeInsets.only(top: 16),
-      color: Colors.white,
       child: Column(
         children: <Widget>[
           Row(
@@ -52,7 +58,7 @@ class DetailIssue extends StatelessWidget {
                   style:
                       CustomTextStyle.h6.copyWith(color: ColorTheme.grey600)),
             ],
-          )
+          ),
         ],
       ),
     );
