@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/common/bottom_sheet.dart' as bts;
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -18,6 +19,22 @@ class ParkingChargeDetail extends StatelessWidget {
           automaticallyImplyLeading: true,
         ),
         drawer: const MyDrawer(),
+        bottomSheet: bts.BottomSheet(
+          numberOfButtons: 3,
+          firstButtonIconAsset: "assets/svg/IconAbort.svg",
+          firstButtonLabel: const Text(
+            "Abort",
+            style: CustomTextStyle.h6,
+          ),
+          firstButtonOnPressed: () {},
+          secondButtonIconAsset: "assets/svg/IconPrinter.svg",
+          secondButtonLabel: const Text("Print", style: CustomTextStyle.h6),
+          secondButtonOnPressed: () {},
+          // /3
+          // thirdButtonIconAsset: "assets/svg/IconPrinter.svg",
+          // thirdButtonLabel: const Text("Print", style: CustomTextStyle.h6),
+          // thirdButtonOnPressed: () {},
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
