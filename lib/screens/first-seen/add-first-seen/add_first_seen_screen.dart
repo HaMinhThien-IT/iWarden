@@ -26,7 +26,6 @@ class AddFirstSeenScreen extends StatefulWidget {
 }
 
 class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
-  late FToast fToast;
   late AnylineService _anylineService;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final vrnText = TextEditingController();
@@ -35,7 +34,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
+
     _anylineService = AnylineServiceImpl();
   }
 
@@ -84,8 +83,6 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    fToast.init(context);
-
     return Scaffold(
       appBar: const MyAppBar(
         title: "Add first seen",

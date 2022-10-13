@@ -10,6 +10,7 @@ import 'package:iWarden/widgets/drawer/app_drawer.dart';
 class MyTabBar extends StatefulWidget {
   final String titleAppBar;
   final Function funcAdd;
+  final String labelFuncAdd;
   final Function funcRefresh;
   final Widget tabBarViewTab1;
   final Widget tabBarViewTab2;
@@ -23,6 +24,7 @@ class MyTabBar extends StatefulWidget {
       required this.tabBarViewTab1,
       required this.tabBarViewTab2,
       required this.quantityActive,
+      required this.labelFuncAdd,
       required this.quantityExpired})
       : super(key: key);
 
@@ -47,8 +49,8 @@ class _MyTabBarState extends State<MyTabBar> {
               widget.funcAdd();
             },
             icon: SvgPicture.asset('assets/svg/IconPlus.svg'),
-            label: const Text(
-              'Add first seen',
+            label: Text(
+              widget.labelFuncAdd,
               style: CustomTextStyle.h6,
             ),
           ),
