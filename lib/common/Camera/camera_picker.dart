@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
-import 'package:iWarden/common/bottom_sheet.dart' as common;
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/helpers/format_date.dart';
 import 'package:iWarden/theme/text_theme.dart';

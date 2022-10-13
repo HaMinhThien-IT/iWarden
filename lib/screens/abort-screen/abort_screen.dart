@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/common/bottom_sheet.dart' as common;
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/custom_checkbox.dart';
 import 'package:iWarden/theme/color.dart';
@@ -36,10 +35,8 @@ class _AbortScreenState extends State<AbortScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    const padding = 30.0;
-    // ignore: prefer_const_constructors
+
     return Scaffold(
       appBar: const MyAppBar(
         title: 'Aborting',
