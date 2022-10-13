@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
+import 'package:iWarden/screens/grace-period/add_grace_period.dart';
+import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
@@ -110,7 +112,7 @@ class HomeOverview extends StatelessWidget {
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
-              route: AddFirstSeenScreen.routeName,
+              route: AddGracePeriod.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -124,7 +126,7 @@ class HomeOverview extends StatelessWidget {
                   "Parking charges list description Parking charges list description",
               infoRight: "Issued: 12",
               infoLeft: "Aborted: 12",
-              route: AddFirstSeenScreen.routeName,
+              route: IssuePCNFirstSeenScreen.routeName,
             ),
           ],
         ),

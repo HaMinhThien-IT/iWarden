@@ -32,93 +32,50 @@ class CardHome extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Card(
-              semanticContainer: true,
               elevation: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: 72,
-                        height: 72,
-                        margin: const EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                            color: backgroundIcon,
-                            borderRadius: BorderRadius.circular(3)),
-                        child: Container(
-                            padding: const EdgeInsets.all(20),
-                            child: SvgPicture.asset(
-                              assetIcon,
-                            )),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                    width: 56,
+                    height: 56,
+                    color: backgroundIcon,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: SvgPicture.asset(
+                        assetIcon,
                       ),
-                      SizedBox(
-                        width: width / 2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              title,
-                              style: CustomTextStyle.h5.copyWith(
-                                color: ColorTheme.textPrimary,
-                              ),
-                            ),
-                            Text(
-                              desc,
-                              style: CustomTextStyle.h6.copyWith(
-                                color: ColorTheme.grey600,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                            )
-                          ],
+                    )),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(title),
+                    Row(
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          onPressed: () {},
+                          icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
                         ),
-                      )
-                    ],
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          onPressed: () {},
+                          icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                subtitle: Text(
+                  desc,
+                  style: CustomTextStyle.h6.copyWith(
+                    color: ColorTheme.grey600,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, route);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.only(
-                              bottom: 8, left: 8, right: 8, top: 5),
-                          child: SvgPicture.asset(
-                            "assets/svg/IconPlus.svg",
-                            width: 22,
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          // ignore: avoid_print
-                          print("in");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.only(
-                              bottom: 8, left: 8, right: 0, top: 5),
-                          child: SvgPicture.asset(
-                            "assets/svg/IconView.svg",
-                            width: 22,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  textAlign: TextAlign.start,
+                ),
               )),
           const Divider(),
           Padding(
