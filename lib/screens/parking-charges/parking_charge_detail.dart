@@ -74,7 +74,7 @@ class ParkingChargeDetail extends StatelessWidget {
                   ],
                 ),
               ),
-              SliderImageParking()
+              const SliderImageParking()
             ],
           ),
         ));

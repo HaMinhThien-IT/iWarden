@@ -8,12 +8,10 @@ import 'package:iWarden/common/slider_image.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
-import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
-import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -76,8 +74,6 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final widthScreen = MediaQuery.of(context).size.width;
-    const padding = 30.0;
     return Scaffold(
         appBar: const MyAppBar(
             title: "Issue parking charge", automaticallyImplyLeading: true),

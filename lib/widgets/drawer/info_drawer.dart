@@ -45,7 +45,7 @@ class InfoDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Email: ${email}",
+              "Email: $email",
               maxLines: 2,
               // overflow: TextOverflow.ellipsis,
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
