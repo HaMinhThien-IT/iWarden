@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/common/bottom_sheet.dart' as bts;
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
+import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -19,22 +21,34 @@ class ParkingChargeDetail extends StatelessWidget {
           automaticallyImplyLeading: true,
         ),
         drawer: const MyDrawer(),
-        bottomSheet: bts.BottomSheet(
-          numberOfButtons: 3,
-          firstButtonIconAsset: "assets/svg/IconAbort.svg",
-          firstButtonLabel: const Text(
-            "Abort",
-            style: CustomTextStyle.h6,
+        bottomSheet: BottomSheet2(padding: 30, buttonList: [
+          BottomNavyBarItem(
+            onPressed: () {
+              Navigator.of(context).pushNamed(AbortScreen.routeName);
+            },
+            icon: SvgPicture.asset('assets/svg/IconAbort.svg'),
+            label: const Text(
+              'Abort',
+              style: CustomTextStyle.h6,
+            ),
           ),
-          firstButtonOnPressed: () {},
-          secondButtonIconAsset: "assets/svg/IconPrinter.svg",
-          secondButtonLabel: const Text("Print", style: CustomTextStyle.h6),
-          secondButtonOnPressed: () {},
-          // /3
-          // thirdButtonIconAsset: "assets/svg/IconPrinter.svg",
-          // thirdButtonLabel: const Text("Print", style: CustomTextStyle.h6),
-          // thirdButtonOnPressed: () {},
-        ),
+          BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset('assets/svg/IconPrinter.svg'),
+            label: const Text(
+              'Print',
+              style: CustomTextStyle.h6,
+            ),
+          ),
+          BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
+            label: const Text(
+              'Complete',
+              style: CustomTextStyle.h6,
+            ),
+          ),
+        ]),
         body: SingleChildScrollView(
           child: Column(
             children: [

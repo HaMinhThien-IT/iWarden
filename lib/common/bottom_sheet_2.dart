@@ -48,7 +48,6 @@ class _BottomSheet2State extends State<BottomSheet2> {
   @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
-
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -72,13 +71,13 @@ class _BottomSheet2State extends State<BottomSheet2> {
                       child: item,
                     )
                   : Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: ((widthScreen / widget.buttonList.length) -
-                                  (widget.padding ?? 30)) -
-                              12,
+                          width: ((widthScreen -
+                                  ((widget.padding ?? 30) * 2) -
+                                  widget.buttonList.length -
+                                  1) /
+                              widget.buttonList.length),
                           child: item,
                         ),
                         if (item !=

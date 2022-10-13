@@ -115,6 +115,8 @@ flutter:
     - assets/svg/IconCall2.svg
     - assets/svg/IconCall3.svg
     - assets/svg/IconCancel.svg
+    - assets/svg/IconAbort.svg
+
     - config/
     - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
