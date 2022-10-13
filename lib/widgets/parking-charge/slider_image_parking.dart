@@ -19,10 +19,6 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
 ];
 
-final List<Widget> imageSliders = imgList.map((item) {
-  return Image.asset(item);
-}).toList();
-
 class SliderImageParking extends StatefulWidget {
   const SliderImageParking({super.key});
 
@@ -47,7 +43,15 @@ class _SliderImageParkingState extends State<SliderImageParking> {
     return Column(
       children: <Widget>[
         CarouselSlider(
-          items: imageSliders,
+          items: imgList.map((item) {
+            return Container(
+                decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(item),
+                fit: BoxFit.cover,
+              ),
+            ));
+          }).toList(),
           options: CarouselOptions(
             enlargeCenterPage: false,
             height: MediaQuery.of(context).size.width < 400 ? 200 : 300,
@@ -61,8 +65,6 @@ class _SliderImageParkingState extends State<SliderImageParking> {
         Container(
           padding: const EdgeInsets.all(8),
           height: 70,
-          // width: double.infinity,
-          // margin: const EdgeInsets.only(top: 3),
           color: Colors.white,
           child: Row(
             children: <Widget>[

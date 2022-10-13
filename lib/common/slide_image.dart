@@ -96,7 +96,15 @@ class _ManuallyControlledSliderState extends State<ManuallyControlledSlider> {
     return Column(
       children: <Widget>[
         CarouselSlider(
-          items: imageSliders,
+          items: imgList.map((item) {
+            return Container(
+                decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(item),
+                fit: BoxFit.cover,
+              ),
+            ));
+          }).toList(),
           options: CarouselOptions(
             enlargeCenterPage: false,
             height: MediaQuery.of(context).size.width < 400 ? 200 : 300,
