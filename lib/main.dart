@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
+import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
@@ -55,8 +56,8 @@ class MyApp extends StatelessWidget {
         title: 'iWarden',
         theme: themeMain(),
         debugShowCheckedModeBanner: false,
-        home: const print.PrintIssue(),
-        initialRoute: print.PrintIssue.routeName,
+        home: const AbortScreen(),
+        initialRoute: AbortScreen.routeName,
         routes: routes,
       ),
     );

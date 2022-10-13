@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/common/bottom_sheet.dart' as common;
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/custom_checkbox.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
@@ -44,57 +46,24 @@ class _AbortScreenState extends State<AbortScreen> {
         automaticallyImplyLeading: true,
       ),
       drawer: const MyDrawer(),
-      bottomSheet: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 1, color: ColorTheme.grey300),
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+          onPressed: () {},
+          icon: SvgPicture.asset('assets/svg/IconCancel2.svg'),
+          label: const Text(
+            'Cancel',
+            style: CustomTextStyle.h6,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: padding,
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                width: ((widthScreen / 2) - padding) - 12,
-                child: TextButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: SvgPicture.asset("assets/svg/IconCancel2.svg"),
-                  label: const Text(
-                    'Cancel',
-                    style: CustomTextStyle.h6,
-                  ),
-                ),
-              ),
-              Container(
-                height: 25,
-                decoration: const BoxDecoration(
-                  border: Border.symmetric(
-                    vertical: BorderSide(
-                      width: 0.5,
-                      color: ColorTheme.grey300,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: ((widthScreen / 2) - padding),
-                child: TextButton.icon(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/svg/IconFinish.svg"),
-                  label: const Text(
-                    'Finish abort',
-                    style: CustomTextStyle.h6,
-                  ),
-                ),
-              ),
-            ],
+        BottomNavyBarItem(
+          onPressed: () {},
+          icon: SvgPicture.asset('assets/svg/IconFinish.svg'),
+          label: const Text(
+            'Finish abort',
+            style: CustomTextStyle.h6,
           ),
         ),
-      ),
+      ]),
       body: Container(
         color: ColorTheme.white,
         width: double.infinity,

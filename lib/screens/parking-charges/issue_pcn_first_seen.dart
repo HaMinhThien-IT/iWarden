@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/button_scan.dart';
 import 'package:iWarden/common/label_require.dart';
 import 'package:iWarden/common/slider_image.dart';
@@ -81,62 +82,28 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
         appBar: const MyAppBar(
             title: "Issue parking charge", automaticallyImplyLeading: true),
         drawer: const MyDrawer(),
-        bottomSheet: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(width: 1, color: ColorTheme.grey300),
+        bottomSheet: BottomSheet2(buttonList: [
+          BottomNavyBarItem(
+            onPressed: () async {
+              Navigator.of(context).pop();
+            },
+            icon: SvgPicture.asset('assets/svg/IconCancel.svg'),
+            label: const Text(
+              'Cancel',
+              style: CustomTextStyle.h6,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  width: ((widthScreen / 2) - padding) - 12,
-                  child: TextButton.icon(
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-                      },
-                      icon: SvgPicture.asset("assets/svg/IconCanel.svg"),
-                      label: const Text(
-                        "Cancel",
-                        style: CustomTextStyle.h6,
-                      )),
-                ),
-                Container(
-                  height: 25,
-                  decoration: const BoxDecoration(
-                    border: Border.symmetric(
-                      vertical: BorderSide(
-                        width: 0.5,
-                        color: ColorTheme.grey300,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: ((widthScreen / 2) - padding) - 12,
-                  child: TextButton.icon(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(ParkingChargeDetail.routeName);
-                    },
-                    icon: SvgPicture.asset(
-                      "assets/svg/IconComplete.svg",
-                      color: ColorTheme.success,
-                    ),
-                    label: const Text(
-                      "Next",
-                      style: CustomTextStyle.h6,
-                    ),
-                  ),
-                ),
-              ],
+          BottomNavyBarItem(
+            onPressed: () {
+              Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+            },
+            icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
+            label: const Text(
+              'Next',
+              style: CustomTextStyle.h6,
             ),
           ),
-        ),
+        ]),
         body: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(

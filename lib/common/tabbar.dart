@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/bottom_sheet.dart' as common;
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -39,45 +41,26 @@ class _MyTabBarState extends State<MyTabBar> {
         appBar: MyAppBar(
           title: widget.titleAppBar,
         ),
-        bottomSheet: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(width: 1, color: ColorTheme.grey300),
+        bottomSheet: BottomSheet2(buttonList: [
+          BottomNavyBarItem(
+            onPressed: () {
+              widget.funcAdd();
+            },
+            icon: SvgPicture.asset('assets/svg/IconPlus.svg'),
+            label: const Text(
+              'Add first seen',
+              style: CustomTextStyle.h6,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                TextButton.icon(
-                    onPressed: () {
-                      widget.funcAdd();
-                    },
-                    icon: SvgPicture.asset("assets/svg/IconPlus.svg"),
-                    label: const Text(
-                      "Add first seen",
-                      style: CustomTextStyle.h6,
-                    )),
-                Container(
-                  height: 25,
-                  decoration: const BoxDecoration(
-                      border: Border.symmetric(
-                          vertical: BorderSide(
-                              width: 0.5, color: ColorTheme.grey300))),
-                ),
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: SvgPicture.asset("assets/svg/IconRefresh.svg"),
-                    label: const Text(
-                      "Refresh",
-                      style: CustomTextStyle.h6,
-                    )),
-              ],
+          BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset('assets/svg/IconRefresh.svg'),
+            label: const Text(
+              'Refresh',
+              style: CustomTextStyle.h6,
             ),
           ),
-        ),
+        ]),
         drawer: const MyDrawer(),
         body: Column(
           children: <Widget>[

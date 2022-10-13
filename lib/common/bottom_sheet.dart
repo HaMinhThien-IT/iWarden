@@ -11,7 +11,7 @@ class TextButtonIcon {
       {required this.onPressed, required this.iconAsset, required this.label});
 }
 
-class BottomSheet extends StatelessWidget {
+class BottomSheet extends StatefulWidget {
   final double? padding;
   final int numberOfButtons;
   final void Function()? firstButtonOnPressed;
@@ -33,6 +33,11 @@ class BottomSheet extends StatelessWidget {
       super.key});
 
   @override
+  State<BottomSheet> createState() => _BottomSheetState();
+}
+
+class _BottomSheetState extends State<BottomSheet> {
+  @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
 
@@ -47,31 +52,34 @@ class BottomSheet extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: padding ?? 30,
+          horizontal: widget.numberOfButtons == 1 ? 0 : widget.padding ?? 30,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if (numberOfButtons == 1)
+            if (widget.numberOfButtons == 1)
               SizedBox(
-                // width: widthScreen,
+                width: widthScreen,
                 child: TextButton.icon(
-                  onPressed: firstButtonOnPressed,
-                  icon: SvgPicture.asset(firstButtonIconAsset),
-                  label: firstButtonLabel,
+                  onPressed: widget.firstButtonOnPressed,
+                  icon: SvgPicture.asset(widget.firstButtonIconAsset),
+                  label: widget.firstButtonLabel,
+                  style: const ButtonStyle(
+                    alignment: Alignment.center,
+                  ),
                 ),
               ),
-            if (numberOfButtons == 2)
+            if (widget.numberOfButtons == 2)
               SizedBox(
-                width: ((widthScreen / 2) - (padding ?? 30)) - 12,
+                width: ((widthScreen / 2) - (widget.padding ?? 30)) - 12,
                 child: TextButton.icon(
-                  onPressed: firstButtonOnPressed,
-                  icon: SvgPicture.asset(firstButtonIconAsset),
-                  label: firstButtonLabel,
+                  onPressed: widget.firstButtonOnPressed,
+                  icon: SvgPicture.asset(widget.firstButtonIconAsset),
+                  label: widget.firstButtonLabel,
                 ),
               ),
-            if (numberOfButtons == 2)
+            if (widget.numberOfButtons == 2)
               Container(
                 height: 25,
                 decoration: const BoxDecoration(
@@ -83,13 +91,13 @@ class BottomSheet extends StatelessWidget {
                   ),
                 ),
               ),
-            if (numberOfButtons == 2)
+            if (widget.numberOfButtons == 2)
               SizedBox(
-                width: ((widthScreen / 2) - (padding ?? 30)) - 12,
+                width: ((widthScreen / 2) - (widget.padding ?? 30)) - 12,
                 child: TextButton.icon(
-                  onPressed: secondButtonOnPressed,
-                  icon: SvgPicture.asset(secondButtonIconAsset),
-                  label: secondButtonLabel,
+                  onPressed: widget.secondButtonOnPressed,
+                  icon: SvgPicture.asset(widget.secondButtonIconAsset),
+                  label: widget.secondButtonLabel,
                 ),
               ),
           ],
