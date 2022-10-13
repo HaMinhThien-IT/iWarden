@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/models/site.dart';
 import 'package:iWarden/providers/locations.dart';
@@ -26,35 +27,16 @@ class _LocationScreenState extends State<LocationScreen> {
     final siteList = SiteList().sites.toList();
 
     return Scaffold(
-      bottomSheet: TextButton(
-        onPressed: () {},
-        child: SizedBox(
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 16,
-                height: 16,
-                child: SvgPicture.asset(
-                  "assets/svg/IconNext.svg",
-                  fit: BoxFit.contain,
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Next',
-                textAlign: TextAlign.center,
-                style: CustomTextStyle.body2.copyWith(
-                  color: ColorTheme.primary,
-                ),
-              ),
-            ],
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+          onPressed: () {},
+          icon: SvgPicture.asset('assets/svg/IconNext.svg'),
+          label: const Text(
+            'Next',
+            style: CustomTextStyle.h6,
           ),
         ),
-      ),
+      ]),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());

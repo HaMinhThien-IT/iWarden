@@ -13,7 +13,6 @@ class ActiveFirstSeenScreen extends StatelessWidget {
   Future refresh() async {}
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return MyTabBar(
       titleAppBar: "First seen",
       funcAdd: () {

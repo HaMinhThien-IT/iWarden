@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/add_image.dart';
 import 'package:iWarden/common/autocomplete.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/label_require.dart';
 import 'package:iWarden/common/button_scan.dart';
 import 'package:iWarden/configs/const.dart';
@@ -91,19 +92,16 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
         automaticallyImplyLeading: true,
       ),
       drawer: const MyDrawer(),
-      bottomSheet: SizedBox(
-        width: double.infinity,
-        child: TextButton.icon(
-          onPressed: () {
-            _saveForm();
-          },
-          icon: SvgPicture.asset("assets/svg/IconSave.svg"),
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+          onPressed: _saveForm,
+          icon: SvgPicture.asset('assets/svg/IconSave.svg'),
           label: const Text(
-            "Save",
+            'Save',
             style: CustomTextStyle.h6,
           ),
         ),
-      ),
+      ]),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());

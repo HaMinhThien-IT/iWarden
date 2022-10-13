@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/helpers/location_helper.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
@@ -60,40 +61,16 @@ class _MapScreenState extends State<MapScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      bottomSheet: TextButton(
-        onPressed: () {},
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-            ColorTheme.white,
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+          onPressed: () {},
+          icon: SvgPicture.asset('assets/svg/IconNext.svg'),
+          label: const Text(
+            'Next',
+            style: CustomTextStyle.h6,
           ),
         ),
-        child: SizedBox(
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 16,
-                height: 16,
-                child: SvgPicture.asset(
-                  "assets/svg/IconNext.svg",
-                  fit: BoxFit.contain,
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Next',
-                textAlign: TextAlign.center,
-                style: CustomTextStyle.body2.copyWith(
-                  color: ColorTheme.primary,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      ]),
       body: SingleChildScrollView(
         child: Container(
           color: ColorTheme.grey200,
