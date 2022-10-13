@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/picker_store.dart';
+import 'package:iWarden/common/bottom_sheet.dart' as common;
 import 'package:iWarden/helpers/format_date.dart';
 import 'package:iWarden/theme/text_theme.dart';
 // ignore: depend_on_referenced_packages
@@ -96,6 +97,7 @@ class CameraPicker extends HookWidget {
         maxPicture: maxPicture));
     final availableCamerasFuture = useMemoized(() => availableCameras());
     final cameras = useState<List<CameraDescription>?>(null);
+    final printIssue = Provider.of<PrintIssueProviders>(context);
     final widthScreen = MediaQuery.of(context).size.width;
     const padding = 30.0;
     bool isCamera = true;
@@ -117,64 +119,87 @@ class CameraPicker extends HookWidget {
                   automaticallyImplyLeading: true,
                 ),
                 drawer: const MyDrawer(),
-                bottomSheet: Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      top: BorderSide(width: 1, color: ColorTheme.grey300),
-                    ),
+                bottomSheet: common.BottomSheet(
+                  padding: 30,
+                  numberOfButtons: 1,
+                  firstButtonOnPressed: () {
+                    // Navigator.of(context).pop();
+                  },
+                  firstButtonIconAsset: "assets/svg/IconDelete.svg",
+                  firstButtonLabel: const Text(
+                    'Delete',
+                    style: CustomTextStyle.h6,
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: padding),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: ((widthScreen / 2) - padding) - 12,
-                          child: TextButton.icon(
-                            onPressed: () {
-                              // Navigator.of(context).pop();
-                            },
-                            icon: SvgPicture.asset("assets/svg/IconDelete.svg"),
-                            label: const Text(
-                              "Delete",
-                              style: CustomTextStyle.h6,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 25,
-                          decoration: const BoxDecoration(
-                            border: Border.symmetric(
-                              vertical: BorderSide(
-                                width: 0.5,
-                                color: ColorTheme.grey300,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: ((widthScreen / 2) - padding),
-                          child: TextButton.icon(
-                            onPressed: () {
-                              // isCamera = false;
-                              // printIssue.addImageToIssue(
-                              //     printIssue.idIssue, img);
-                              // Navigator.of(context).pop();
-                              // Navigator.of(context).pop();
-                            },
-                            icon:
-                                SvgPicture.asset("assets/svg/IconComplete.svg"),
-                            label: const Text(
-                              "Accept",
-                              style: CustomTextStyle.h6,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  secondButtonOnPressed: () {
+                    isCamera = false;
+                    printIssue.addImageToIssue(printIssue.idIssue, img);
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  secondButtonIconAsset: "assets/svg/IconComplete.svg",
+                  secondButtonLabel: const Text(
+                    'Accept',
+                    style: CustomTextStyle.h6,
                   ),
                 ),
+                // bottomSheet: Container(
+                //   decoration: const BoxDecoration(
+                //     border: Border(
+                //       top: BorderSide(width: 1, color: ColorTheme.grey300),
+                //     ),
+                //   ),
+                //   child: Padding(
+                //     padding: EdgeInsets.symmetric(horizontal: padding),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: <Widget>[
+                //         SizedBox(
+                //           width: ((widthScreen / 2) - padding) - 12,
+                //           child: TextButton.icon(
+                //             onPressed: () {
+                //               Navigator.of(context).pop();
+                //             },
+                //             icon: SvgPicture.asset("assets/svg/IconDelete.svg"),
+                //             label: const Text(
+                //               "Delete",
+                //               style: CustomTextStyle.h6,
+                //             ),
+                //           ),
+                //         ),
+                //         Container(
+                //           height: 25,
+                //           decoration: const BoxDecoration(
+                //             border: Border.symmetric(
+                //               vertical: BorderSide(
+                //                 width: 0.5,
+                //                 color: ColorTheme.grey300,
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //         SizedBox(
+                //           width: ((widthScreen / 2) - padding) - 12,
+                //           child: TextButton.icon(
+                //             onPressed: () {
+                //               isCamera = false;
+                //               printIssue.addImageToIssue(
+                //                   printIssue.idIssue, img);
+                //               Navigator.of(context).pop();
+                //               Navigator.of(context).pop();
+                //             },
+                //             icon:
+                //                 SvgPicture.asset("assets/svg/IconComplete.svg"),
+                //             label: const Text(
+                //               "Accept",
+                //               style: CustomTextStyle.h6,
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 body: Container(
                   margin: const EdgeInsets.only(top: 20),
                   child: Column(
