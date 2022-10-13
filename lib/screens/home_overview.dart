@@ -41,8 +41,9 @@ class HomeOverview extends StatelessWidget {
                   ),
                   Text(
                     subTitle,
-                    style:
-                        CustomTextStyle.h5.copyWith(color: ColorTheme.grey600),
+                    style: CustomTextStyle.h5.copyWith(
+                      color: ColorTheme.grey600,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
