@@ -22,8 +22,12 @@ class InfoDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: 16, vertical: !isDrawer ? 16 : 0),
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: !isDrawer ? 16 : 30,
+        bottom: !isDrawer ? 16 : 10,
+      ),
       color: isDrawer ? ColorTheme.darkPrimary : Colors.white,
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
@@ -45,7 +49,7 @@ class InfoDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Email: $email",
+              email,
               maxLines: 2,
               // overflow: TextOverflow.ellipsis,
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),

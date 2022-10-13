@@ -9,7 +9,7 @@ import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
-import 'package:iWarden/screens/parking_charges_screen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/screens/print_issue.dart';
 import '../screens/login_screens.dart';
 
@@ -18,7 +18,6 @@ final Map<String, WidgetBuilder> routes = {
   LocationScreen.routeName: (context) => const LocationScreen(),
   LoginScreen.routeName: (context) => const LoginScreen(),
   GracePeriodScreen.routeName: (context) => const GracePeriodScreen(),
-  ParkingChargesScreen.routeName: (context) => const GracePeriodScreen(),
   // first seen
   ActiveFirstSeenScreen.routeName: (context) => const ActiveFirstSeenScreen(),
   DetailActiveFirstSeen.routeName: (context) => const DetailActiveFirstSeen(),
@@ -29,5 +28,6 @@ final Map<String, WidgetBuilder> routes = {
   AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen(),
   PrintIssue.routeName: (context) => const PrintIssue(),
   AbortScreen.routeName: (context) => const AbortScreen(),
-  DetailExpriedFirstSeen.routeName: (context) => const DetailExpriedFirstSeen()
+  DetailExpriedFirstSeen.routeName: (context) => const DetailExpriedFirstSeen(),
+  ParkingChargeList.routeName: (context) => const ParkingChargeList()
 };

@@ -11,6 +11,8 @@ import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';
 import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/screens/map-screen/map_screen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/screens/print_issue.dart' as print;
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/theme.dart';
@@ -56,8 +58,8 @@ class MyApp extends StatelessWidget {
         title: 'iWarden',
         theme: themeMain(),
         debugShowCheckedModeBanner: false,
-        home: const AbortScreen(),
-        initialRoute: AbortScreen.routeName,
+        home: const HomeOverview(),
+        initialRoute: HomeOverview.routeName,
         routes: routes,
       ),
     );

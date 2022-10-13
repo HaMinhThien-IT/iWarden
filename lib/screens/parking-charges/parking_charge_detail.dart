@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/common/bottom_sheet.dart' as bts;
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -19,21 +20,25 @@ class ParkingChargeDetail extends StatelessWidget {
           automaticallyImplyLeading: true,
         ),
         drawer: const MyDrawer(),
-        bottomSheet: bts.BottomSheet(
-          numberOfButtons: 3,
-          firstButtonIconAsset: "assets/svg/IconAbort.svg",
-          firstButtonLabel: const Text(
-            "Abort",
-            style: CustomTextStyle.h6,
-          ),
-          firstButtonOnPressed: () {},
-          secondButtonIconAsset: "assets/svg/IconPrinter.svg",
-          secondButtonLabel: const Text("Print", style: CustomTextStyle.h6),
-          secondButtonOnPressed: () {},
-          // /3
-          // thirdButtonIconAsset: "assets/svg/IconPrinter.svg",
-          // thirdButtonLabel: const Text("Print", style: CustomTextStyle.h6),
-          // thirdButtonOnPressed: () {},
+        bottomSheet: BottomSheet2(
+          buttonList: [
+            BottomNavyBarItem(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/svg/IconCar.svg"),
+              label: const Text(
+                "Abort",
+                style: CustomTextStyle.h6,
+              ),
+            ),
+            BottomNavyBarItem(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/svg/IconPrinter.svg"),
+              label: const Text(
+                "Print",
+                style: CustomTextStyle.h6,
+              ),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
