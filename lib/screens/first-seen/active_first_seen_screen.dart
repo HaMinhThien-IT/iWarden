@@ -14,6 +14,7 @@ class ActiveFirstSeenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyTabBar(
+      labelFuncAdd: "Add first seen",
       titleAppBar: "First seen",
       funcAdd: () {
         Navigator.of(context).pushNamed(AddFirstSeenScreen.routeName);
@@ -28,42 +29,42 @@ class ActiveFirstSeenScreen extends StatelessWidget {
             children: [
               CardItem(
                 type: TypeFirstSeen.Active,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailActiveFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Active,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailActiveFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Active,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailActiveFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Active,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailActiveFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Active,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailActiveFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Active,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailActiveFirstSeen.routeName,
@@ -81,42 +82,42 @@ class ActiveFirstSeenScreen extends StatelessWidget {
             children: [
               CardItem(
                 type: TypeFirstSeen.Expired,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailExpriedFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Expired,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailExpriedFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Expired,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailExpriedFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Expired,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailExpriedFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Expired,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailExpriedFirstSeen.routeName,
               ),
               CardItem(
                 type: TypeFirstSeen.Expired,
-                title: "bd5i smr".toUpperCase(),
+                title: "bd5i smr",
                 expiring: DateTime.now(),
                 visited: DateTime.now(),
                 route: DetailExpriedFirstSeen.routeName,
