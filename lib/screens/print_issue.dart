@@ -30,9 +30,27 @@ class _PrintIssueState extends State<PrintIssue> {
 
   List<File> files = [];
   bool check = false;
+
   @override
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
+
+    final printIssue = Provider.of<PrintIssueProviders>(context);
+
+    void takeAPhoto() async {
+      await printIssue.getIdIssue(1);
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CameraPicker(
+            titleCamera: "adu ghe",
+            previewImage: true,
+            onDelete: (file) {
+              return true;
+            },
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: const MyAppBar(
@@ -45,17 +63,20 @@ class _PrintIssueState extends State<PrintIssue> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: SvgPicture.asset('assets/svg/IconCancel2.svg'),
+          icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
           label: const Text(
-            'Cancel',
+            'Complete',
             style: CustomTextStyle.h6,
           ),
         ),
         BottomNavyBarItem(
-          onPressed: () {},
-          icon: SvgPicture.asset('assets/svg/IconFinish.svg'),
+          onPressed: takeAPhoto,
+          icon: SvgPicture.asset(
+            'assets/svg/IconCamera.svg',
+            width: 17,
+          ),
           label: const Text(
-            'Finish abort',
+            'Take a photo',
             style: CustomTextStyle.h6,
           ),
         ),
