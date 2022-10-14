@@ -11,16 +11,17 @@ class PrintIssue {
 
 class PrintIssueProviders with ChangeNotifier {
   final List<PrintIssue> _data = [
-    PrintIssue(id: 1, title: "Vehicle & BackGround"),
-    PrintIssue(id: 2, title: "Screen with ticket on"),
-    PrintIssue(id: 3, title: "Close up of contravention"),
-    PrintIssue(id: 4, title: "Signage"),
-    PrintIssue(id: 5, title: "Optional photo 1"),
-    PrintIssue(id: 6, title: "Optional photo 2")
+    PrintIssue(id: 1, title: "Vehicle & BackGround", image: null),
+    PrintIssue(id: 2, title: "Screen with ticket on", image: null),
+    PrintIssue(id: 3, title: "Close up of contravention", image: null),
+    PrintIssue(id: 4, title: "Signage", image: null),
+    PrintIssue(id: 5, title: "Optional photo 1", image: null),
+    PrintIssue(id: 6, title: "Optional photo 2", image: null),
   ];
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
   late int idIssue;
+
   Future getIdIssue(id) async {
     if (id != null) {
       idIssue = id;
@@ -28,6 +29,12 @@ class PrintIssueProviders with ChangeNotifier {
     } else {
       return;
     }
+  }
+
+  PrintIssue genId() {
+    final PrintIssue temp =
+        _data.firstWhere((element) => element.image == null);
+    return temp;
   }
 
   void onChecked(bool checked, int index) {

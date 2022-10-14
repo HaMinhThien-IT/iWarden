@@ -38,11 +38,11 @@ class _PrintIssueState extends State<PrintIssue> {
     final printIssue = Provider.of<PrintIssueProviders>(context);
 
     void takeAPhoto() async {
-      await printIssue.getIdIssue(1);
+      await printIssue.getIdIssue(printIssue.genId().id);
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => CameraPicker(
-            titleCamera: "adu ghe",
+            titleCamera: printIssue.genId().title,
             previewImage: true,
             onDelete: (file) {
               return true;
