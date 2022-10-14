@@ -24,7 +24,7 @@ class _MyDrawerState extends State<MyDrawer> {
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
     final widthScreen = MediaQuery.of(context).size.width;
-    final checkScreen = heightScreen < 400 ? 2.0 : 4.5;
+    final checkScreen = heightScreen < 400 ? 2.5 : 5.0;
     List<Widget> getList() {
       return DataMenuItem()
           .data
@@ -48,7 +48,7 @@ class _MyDrawerState extends State<MyDrawer> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: SizedBox(
-        width: widthScreen * 0.88,
+        width: widthScreen > 400 ? widthScreen * 0.45 : widthScreen * 0.85,
         child: Drawer(
           child: SingleChildScrollView(
             child: Column(
@@ -153,7 +153,10 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                     SizedBox(height: heightScreen / 5),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 30,
+                      ),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: getListNav()),
