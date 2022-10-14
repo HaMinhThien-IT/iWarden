@@ -20,6 +20,8 @@ class PrintIssueProviders with ChangeNotifier {
   ];
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
+  late bool checkNullImage = _data.every((element) => element.image == null);
+
   late int idIssue;
 
   Future getIdIssue(id) async {
@@ -31,10 +33,9 @@ class PrintIssueProviders with ChangeNotifier {
     }
   }
 
-  PrintIssue genId() {
-    final PrintIssue temp =
-        _data.firstWhere((element) => element.image == null);
-    return temp;
+  PrintIssue findIssueNoImage() {
+    print(_data.map((e) => {e.id, e.image, e.title}));
+    return _data.firstWhere((element) => element.image == null);
   }
 
   void onChecked(bool checked, int index) {

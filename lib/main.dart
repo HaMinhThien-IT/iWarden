@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
       title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
-      home: const print.PrintIssue(),
-      initialRoute: print.PrintIssue.routeName,
+      home: const HomeOverview(),
+      initialRoute: HomeOverview.routeName,
       routes: routes,
     );
   }

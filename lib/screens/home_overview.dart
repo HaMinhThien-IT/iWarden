@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:iWarden/common/my_dialog.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/screens/grace-period/add_grace_period.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
@@ -16,55 +17,6 @@ class HomeOverview extends StatelessWidget {
   static const routeName = '/home';
   const HomeOverview({Key? key}) : super(key: key);
   // ignore: unused_element
-  Future<void> _showMyDialog(
-      BuildContext context, String title, String subTitle, Widget func) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      barrierColor: ColorTheme.backdrop,
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: AlertDialog(
-            insetPadding: const EdgeInsets.all(20),
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              title,
-              style: CustomTextStyle.h4,
-              textAlign: TextAlign.center,
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    subTitle,
-                    style: CustomTextStyle.h5.copyWith(
-                      color: ColorTheme.grey600,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  )
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              Center(
-                child: func,
-              ),
-              const SizedBox(
-                height: 4,
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

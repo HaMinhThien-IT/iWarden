@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/custom_checkbox.dart';
+import 'package:iWarden/common/my_dialog.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
 import 'package:iWarden/theme/color.dart';
@@ -38,17 +39,32 @@ class _PrintIssueState extends State<PrintIssue> {
     final printIssue = Provider.of<PrintIssueProviders>(context);
 
     void takeAPhoto() async {
-      await printIssue.getIdIssue(printIssue.genId().id);
+      await printIssue.getIdIssue(printIssue.findIssueNoImage().id);
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => CameraPicker(
-            titleCamera: printIssue.genId().title,
+            titleCamera: printIssue.findIssueNoImage().title,
             previewImage: true,
             onDelete: (file) {
               return true;
             },
           ),
         ),
+      );
+    }
+
+    Future<void> _showMyDialog() async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: ColorTheme.backdrop,
+        builder: (BuildContext context) {
+          return MyDialog(
+            title: "Cannot  complete",
+            subTitle: "Please take enough proof photos to complete.",
+            func: ElevatedButton(child: const Text("Ok"), onPressed: () {}),
+          );
+        },
       );
     }
 
@@ -61,7 +77,12 @@ class _PrintIssueState extends State<PrintIssue> {
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
           onPressed: () {
-            Navigator.of(context).pop();
+            print(printIssue.data);
+            if (printIssue.checkNullImage) {
+              _showMyDialog();
+            } else {
+              Navigator.of(context).pop();
+            }
           },
           icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
           label: const Text(
