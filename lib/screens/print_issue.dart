@@ -38,9 +38,6 @@ class _PrintIssueState extends State<PrintIssue> {
     final printIssue = Provider.of<PrintIssueProviders>(context);
 
     void takeAPhoto() async {
-      // hạn chế call api
-      // tìm phần tử chưa add image gần nhất
-
       await printIssue.getIdIssue(1);
       await Navigator.of(context).push(
         MaterialPageRoute(
@@ -66,17 +63,20 @@ class _PrintIssueState extends State<PrintIssue> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: SvgPicture.asset('assets/svg/IconCancel2.svg'),
+          icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
           label: const Text(
-            'Cancel',
+            'Complete',
             style: CustomTextStyle.h6,
           ),
         ),
         BottomNavyBarItem(
           onPressed: takeAPhoto,
-          icon: SvgPicture.asset('assets/svg/IconFinish.svg'),
+          icon: SvgPicture.asset(
+            'assets/svg/IconCamera.svg',
+            width: 17,
+          ),
           label: const Text(
-            'Finish abort',
+            'Take a photo',
             style: CustomTextStyle.h6,
           ),
         ),
