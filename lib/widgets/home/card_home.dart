@@ -43,8 +43,8 @@ class CardHome extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        width: 72,
-                        height: 72,
+                        width: 56,
+                        height: 56,
                         margin: const EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                             color: backgroundIcon,
@@ -96,7 +96,6 @@ class CardHome extends StatelessWidget {
                               bottom: 8, left: 8, right: 8, top: 5),
                           child: SvgPicture.asset(
                             "assets/svg/IconPlus.svg",
-                            width: 22,
                           ),
                         ),
                       ),
@@ -112,7 +111,6 @@ class CardHome extends StatelessWidget {
                               bottom: 8, left: 8, right: 0, top: 5),
                           child: SvgPicture.asset(
                             "assets/svg/IconView.svg",
-                            width: 22,
                           ),
                         ),
                       ),
