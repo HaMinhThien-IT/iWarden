@@ -30,8 +30,29 @@ class _PrintIssueState extends State<PrintIssue> {
 
   List<File> files = [];
   bool check = false;
+
   @override
   Widget build(BuildContext context) {
+    final printIssue = Provider.of<PrintIssueProviders>(context);
+
+    void takeAPhoto() async {
+      // hạn chế call api
+      // tìm phần tử chưa add image gần nhất
+
+      await printIssue.getIdIssue(1);
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CameraPicker(
+            titleCamera: "adu ghe",
+            previewImage: true,
+            onDelete: (file) {
+              return true;
+            },
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: const MyAppBar(
         title: "UKPC take picture",
@@ -50,7 +71,7 @@ class _PrintIssueState extends State<PrintIssue> {
           ),
         ),
         BottomNavyBarItem(
-          onPressed: () {},
+          onPressed: takeAPhoto,
           icon: SvgPicture.asset('assets/svg/IconFinish.svg'),
           label: const Text(
             'Finish abort',

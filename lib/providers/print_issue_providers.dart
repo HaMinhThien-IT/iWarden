@@ -21,7 +21,7 @@ class PrintIssueProviders with ChangeNotifier {
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
   late int idIssue;
-  void getIdIssue(id) {
+  Future getIdIssue(id) async {
     if (id != null) {
       idIssue = id;
       notifyListeners();
