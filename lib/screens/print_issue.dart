@@ -2,7 +2,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/camera_picker.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/custom_checkbox.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
@@ -36,6 +38,26 @@ class _PrintIssueState extends State<PrintIssue> {
         automaticallyImplyLeading: true,
       ),
       drawer: const MyDrawer(),
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: SvgPicture.asset('assets/svg/IconCancel2.svg'),
+          label: const Text(
+            'Cancel',
+            style: CustomTextStyle.h6,
+          ),
+        ),
+        BottomNavyBarItem(
+          onPressed: () {},
+          icon: SvgPicture.asset('assets/svg/IconFinish.svg'),
+          label: const Text(
+            'Finish abort',
+            style: CustomTextStyle.h6,
+          ),
+        ),
+      ]),
       body: Container(
         margin: const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

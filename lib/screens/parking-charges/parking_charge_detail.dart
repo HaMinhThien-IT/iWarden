@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/screens/abort-screen/abort_screen.dart';
+import 'package:iWarden/screens/print_issue.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -33,7 +34,9 @@ class ParkingChargeDetail extends StatelessWidget {
             ),
           ),
           BottomNavyBarItem(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(PrintIssue.routeName);
+            },
             icon: SvgPicture.asset('assets/svg/IconPrinter.svg'),
             label: const Text(
               'Print',
