@@ -14,54 +14,37 @@ import 'package:iWarden/screens/map-screen/map_screen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/screens/print_issue.dart' as print;
+import 'package:iWarden/settings/app_settings.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../routes/routes.dart';
 import 'package:anyline_plugin/anyline_plugin.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: Locations()),
+          ChangeNotifierProvider.value(value: PrintIssueProviders()),
+        ],
+        child: const MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(
-    //   const SystemUiOverlayStyle(
-    //     statusBarIconBrightness: Brightness.dark,
-    //     statusBarColor: ColorTheme.backdrop2,
-    //   ),
-    // );
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight
-    ]);
+    final appSetting = AppSettings();
+    appSetting.settings();
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(
-          value: Locations(),
-        ),
-        ChangeNotifierProvider.value(
-          value: PrintIssueProviders(),
-        ),
-      ],
-      child: MaterialApp(
-        title: 'iWarden',
-        theme: themeMain(),
-        debugShowCheckedModeBanner: false,
-        home: const HomeOverview(),
-        initialRoute: HomeOverview.routeName,
-        routes: routes,
-      ),
+    return MaterialApp(
+      title: 'iWarden',
+      theme: themeMain(),
+      debugShowCheckedModeBanner: false,
+      home: const print.PrintIssue(),
+      initialRoute: print.PrintIssue.routeName,
+      routes: routes,
     );
   }
 }

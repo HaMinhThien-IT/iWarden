@@ -95,7 +95,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         borderRadius:
             BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
         border: Border.all(
-          color: _checked ? ColorTheme.success : ColorTheme.grey600,
+          color: _checked ? widget.checkedIconColor : ColorTheme.grey600,
           width: widget.shouldShowBorder ? widget.borderWidth ?? 2.0 : 1.0,
         ),
       ),

@@ -14,7 +14,6 @@ import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class AddFirstSeenScreen extends StatefulWidget {
