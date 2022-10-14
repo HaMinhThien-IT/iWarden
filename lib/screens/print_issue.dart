@@ -60,79 +60,85 @@ class _PrintIssueState extends State<PrintIssue> {
           ),
         ),
       ]),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            color: Colors.white,
-            height: heightScreen / 2,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "The following Photo are required",
-                    style: CustomTextStyle.h5.copyWith(
-                      color: ColorTheme.grey600,
-                    ),
-                  ),
-                  Consumer<PrintIssueProviders>(
-                    builder: (_, value, __) => Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (_, index) => InkWell(
-                          onTap: () async {
-                            value.getIdIssue(value.data[index].id);
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => CameraPicker(
-                                  titleCamera: value.data[index].title,
-                                  previewImage: true,
-                                  onDelete: (file) {
-                                    return true;
-                                  },
-                                ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 80),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                color: Colors.white,
+                height: heightScreen / 2,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "The following Photo are required",
+                        style: CustomTextStyle.h5.copyWith(
+                          color: ColorTheme.grey600,
+                        ),
+                      ),
+                      Consumer<PrintIssueProviders>(
+                        builder: (_, value, __) => Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (_, index) => InkWell(
+                              onTap: () async {
+                                value.getIdIssue(value.data[index].id);
+                                await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => CameraPicker(
+                                      titleCamera: value.data[index].title,
+                                      previewImage: true,
+                                      onDelete: (file) {
+                                        return true;
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: CustomCheckBox(
+                                value: value.data[index].image != null,
+                                onChanged: (val) {
+                                  value.onChecked(val, index);
+                                },
+                                title: value.data[index].title,
                               ),
-                            );
-                          },
-                          child: CustomCheckBox(
-                            value: value.data[index].image != null,
-                            onChanged: (val) {
-                              value.onChecked(val, index);
-                            },
-                            title: value.data[index].title,
+                            ),
+                            itemCount: value.data.length,
                           ),
                         ),
-                        itemCount: value.data.length,
                       ),
+                    ]),
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                child: Column(
+                  children: [
+                    CustomCheckBox(
+                      checkedIconColor: ColorTheme.grey600,
+                      value: true,
+                      onChanged: (val) {},
+                      title: 'Comment',
                     ),
-                  ),
-                ]),
-          ),
-          const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-            child: Column(
-              children: [
-                CustomCheckBox(
-                  checkedIconColor: ColorTheme.grey600,
-                  value: true,
-                  onChanged: (val) {},
-                  title: 'Comment',
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Enter comment',
+                        hintMaxLines: 1,
+                      ),
+                      maxLines: 3,
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Enter comment',
-                    hintMaxLines: 1,
-                  ),
-                  maxLines: 3,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
