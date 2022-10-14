@@ -23,7 +23,9 @@ class NavItem extends StatelessWidget {
         ),
         Text(
           itemMenu.title,
-          style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+          style: CustomTextStyle.h6.copyWith(
+            color: ColorTheme.grey600,
+          ),
         )
       ],
     );
