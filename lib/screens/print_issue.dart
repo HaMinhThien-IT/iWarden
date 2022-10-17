@@ -56,11 +56,11 @@ class _PrintIssueState extends State<PrintIssue> {
     Future<void> _showMyDialog() async {
       return showDialog<void>(
         context: context,
-        barrierDismissible: true,
+        barrierDismissible: false,
         barrierColor: ColorTheme.backdrop,
         builder: (BuildContext context) {
           return MyDialog(
-            title: "Cannot  complete",
+            title: "Cannot complete",
             subTitle: "Please take enough proof photos to complete.",
             func: ElevatedButton(child: const Text("Ok"), onPressed: () {}),
           );
@@ -77,7 +77,6 @@ class _PrintIssueState extends State<PrintIssue> {
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
           onPressed: () {
-            print(printIssue.data);
             if (printIssue.checkNullImage) {
               _showMyDialog();
             } else {

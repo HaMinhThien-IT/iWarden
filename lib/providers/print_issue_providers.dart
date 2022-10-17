@@ -34,7 +34,6 @@ class PrintIssueProviders with ChangeNotifier {
   }
 
   PrintIssue findIssueNoImage() {
-    print(_data.map((e) => {e.id, e.image, e.title}));
     return _data.firstWhere((element) => element.image == null);
   }
 
