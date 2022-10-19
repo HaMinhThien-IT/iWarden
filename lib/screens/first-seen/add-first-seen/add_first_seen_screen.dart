@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/add_image.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
@@ -73,6 +76,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   }
 
   void _saveForm() {
+    print('aaaa $arrayImage');
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -80,6 +84,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
     _formKey.currentState!.save();
   }
 
+  List<File> arrayImage = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -277,8 +282,24 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                     ),
                   ),
                 ),
-                const AddImage(
-                  titleCamera: "Add first seen",
+                AddImage(
+                  isCamera: true,
+                  listImage: arrayImage,
+                  onAddImage: () async {
+                    final results =
+                        await Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CameraPicker(
+                                  titleCamera: "Add first seen",
+                                  onDelete: (file) {
+                                    return true;
+                                  },
+                                )));
+                    if (results != null) {
+                      setState(() {
+                        arrayImage = List.from(results);
+                      });
+                    }
+                  },
                 ),
               ],
             ),

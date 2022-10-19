@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/add_image.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
@@ -38,6 +41,8 @@ class _AddGracePeriodState extends State<AddGracePeriod> {
 
     _anylineService = AnylineServiceImpl();
   }
+
+  List<File> arrayImage = [];
 
   @override
   Widget build(BuildContext context) {
@@ -86,206 +91,224 @@ class _AddGracePeriodState extends State<AddGracePeriod> {
     }
 
     return Scaffold(
-        appBar: const MyAppBar(
-          title: "Add grace period",
-          automaticallyImplyLeading: true,
+      appBar: const MyAppBar(
+        title: "Add grace period",
+        automaticallyImplyLeading: true,
+      ),
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+          onPressed: _saveForm,
+          icon: SvgPicture.asset('assets/svg/IconSave.svg'),
+          label: const Text(
+            'Save',
+            style: CustomTextStyle.h6,
+          ),
         ),
-        bottomSheet: BottomSheet2(buttonList: [
-          BottomNavyBarItem(
-            onPressed: _saveForm,
-            icon: SvgPicture.asset('assets/svg/IconSave.svg'),
-            label: const Text(
-              'Save',
-              style: CustomTextStyle.h6,
+      ]),
+      drawer: const MyDrawer(),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 24,
+                  ),
+                  color: Colors.white,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Flexible(
+                              flex: 8,
+                              child: TextFormField(
+                                controller: vrnText,
+                                style: CustomTextStyle.h5,
+                                decoration: const InputDecoration(
+                                  label: LabelRequire(labelText: "VRN"),
+                                  hintText: "Enter VRN",
+                                ),
+                                validator: ((value) {
+                                  if (value!.isEmpty) {
+                                    return 'VRN is required.';
+                                  }
+                                  return null;
+                                }),
+                                onSaved: (value) {
+                                  vrnText.text = value as String;
+                                },
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                              ),
+                            ),
+                            Flexible(
+                              flex: 2,
+                              child: ButtonScan(
+                                onTap: () {
+                                  scan(ScanMode.LicensePlate);
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Consumer<Locations>(
+                          builder: ((_, location, child) {
+                            return AutoCompleteWidget(
+                              labelText: const LabelRequire(
+                                labelText: "Vehicle make",
+                              ),
+                              hintText: 'Enter vehicle make',
+                              controller: _locationController,
+                              onSuggestionSelected: (suggestion) {
+                                setState(() {
+                                  _locationController.text =
+                                      (suggestion as Location).value;
+                                });
+                              },
+                              itemBuilder: (context, locationItem) {
+                                return ItemDataComplete(
+                                  itemData: (locationItem as Location).label,
+                                );
+                              },
+                              suggestionsCallback: (pattern) {
+                                return location.onSuggest(pattern);
+                              },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Vehicle make is required.';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _locationController.text = value as String;
+                              },
+                            );
+                          }),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Consumer<Locations>(
+                          builder: ((_, location, child) {
+                            return AutoCompleteWidget(
+                              labelText: const LabelRequire(
+                                  labelText: "Vehicle model"),
+                              hintText: 'Enter vehicle model',
+                              controller: _locationController,
+                              onSuggestionSelected: (suggestion) {
+                                setState(() {
+                                  _locationController.text =
+                                      (suggestion as Location).value;
+                                });
+                              },
+                              itemBuilder: (context, locationItem) {
+                                return ItemDataComplete(
+                                  itemData: (locationItem as Location).label,
+                                );
+                              },
+                              suggestionsCallback: (pattern) {
+                                return location.onSuggest(pattern);
+                              },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Vehicle model is required.';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _locationController.text = value as String;
+                              },
+                            );
+                          }),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Consumer<Locations>(
+                          builder: ((_, location, child) {
+                            return AutoCompleteWidget(
+                              labelText: const LabelRequire(
+                                labelText: "Vehicle color",
+                              ),
+                              hintText: 'Enter vehicle color',
+                              controller: _locationController,
+                              onSuggestionSelected: (suggestion) {
+                                setState(() {
+                                  _locationController.text =
+                                      (suggestion as Location).value;
+                                });
+                              },
+                              itemBuilder: (context, locationItem) {
+                                return ItemDataComplete(
+                                  itemData: (locationItem as Location).label,
+                                );
+                              },
+                              suggestionsCallback: (pattern) {
+                                return location.onSuggest(pattern);
+                              },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Vehicle color is required.';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _locationController.text = value as String;
+                              },
+                            );
+                          }),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          style: CustomTextStyle.h6,
+                          decoration: const InputDecoration(
+                            labelText: 'Bay number',
+                            hintText: "Enter bay number",
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                AddImage(
+                  isCamera: true,
+                  listImage: arrayImage,
+                  onAddImage: () async {
+                    final results =
+                        await Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CameraPicker(
+                                  titleCamera: "Add grace period",
+                                  onDelete: (file) {
+                                    return true;
+                                  },
+                                )));
+                    if (results != null) {
+                      setState(() {
+                        arrayImage = List.from(results);
+                      });
+                    }
+                  },
+                ),
+              ],
             ),
           ),
-        ]),
-        drawer: const MyDrawer(),
-        body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: SingleChildScrollView(
-                child: Container(
-              margin:
-                  const EdgeInsets.only(bottom: ConstSpacing.bottom, top: 20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 24,
-                    ),
-                    color: Colors.white,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Flexible(
-                                flex: 8,
-                                child: TextFormField(
-                                  controller: vrnText,
-                                  style: CustomTextStyle.h5,
-                                  decoration: const InputDecoration(
-                                    label: LabelRequire(labelText: "VRN"),
-                                    hintText: "Enter VRN",
-                                  ),
-                                  validator: ((value) {
-                                    if (value!.isEmpty) {
-                                      return 'VRN is required.';
-                                    }
-                                    return null;
-                                  }),
-                                  onSaved: (value) {
-                                    vrnText.text = value as String;
-                                  },
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                ),
-                              ),
-                              Flexible(
-                                flex: 2,
-                                child: ButtonScan(
-                                  onTap: () {
-                                    scan(ScanMode.LicensePlate);
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Consumer<Locations>(
-                            builder: ((_, location, child) {
-                              return AutoCompleteWidget(
-                                labelText: const LabelRequire(
-                                  labelText: "Vehicle make",
-                                ),
-                                hintText: 'Enter vehicle make',
-                                controller: _locationController,
-                                onSuggestionSelected: (suggestion) {
-                                  setState(() {
-                                    _locationController.text =
-                                        (suggestion as Location).value;
-                                  });
-                                },
-                                itemBuilder: (context, locationItem) {
-                                  return ItemDataComplete(
-                                    itemData: (locationItem as Location).label,
-                                  );
-                                },
-                                suggestionsCallback: (pattern) {
-                                  return location.onSuggest(pattern);
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Vehicle make is required.';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  _locationController.text = value as String;
-                                },
-                              );
-                            }),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Consumer<Locations>(
-                            builder: ((_, location, child) {
-                              return AutoCompleteWidget(
-                                labelText: const LabelRequire(
-                                    labelText: "Vehicle model"),
-                                hintText: 'Enter vehicle model',
-                                controller: _locationController,
-                                onSuggestionSelected: (suggestion) {
-                                  setState(() {
-                                    _locationController.text =
-                                        (suggestion as Location).value;
-                                  });
-                                },
-                                itemBuilder: (context, locationItem) {
-                                  return ItemDataComplete(
-                                    itemData: (locationItem as Location).label,
-                                  );
-                                },
-                                suggestionsCallback: (pattern) {
-                                  return location.onSuggest(pattern);
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Vehicle model is required.';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  _locationController.text = value as String;
-                                },
-                              );
-                            }),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Consumer<Locations>(
-                            builder: ((_, location, child) {
-                              return AutoCompleteWidget(
-                                labelText: const LabelRequire(
-                                  labelText: "Vehicle color",
-                                ),
-                                hintText: 'Enter vehicle color',
-                                controller: _locationController,
-                                onSuggestionSelected: (suggestion) {
-                                  setState(() {
-                                    _locationController.text =
-                                        (suggestion as Location).value;
-                                  });
-                                },
-                                itemBuilder: (context, locationItem) {
-                                  return ItemDataComplete(
-                                    itemData: (locationItem as Location).label,
-                                  );
-                                },
-                                suggestionsCallback: (pattern) {
-                                  return location.onSuggest(pattern);
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Vehicle color is required.';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  _locationController.text = value as String;
-                                },
-                              );
-                            }),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          TextFormField(
-                            style: CustomTextStyle.h6,
-                            decoration: const InputDecoration(
-                              labelText: 'Bay number',
-                              hintText: "Enter bay number",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const AddImage(
-                    titleCamera: "Add grace period",
-                  ),
-                ],
-              ),
-            ))));
+        ),
+      ),
+    );
   }
 }
