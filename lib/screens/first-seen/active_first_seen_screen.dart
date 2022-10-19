@@ -19,7 +19,7 @@ class ActiveFirstSeenScreen extends StatelessWidget {
       funcAdd: () {
         Navigator.of(context).pushNamed(AddFirstSeenScreen.routeName);
       },
-      funcRefresh: () {},
+      funcRefresh: refresh,
       tabBarViewTab1: RefreshIndicator(
         onRefresh: refresh,
         child: SingleChildScrollView(

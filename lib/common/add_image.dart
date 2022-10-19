@@ -74,9 +74,11 @@ class _AddImageState extends State<AddImage> {
                       style: CustomTextStyle.h5
                           .copyWith(color: ColorTheme.darkPrimary),
                     ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  if (AddFirstSeenScreen.routeName ==
+                      ModalRoute.of(context)!.settings.name)
+                    const SizedBox(
+                      height: 16,
+                    ),
                   Row(
                     children: <Widget>[
                       if (widget.isCamera)
@@ -105,7 +107,6 @@ class _AddImageState extends State<AddImage> {
                           child: Scrollbar(
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              // clipBehavior: Clip.none,
                               itemBuilder: (context, index) => Stack(
                                 clipBehavior: Clip.none,
                                 children: <Widget>[
