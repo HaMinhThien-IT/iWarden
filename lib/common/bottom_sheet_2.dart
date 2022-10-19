@@ -23,7 +23,7 @@ class BottomNavyBarItem extends StatelessWidget {
 }
 
 class BottomSheet2 extends StatefulWidget {
-  final double? padding;
+  final double padding;
   final List<BottomNavyBarItem> buttonList;
 
   const BottomSheet2({this.padding = 30, required this.buttonList, super.key});
@@ -59,7 +59,7 @@ class _BottomSheet2State extends State<BottomSheet2> {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: widget.buttonList.length == 1 ? 0 : widget.padding ?? 30,
+          horizontal: widget.buttonList.length == 1 ? 0 : widget.padding,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +74,7 @@ class _BottomSheet2State extends State<BottomSheet2> {
                       children: [
                         SizedBox(
                           width: ((widthScreen -
-                                  ((widget.padding ?? 30) * 2) -
+                                  ((widget.padding) * 2) -
                                   widget.buttonList.length -
                                   1) /
                               widget.buttonList.length),

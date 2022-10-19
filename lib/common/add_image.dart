@@ -110,26 +110,31 @@ class _AddImageState extends State<AddImage> {
                               itemBuilder: (context, index) => Stack(
                                 clipBehavior: Clip.none,
                                 children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        right: widget.isCamera ? 15 : 8,
-                                        top: widget.isCamera ? 7 : 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      child: SizedBox(
-                                        width: 56.0,
-                                        height: 56.0,
-                                        child: widget.listImage[index]
-                                                    .runtimeType ==
-                                                String
-                                            ? Image.network(
-                                                widget.listImage[index],
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.file(
-                                                widget.listImage[index],
-                                                fit: BoxFit.cover,
-                                              ),
+                                  InkWell(
+                                    onTap: () =>
+                                        _controller.animateToPage(index),
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          right: widget.isCamera ? 15 : 8,
+                                          top: widget.isCamera ? 7 : 0),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        child: SizedBox(
+                                          width: 56.0,
+                                          height: 56.0,
+                                          child: widget.listImage[index]
+                                                      .runtimeType ==
+                                                  String
+                                              ? Image.network(
+                                                  widget.listImage[index],
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.file(
+                                                  widget.listImage[index],
+                                                  fit: BoxFit.cover,
+                                                ),
+                                        ),
                                       ),
                                     ),
                                   ),
