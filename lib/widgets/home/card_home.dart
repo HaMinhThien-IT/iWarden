@@ -13,6 +13,7 @@ class CardHome extends StatelessWidget {
       required this.infoLeft,
       required this.infoRight,
       required this.title,
+      required this.routeView,
       required this.route})
       : super(key: key);
 
@@ -24,6 +25,7 @@ class CardHome extends StatelessWidget {
   final String infoRight;
   final String infoLeft;
   final String route;
+  final String routeView;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,23 +94,21 @@ class CardHome extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.only(
-                              bottom: 8, left: 8, right: 8, top: 5),
                           child: SvgPicture.asset(
                             "assets/svg/IconPlus.svg",
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         onTap: () {
-                          // ignore: avoid_print
-                          print("in");
+                          Navigator.pushNamed(context, routeView);
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.only(
-                              bottom: 8, left: 8, right: 0, top: 5),
                           child: SvgPicture.asset(
                             "assets/svg/IconView.svg",
                           ),

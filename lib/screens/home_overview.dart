@@ -2,9 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:iWarden/common/my_dialog.dart';
+import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/screens/grace-period/add_grace_period.dart';
+import 'package:iWarden/screens/grace-period/index.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
@@ -52,6 +55,7 @@ class HomeOverview extends StatelessWidget {
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
               route: AddFirstSeenScreen.routeName,
+              routeView: ActiveFirstSeenScreen.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -66,6 +70,7 @@ class HomeOverview extends StatelessWidget {
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
               route: AddGracePeriod.routeName,
+              routeView: GracePeriodList.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -80,6 +85,7 @@ class HomeOverview extends StatelessWidget {
               infoRight: "Issued: 12",
               infoLeft: "Aborted: 12",
               route: IssuePCNFirstSeenScreen.routeName,
+              routeView: ParkingChargeList.routeName,
             ),
           ],
         ),

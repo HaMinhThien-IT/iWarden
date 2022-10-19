@@ -20,6 +20,7 @@ class PrintIssueProviders with ChangeNotifier {
   ];
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
+
   late bool checkNullImage = _data.every((element) => element.image == null);
 
   late int idIssue;
