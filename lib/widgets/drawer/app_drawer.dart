@@ -48,7 +48,7 @@ class _MyDrawerState extends State<MyDrawer> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: SizedBox(
-        width: widthScreen > 400 ? widthScreen * 0.45 : widthScreen * 0.85,
+        width: widthScreen > 450 ? widthScreen * 0.45 : widthScreen * 0.85,
         child: Drawer(
           child: SingleChildScrollView(
             child: Column(
