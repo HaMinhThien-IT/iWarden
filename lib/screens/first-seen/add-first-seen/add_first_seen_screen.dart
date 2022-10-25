@@ -36,7 +36,6 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   @override
   void initState() {
     super.initState();
-
     _anylineService = AnylineServiceImpl();
   }
 
@@ -76,7 +75,6 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   }
 
   void _saveForm() {
-    print('aaaa $arrayImage');
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -277,6 +275,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                             labelText: 'Bay number',
                             hintText: "Enter bay number",
                           ),
+                          keyboardType: TextInputType.number,
                         ),
                       ],
                     ),
