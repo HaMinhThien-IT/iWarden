@@ -19,7 +19,7 @@ class NavItem extends StatelessWidget {
           decoration: BoxDecoration(
               color: ColorTheme.grey200,
               borderRadius: BorderRadius.circular(40)),
-          child: SvgPicture.asset(itemMenu.assetIcon),
+          child: itemMenu.icon,
         ),
         Text(
           itemMenu.title,

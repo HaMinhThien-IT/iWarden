@@ -22,6 +22,7 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
     return Scaffold(
       appBar: const MyAppBar(
         title: 'Parking charges',
+        automaticallyImplyLeading: true,
       ),
       drawer: const MyDrawer(),
       bottomSheet: BottomSheet2(buttonList: [

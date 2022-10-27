@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
@@ -148,7 +149,9 @@ class _MyDrawerState extends State<MyDrawer> {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ItemMenuWidget(
                         itemMenu: ItemMenu(
-                            "Check out", "assets/svg/CheckOut.svg", "checkout"),
+                            "End shift",
+                            SvgPicture.asset("assets/svg/IconEndShift.svg"),
+                            "checkout"),
                       ),
                     ),
                     SizedBox(height: heightScreen / 5),
