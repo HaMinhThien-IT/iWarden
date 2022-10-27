@@ -15,7 +15,9 @@ import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
+import 'package:iWarden/screens/map-screen/map_screen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -79,6 +81,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SingingCharacter? character = SingingCharacter.lafayette;
     return Scaffold(
         appBar: const MyAppBar(
             title: "Issue parking charge", automaticallyImplyLeading: true),
@@ -251,6 +254,22 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         ),
                         const SizedBox(
                           height: 16,
+                        ),
+                        ListTile(
+                          title: const Text(
+                            'Physical PCN',
+                            style: CustomTextStyle.h5,
+                          ),
+                          leading: Radio<SingingCharacter>(
+                            activeColor: ColorTheme.success,
+                            value: SingingCharacter.lafayette,
+                            groupValue: character,
+                            onChanged: (SingingCharacter? value) {
+                              setState(() {
+                                character = value;
+                              });
+                            },
+                          ),
                         ),
                         TextFormField(
                             style: CustomTextStyle.h6,
