@@ -121,6 +121,9 @@ flutter:
     - assets/svg/IconParkingChargesHome.svg
     - assets/svg/IconSpotCheck.svg
     - assets/svg/IconEndShift.svg
+    - assets/svg/IconStartBreak.svg
+    - assets/svg/IconEndBreak.svg
+
 
     - config/
     - assets/

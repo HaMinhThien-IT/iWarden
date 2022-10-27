@@ -21,6 +21,7 @@ class ItemMenuWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3),
           color: activeRoute()
               ? ColorTheme.lighterPrimary
               : itemMenu.route == "checkout"
@@ -43,9 +44,7 @@ class ItemMenuWidget extends StatelessWidget {
                 style: CustomTextStyle.h6.copyWith(
                     color: itemMenu.route == "checkout"
                         ? ColorTheme.danger
-                        : activeRoute()
-                            ? ColorTheme.darkPrimary
-                            : ColorTheme.textPrimary),
+                        : ColorTheme.textPrimary),
               ),
             )
           ],
