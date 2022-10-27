@@ -20,22 +20,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: <Widget>[
             if (!automaticallyImplyLeading)
-              SizedBox(
-                width: 35,
-                height: 35,
-                child: Image.asset(
-                  "assets/images/Logo.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
+              SvgPicture.asset("assets/svg/LogoHome.svg"),
             if (!automaticallyImplyLeading)
               const SizedBox(
                 width: 10,
               ),
             Text(
               title,
-              style: CustomTextStyle.h4.copyWith(
-                  color: ColorTheme.darkPrimary, fontWeight: FontWeight.w500),
+              style: CustomTextStyle.h4.copyWith(fontWeight: FontWeight.w500),
             ),
           ],
         ),
