@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/my_dialog.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
@@ -27,6 +29,22 @@ class HomeOverview extends StatelessWidget {
     return Scaffold(
       appBar: const MyAppBar(title: "Home"),
       drawer: const MyDrawer(),
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svg/IconPrinter.svg"),
+            label: const Text(
+              "Start lunch",
+              style: CustomTextStyle.h6,
+            )),
+        BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svg/CheckOut.svg"),
+            label: Text(
+              "End shift",
+              style: CustomTextStyle.h6.copyWith(color: ColorTheme.danger),
+            )),
+      ]),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -39,7 +57,7 @@ class HomeOverview extends StatelessWidget {
                   "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
               email: "tom.smiths@ukparkingcontrol.com",
               name: "Tom Smiths",
-              location: "London",
+              location: "Castlepoint Shopping centre",
               zone: "Car park 1",
             ),
             const SizedBox(
@@ -77,13 +95,13 @@ class HomeOverview extends StatelessWidget {
             ),
             CardHome(
               width: width,
-              assetIcon: "assets/svg/IconCharges2.svg",
+              assetIcon: "assets/svg/IconParkingChargesHome.svg",
               backgroundIcon: ColorTheme.lighterSecondary,
               title: "Parking Charges",
               desc:
                   "Parking charges list description Parking charges list description",
               infoRight: "Issued: 12",
-              infoLeft: "Aborted: 12",
+              infoLeft: null,
               route: IssuePCNFirstSeenScreen.routeName,
               routeView: ParkingChargeList.routeName,
             ),

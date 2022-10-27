@@ -116,6 +116,8 @@ flutter:
     - assets/svg/IconCall3.svg
     - assets/svg/IconCancel.svg
     - assets/svg/IconAbort.svg
+    - assets/svg/LogoHome.svg
+    - assets/svg/IconParkingChargesHome.svg
 
     - config/
     - assets/

@@ -52,20 +52,43 @@ class InfoDrawer extends StatelessWidget {
               email,
               maxLines: 2,
               // overflow: TextOverflow.ellipsis,
-              style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+              style:
+                  CustomTextStyle.caption.copyWith(color: ColorTheme.grey600),
             ),
             if (!isDrawer)
-              Text(
-                "Location: ${location!}",
-                overflow: TextOverflow.ellipsis,
-                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+              Row(
+                children: [
+                  Text(
+                    "Location: ",
+                    overflow: TextOverflow.ellipsis,
+                    style: CustomTextStyle.caption
+                        .copyWith(color: ColorTheme.grey600),
+                  ),
+                  Text(
+                    location!,
+                    overflow: TextOverflow.ellipsis,
+                    style: CustomTextStyle.caption.copyWith(
+                        color: ColorTheme.grey600, fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
             if (!isDrawer)
-              Text(
-                "Zone: ${zone!}",
-                overflow: TextOverflow.ellipsis,
-                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
-              ),
+              Row(
+                children: [
+                  Text(
+                    "Zone: ",
+                    overflow: TextOverflow.ellipsis,
+                    style: CustomTextStyle.caption
+                        .copyWith(color: ColorTheme.grey600),
+                  ),
+                  Text(
+                    zone!,
+                    overflow: TextOverflow.ellipsis,
+                    style: CustomTextStyle.caption.copyWith(
+                        color: ColorTheme.grey600, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              )
           ],
         ),
       ),

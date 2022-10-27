@@ -10,7 +10,7 @@ class CardHome extends StatelessWidget {
       required this.assetIcon,
       required this.backgroundIcon,
       required this.desc,
-      required this.infoLeft,
+      this.infoLeft,
       required this.infoRight,
       required this.title,
       required this.routeView,
@@ -23,7 +23,7 @@ class CardHome extends StatelessWidget {
   final String title;
   final String desc;
   final String infoRight;
-  final String infoLeft;
+  final String? infoLeft;
   final String route;
   final String routeView;
   @override
@@ -38,7 +38,7 @@ class CardHome extends StatelessWidget {
               elevation: 0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -83,39 +83,19 @@ class CardHome extends StatelessWidget {
                       )
                     ],
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, route);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          child: SvgPicture.asset(
-                            "assets/svg/IconPlus.svg",
-                          ),
-                        ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, route);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30)),
+                      child: SvgPicture.asset(
+                        "assets/svg/IconPlus.svg",
+                        width: 24.67,
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, routeView);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          child: SvgPicture.asset(
-                            "assets/svg/IconView.svg",
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
                 ],
               )),
           const Divider(),
@@ -130,15 +110,17 @@ class CardHome extends StatelessWidget {
                     color: ColorTheme.success,
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  infoLeft,
-                  style: CustomTextStyle.h6.copyWith(
-                    color: ColorTheme.danger,
+                if (infoLeft != null)
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
+                if (infoLeft != null)
+                  Text(
+                    infoLeft!,
+                    style: CustomTextStyle.h6.copyWith(
+                      color: ColorTheme.danger,
+                    ),
+                  ),
               ],
             ),
           )
