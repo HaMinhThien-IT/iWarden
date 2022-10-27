@@ -16,7 +16,7 @@ class GracePeriodList extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyTabBar(
       labelFuncAdd: "Add grace period",
-      titleAppBar: "Grace period",
+      titleAppBar: "Consideration Period",
       quantityActive: 12,
       quantityExpired: 12,
       funcAdd: () {

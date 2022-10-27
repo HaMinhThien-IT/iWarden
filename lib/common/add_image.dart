@@ -68,7 +68,7 @@ class _AddImageState extends State<AddImage> {
                   if (AddFirstSeenScreen.routeName ==
                       ModalRoute.of(context)!.settings.name)
                     Text(
-                      "Images (${widget.listImage.length})",
+                      "Evidence photos (${widget.listImage.length})",
                       style: CustomTextStyle.h5
                           .copyWith(color: ColorTheme.darkPrimary),
                     ),
@@ -84,8 +84,11 @@ class _AddImageState extends State<AddImage> {
                           onTap: widget.onAddImage,
                           child: Container(
                             height: 56.0,
-                            width: 56.0,
-                            margin: const EdgeInsets.only(right: 15),
+                            width: widget.listImage.isEmpty
+                                ? MediaQuery.of(context).size.width - (16)
+                                : 56.0,
+                            margin: EdgeInsets.only(
+                                right: widget.listImage.isEmpty ? 0 : 15),
                             padding: const EdgeInsets.all(18),
                             decoration: BoxDecoration(
                               color: ColorTheme.grey200,

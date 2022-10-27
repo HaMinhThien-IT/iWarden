@@ -226,15 +226,6 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        TextFormField(
-                            style: CustomTextStyle.h6,
-                            decoration: const InputDecoration(
-                              label: LabelRequire(labelText: "Bay number"),
-                              hintText: "Enter bay number",
-                            )),
-                        const SizedBox(
-                          height: 16,
-                        ),
                         Consumer<Locations>(
                           builder: ((_, location, child) {
                             return AutoCompleteWidget(
@@ -264,7 +255,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         TextFormField(
                             style: CustomTextStyle.h6,
                             keyboardType: TextInputType.multiline,
-                            minLines: 2,
+                            minLines: 3,
                             maxLines: 5,
                             decoration: const InputDecoration(
                               labelText: "Comment",

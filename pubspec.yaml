@@ -123,8 +123,7 @@ flutter:
     - assets/svg/IconEndShift.svg
     - assets/svg/IconStartBreak.svg
     - assets/svg/IconEndBreak.svg
-
-
+    - assets/svg/IconComplete2.svg
     - config/
     - assets/
   # An image asset can refer to one or more resolution-specific "variants", see

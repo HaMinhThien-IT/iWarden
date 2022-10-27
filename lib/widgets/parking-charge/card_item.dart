@@ -8,15 +8,13 @@ class CardItemParkingCharge extends StatelessWidget {
   final String title;
   final String contravention;
   final DateTime created;
-  final double fineAmount;
 
-  const CardItemParkingCharge(
-      {Key? key,
-      required this.title,
-      required this.contravention,
-      required this.created,
-      required this.fineAmount})
-      : super(key: key);
+  const CardItemParkingCharge({
+    Key? key,
+    required this.title,
+    required this.contravention,
+    required this.created,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +35,9 @@ class CardItemParkingCharge extends StatelessWidget {
             ),
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title.toUpperCase(),
-              style: CustomTextStyle.h4,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/svg/IconLocation.svg"),
-                ),
-              ],
-            )
-          ],
+        title: Text(
+          title.toUpperCase(),
+          style: CustomTextStyle.h4,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,11 +50,6 @@ class CardItemParkingCharge extends StatelessWidget {
             Text(
               "Created: ${FormatDate().getLocalDate(created)}",
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              "Fine Amount: $fineAmount\$",
-              style: CustomTextStyle.h6.copyWith(color: ColorTheme.danger),
             ),
           ],
         ),

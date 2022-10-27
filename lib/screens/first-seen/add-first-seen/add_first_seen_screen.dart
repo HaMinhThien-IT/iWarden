@@ -94,9 +94,17 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
           onPressed: _saveForm,
+          icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+          label: const Text(
+            'Complete ',
+            style: CustomTextStyle.h6,
+          ),
+        ),
+        BottomNavyBarItem(
+          onPressed: _saveForm,
           icon: SvgPicture.asset('assets/svg/IconSave.svg'),
           label: const Text(
-            'Save',
+            'Save & add',
             style: CustomTextStyle.h6,
           ),
         ),
@@ -159,116 +167,6 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                labelText: "Vehicle make",
-                              ),
-                              hintText: 'Enter vehicle make',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Vehicle make is required.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _locationController.text = value as String;
-                              },
-                            );
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                  labelText: "Vehicle model"),
-                              hintText: 'Enter vehicle model',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Vehicle model is required.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _locationController.text = value as String;
-                              },
-                            );
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                labelText: "Vehicle color",
-                              ),
-                              hintText: 'Enter vehicle color',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Vehicle color is required.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _locationController.text = value as String;
-                              },
-                            );
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
                         TextFormField(
                           style: CustomTextStyle.h6,
                           decoration: const InputDecoration(
@@ -280,6 +178,9 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                       ],
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 8,
                 ),
                 AddImage(
                   isCamera: true,
