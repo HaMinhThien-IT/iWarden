@@ -27,23 +27,6 @@ class DetailIssue extends StatelessWidget {
                 "bd5i smr".toUpperCase(),
                 style: CustomTextStyle.h4,
               ),
-              Text(
-                "Color: White",
-                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Make: Mercedes‑Benz",
-                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
-              ),
-              Text("Model: A‑Class",
-                  style:
-                      CustomTextStyle.h6.copyWith(color: ColorTheme.grey600)),
             ],
           ),
           Row(

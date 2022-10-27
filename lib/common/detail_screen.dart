@@ -67,7 +67,10 @@ class _DetailScreenState extends State<DetailScreen> {
                 width: ((widthScreen / divisor) - padding) - divisor2,
                 child: TextButton.icon(
                     onPressed: () {},
-                    icon: SvgPicture.asset("assets/svg/IconCar.svg"),
+                    icon: SvgPicture.asset(
+                      "assets/svg/IconCar.svg",
+                      width: 16,
+                    ),
                     label: const Text(
                       "Car left",
                       style: CustomTextStyle.h6,
@@ -93,7 +96,10 @@ class _DetailScreenState extends State<DetailScreen> {
                         Navigator.of(context)
                             .pushNamed(IssuePCNFirstSeenScreen.routeName);
                       },
-                      icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
+                      icon: SvgPicture.asset(
+                        "assets/svg/IconCharges2.svg",
+                        width: 16,
+                      ),
                       label: const Text(
                         "Issue PCN",
                         style: CustomTextStyle.h6,
@@ -114,7 +120,10 @@ class _DetailScreenState extends State<DetailScreen> {
                 width: ((widthScreen / divisor) - padding) - divisor2,
                 child: TextButton.icon(
                     onPressed: () {},
-                    icon: SvgPicture.asset("assets/svg/IconLocation.svg"),
+                    icon: SvgPicture.asset(
+                      "assets/svg/IconLocation.svg",
+                      width: 16,
+                    ),
                     label: const Text(
                       "Located",
                       style: CustomTextStyle.h6,
@@ -134,13 +143,18 @@ class _DetailScreenState extends State<DetailScreen> {
             children: <Widget>[
               const DetailIssue(),
               Container(
-                color: ColorTheme.secondary,
+                color: widget.type == TypeFirstSeen.Expired
+                    ? ColorTheme.lightDanger
+                    : ColorTheme.lightSuccess,
                 padding: const EdgeInsets.all(8),
                 width: double.infinity,
                 child: Text(
                   "Expiring in: 1hr 12min",
                   textAlign: TextAlign.center,
-                  style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+                  style: CustomTextStyle.h5.copyWith(
+                      color: widget.type == TypeFirstSeen.Expired
+                          ? ColorTheme.danger
+                          : ColorTheme.success),
                 ),
               ),
               AddImage(

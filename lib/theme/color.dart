@@ -21,6 +21,7 @@ class ColorTheme {
   static final danger = _danger;
   static final lightDanger = _danger.withOpacity(0.1);
   static const success = Color(0xFF009D4F);
+  static const lightSuccess = Color.fromRGBO(0, 157, 79, 0.1);
   static const boxShadow = Color.fromRGBO(0, 0, 0, 0.1);
   static const boxShadow2 = Color.fromRGBO(0, 0, 0, 0.7);
   static const background = Color.fromRGBO(5, 28, 44, 1);

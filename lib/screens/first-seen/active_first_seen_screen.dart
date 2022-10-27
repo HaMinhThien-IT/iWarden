@@ -26,50 +26,17 @@ class ActiveFirstSeenScreen extends StatelessWidget {
             child: Container(
           margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
           child: Column(
-            children: [
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-            ],
+            children: [0, 1, 2, 3, 4, 5]
+                .map(
+                  (e) => CardItem(
+                    type: TypeFirstSeen.Active,
+                    title: "bd5i smr",
+                    expiring: DateTime.now(),
+                    visited: DateTime.now(),
+                    route: DetailActiveFirstSeen.routeName,
+                  ),
+                )
+                .toList(),
           ),
         )),
       ),
@@ -79,50 +46,17 @@ class ActiveFirstSeenScreen extends StatelessWidget {
             child: Container(
           margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
           child: Column(
-            children: [
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-            ],
+            children: [0, 1, 2, 3, 5]
+                .map(
+                  (e) => CardItem(
+                    type: TypeFirstSeen.Expired,
+                    title: "bd5i smr",
+                    expiring: DateTime.now(),
+                    visited: DateTime.now(),
+                    route: DetailExpriedFirstSeen.routeName,
+                  ),
+                )
+                .toList(),
           ),
         )),
       ),

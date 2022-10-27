@@ -30,7 +30,10 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
           onPressed: () {
             Navigator.of(context).pushNamed(IssuePCNFirstSeenScreen.routeName);
           },
-          icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
+          icon: SvgPicture.asset(
+            "assets/svg/IconCharges2.svg",
+            width: 16,
+          ),
           label: const Text(
             'Issue PCN',
             style: CustomTextStyle.h6,
