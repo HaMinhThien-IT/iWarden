@@ -17,7 +17,7 @@ import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
 import 'package:iWarden/screens/map-screen/map_screen.dart';
-import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -85,14 +85,14 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
   Widget build(BuildContext context) {
     SingingCharacter? character = SingingCharacter.lafayette;
     return Scaffold(
-        appBar: const MyAppBar(
-            title: "Issue parking charge", automaticallyImplyLeading: true),
+        appBar:
+            const MyAppBar(title: "Issue PCN", automaticallyImplyLeading: true),
         drawer: const MyDrawer(),
         bottomSheet: BottomSheet2(buttonList: [
           if (selectedButton == 0)
             BottomNavyBarItem(
               onPressed: () {
-                Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+                // Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
               },
               icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
               label: const Text(
@@ -103,7 +103,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
           if (selectedButton == 1)
             BottomNavyBarItem(
               onPressed: () {
-                Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+                // Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
               },
               icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
               label: const Text(
@@ -259,7 +259,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                           height: 16,
                         ),
                         Container(
-                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+                          padding: const EdgeInsets.fromLTRB(7, 16, 16, 4),
                           decoration: BoxDecoration(
                               color: ColorTheme.lighterPrimary,
                               borderRadius: BorderRadius.circular(3)),

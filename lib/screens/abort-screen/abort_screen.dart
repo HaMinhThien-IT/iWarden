@@ -23,12 +23,9 @@ class AbortScreen extends StatefulWidget {
 
 class _AbortScreenState extends State<AbortScreen> {
   final List<Abort> _reasonList = [
-    Abort(id: '1', reason: 'Staff member'),
-    Abort(id: '2', reason: 'Returned - drove off'),
-    Abort(id: '3', reason: 'Returned -customer / Receipts'),
-    Abort(id: '4', reason: 'Client request'),
-    Abort(id: '5', reason: 'Car on white list'),
-    Abort(id: '6', reason: 'Car has 7 unpaid charges'),
+    Abort(id: '1', reason: 'Incorrectly entered'),
+    Abort(id: '2', reason: 'Returned with permit/Blue Badge'),
+    Abort(id: '3', reason: 'Threat/Safety Concerns'),
   ];
   late List<bool> isCheckedReason =
       List<bool>.filled(_reasonList.length, false);
@@ -38,10 +35,10 @@ class _AbortScreenState extends State<AbortScreen> {
     final heightScreen = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: const MyAppBar(
-        title: 'Aborting',
-        automaticallyImplyLeading: true,
-      ),
+      // appBar: const MyAppBar(
+      //   title: 'Aborting',
+      //   automaticallyImplyLeading: true,
+      // ),
       drawer: const MyDrawer(),
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
@@ -56,53 +53,83 @@ class _AbortScreenState extends State<AbortScreen> {
         ),
         BottomNavyBarItem(
           onPressed: () {},
-          icon: SvgPicture.asset('assets/svg/IconFinish.svg'),
+          icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
           label: const Text(
             'Finish abort',
             style: CustomTextStyle.h6,
           ),
         ),
       ]),
-      body: Container(
-        color: ColorTheme.white,
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 20),
-        height: heightScreen / 2,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Please select the reasons and submit to abort this parking charge.',
-                style: CustomTextStyle.body1.copyWith(
-                  color: ColorTheme.grey600,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              color: ColorTheme.danger,
+              padding: const EdgeInsets.all(8),
+              child: Center(
+                  child: Text(
+                "Abort PCN",
+                style: CustomTextStyle.h4.copyWith(color: Colors.white),
+              )),
+            ),
+            Container(
+              color: ColorTheme.white,
+              width: double.infinity,
+              margin: const EdgeInsets.only(top: 16),
+              height: heightScreen / 2.3,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Please select the reasons and submit to abort this parking charge.',
+                      style: CustomTextStyle.body1.copyWith(
+                        color: ColorTheme.grey600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (_, i) {
+                          return (CustomCheckBox(
+                            value: isCheckedReason[i],
+                            onChanged: (val) {
+                              setState(() {
+                                isCheckedReason[i] = val;
+                              });
+                            },
+                            title: _reasonList[i].reason,
+                          ));
+                        },
+                        itemCount: _reasonList.length,
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Enter comment',
+                        label: Text(
+                          "Comment",
+                          style: CustomTextStyle.h6,
+                        ),
+                        hintMaxLines: 1,
+                      ),
+                      maxLines: 3,
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (_, i) {
-                    return (CustomCheckBox(
-                      value: isCheckedReason[i],
-                      onChanged: (val) {
-                        setState(() {
-                          isCheckedReason[i] = val;
-                        });
-                      },
-                      title: _reasonList[i].reason,
-                    ));
-                  },
-                  itemCount: _reasonList.length,
-                ),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

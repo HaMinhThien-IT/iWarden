@@ -50,19 +50,19 @@ class _BottomSheet2State extends State<BottomSheet2> {
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
       decoration: const BoxDecoration(
-        // border: Border(
-        //   top: BorderSide(
-        //     width: 1,
-        //     color: ColorTheme.grey300,
-        //   ),
-        // ),
-        boxShadow: [
-          BoxShadow(
+        border: Border(
+          top: BorderSide(
+            width: 1,
             color: ColorTheme.grey300,
-            offset: Offset(0, 5.0),
-            blurRadius: 20.0,
           ),
-        ],
+        ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: ColorTheme.grey300,
+        //     offset: Offset(0, 5.0),
+        //     blurRadius: 20.0,
+        //   ),
+        // ],
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(

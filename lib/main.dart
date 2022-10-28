@@ -11,9 +11,9 @@ import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';
 import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/screens/map-screen/map_screen.dart';
-import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
-import 'package:iWarden/screens/print_issue.dart' as print;
+import 'package:iWarden/screens/parking-charges/print_issue.dart' as print;
 import 'package:iWarden/settings/app_settings.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/theme.dart';
@@ -35,15 +35,15 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // final appSetting = AppSettings();
-    // appSetting.settings();
+    final appSetting = AppSettings();
+    appSetting.settings();
 
     return MaterialApp(
       title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
-      home: const HomeOverview(),
-      initialRoute: HomeOverview.routeName,
+      home: const PrintPCN(),
+      initialRoute: PrintPCN.routeName,
       routes: routes,
     );
   }

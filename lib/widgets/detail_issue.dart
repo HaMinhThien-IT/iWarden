@@ -16,7 +16,7 @@ class DetailIssue extends StatelessWidget {
                   bottom: BorderSide(width: 1, color: ColorTheme.grey300))
               : null),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      margin: const EdgeInsets.only(top: 16),
+      margin: const EdgeInsets.only(top: 8),
       child: Column(
         children: <Widget>[
           Row(

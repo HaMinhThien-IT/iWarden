@@ -10,8 +10,10 @@ import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/screens/parking-charges/preview_photo.dart';
+import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
-import 'package:iWarden/screens/print_issue.dart';
+import 'package:iWarden/screens/parking-charges/print_issue.dart';
 import '../screens/login_screens.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -26,6 +28,9 @@ final Map<String, WidgetBuilder> routes = {
   //parking charge
   IssuePCNFirstSeenScreen.routeName: (context) =>
       const IssuePCNFirstSeenScreen(),
+  PrintPCN.routeName: (context) => const PrintPCN(),
+  PreviewPhoto.routeName: (context) => const PreviewPhoto(),
+
   ParkingChargeDetail.routeName: (context) => const ParkingChargeDetail(),
   AddFirstSeenScreen.routeName: (context) => const AddFirstSeenScreen(),
   PrintIssue.routeName: (context) => const PrintIssue(),

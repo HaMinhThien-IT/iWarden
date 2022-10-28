@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/images/Logo.png
     - assets/images/avatar.png
+    - assets/images/car.png
     - assets/svg/Vector.svg
     - assets/svg/IconNext.svg
     - assets/svg/PositionIcon.svg
@@ -124,6 +125,9 @@ flutter:
     - assets/svg/IconStartBreak.svg
     - assets/svg/IconEndBreak.svg
     - assets/svg/IconComplete2.svg
+    - assets/svg/IconCompleteActive.svg
+    - assets/svg/IconCameraPreview.svg
+    
     - config/
     - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
