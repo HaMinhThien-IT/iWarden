@@ -17,6 +17,7 @@ import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
 import 'package:iWarden/screens/map-screen/map_screen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
@@ -89,10 +90,10 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
             const MyAppBar(title: "Issue PCN", automaticallyImplyLeading: true),
         drawer: const MyDrawer(),
         bottomSheet: BottomSheet2(buttonList: [
-          if (selectedButton == 0)
+          if (selectedButton == 1)
             BottomNavyBarItem(
               onPressed: () {
-                // Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+                Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
               },
               icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
               label: const Text(
@@ -100,10 +101,10 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                 style: CustomTextStyle.h6,
               ),
             ),
-          if (selectedButton == 1)
+          if (selectedButton == 0)
             BottomNavyBarItem(
               onPressed: () {
-                // Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+                Navigator.of(context).pushNamed(PrintPCN.routeName);
               },
               icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
               label: const Text(

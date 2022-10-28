@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
@@ -11,11 +12,13 @@ class AddImage extends StatefulWidget {
   final bool isSlideImage;
   final bool isCamera;
   List<dynamic> listImage;
+  final bool? displayTitle;
   final VoidCallback onAddImage;
   AddImage({
     Key? key,
     this.isSlideImage = false,
     this.isCamera = false,
+    this.displayTitle = true,
     required this.onAddImage,
     required this.listImage,
   }) : super(key: key);
@@ -66,8 +69,7 @@ class _AddImageState extends State<AddImage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (PrintPCN.routeName !=
-                      ModalRoute.of(context)!.settings.name)
+                  if (widget.displayTitle == true)
                     Text(
                       "Evidence photos (${widget.listImage.length})",
                       style: CustomTextStyle.h5

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -54,49 +55,21 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
           child: Container(
             margin: const EdgeInsets.only(top: 15, bottom: 100),
             child: Column(
-              children: [
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-                const SizedBox(height: 5),
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-                const SizedBox(height: 5),
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-                const SizedBox(height: 5),
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-                const SizedBox(height: 5),
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-                const SizedBox(height: 5),
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-                const SizedBox(height: 5),
-                CardItemParkingCharge(
-                  title: 'bd5i smr',
-                  contravention: '88 Expired Disabled Badge',
-                  created: DateTime.now(),
-                ),
-              ],
+              children: [0, 1, 2, 3, 4]
+                  .map(
+                    (e) => InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(ParkingChargeDetail.routeName);
+                      },
+                      child: CardItemParkingCharge(
+                        title: 'bd5i smr',
+                        contravention: '88 Expired Disabled Badge',
+                        created: DateTime.now(),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ),

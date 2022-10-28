@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iWarden/common/add_image.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/detail_issue.dart';
+import 'package:iWarden/widgets/parking-charge/detail_car.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -27,18 +29,21 @@ class DetailParkingCommon extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            width: double.infinity,
-            color: ColorTheme.darkPrimary,
-            padding: const EdgeInsets.all(8),
-            child: Center(
-                child: Text(
-              "Print PCN",
-              style: CustomTextStyle.h4.copyWith(color: Colors.white),
-            )),
-          ),
-          const DetailIssue(
-            borderBottom: true,
+          if (ModalRoute.of(context)!.settings.name !=
+              ParkingChargeDetail.routeName)
+            Container(
+              width: double.infinity,
+              color: ColorTheme.darkPrimary,
+              padding: const EdgeInsets.all(8),
+              child: Center(
+                  child: Text(
+                "Print PCN",
+                style: CustomTextStyle.h4.copyWith(color: Colors.white),
+              )),
+            ),
+          const DetailCar(),
+          const SizedBox(
+            height: 8,
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -76,7 +81,7 @@ class DetailParkingCommon extends StatelessWidget {
                   style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 )
               ],
             ),
@@ -86,6 +91,7 @@ class DetailParkingCommon extends StatelessWidget {
             isCamera: false,
             onAddImage: () {},
             isSlideImage: true,
+            displayTitle: false,
           )
         ],
       ),
