@@ -41,6 +41,7 @@ class _MyTabBarState extends State<MyTabBar> {
       child: Scaffold(
         appBar: MyAppBar(
           title: widget.titleAppBar,
+          automaticallyImplyLeading: true,
         ),
         bottomSheet: BottomSheet2(buttonList: [
           BottomNavyBarItem(

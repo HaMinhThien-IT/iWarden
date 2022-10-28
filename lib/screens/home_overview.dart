@@ -1,9 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/bottom_sheet_2.dart';
+import 'package:iWarden/common/my_dialog.dart';
+import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/screens/grace-period/add_grace_period.dart';
+import 'package:iWarden/screens/grace-period/index.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
@@ -16,55 +22,6 @@ class HomeOverview extends StatelessWidget {
   static const routeName = '/home';
   const HomeOverview({Key? key}) : super(key: key);
   // ignore: unused_element
-  Future<void> _showMyDialog(
-      BuildContext context, String title, String subTitle, Widget func) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      barrierColor: ColorTheme.backdrop,
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: AlertDialog(
-            insetPadding: const EdgeInsets.all(20),
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              title,
-              style: CustomTextStyle.h4,
-              textAlign: TextAlign.center,
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    subTitle,
-                    style: CustomTextStyle.h5.copyWith(
-                      color: ColorTheme.grey600,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  )
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              Center(
-                child: func,
-              ),
-              const SizedBox(
-                height: 4,
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +29,22 @@ class HomeOverview extends StatelessWidget {
     return Scaffold(
       appBar: const MyAppBar(title: "Home"),
       drawer: const MyDrawer(),
+      bottomSheet: BottomSheet2(buttonList: [
+        BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svg/IconPrinter.svg"),
+            label: const Text(
+              "Start lunch",
+              style: CustomTextStyle.h6,
+            )),
+        BottomNavyBarItem(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svg/CheckOut.svg"),
+            label: Text(
+              "End shift",
+              style: CustomTextStyle.h6.copyWith(color: ColorTheme.danger),
+            )),
+      ]),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -84,7 +57,7 @@ class HomeOverview extends StatelessWidget {
                   "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
               email: "tom.smiths@ukparkingcontrol.com",
               name: "Tom Smiths",
-              location: "London",
+              location: "Castlepoint Shopping centre",
               zone: "Car park 1",
             ),
             const SizedBox(
@@ -100,6 +73,7 @@ class HomeOverview extends StatelessWidget {
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
               route: AddFirstSeenScreen.routeName,
+              routeView: ActiveFirstSeenScreen.routeName,
             ),
             const SizedBox(
               height: 10,
@@ -114,20 +88,22 @@ class HomeOverview extends StatelessWidget {
               infoRight: "Active: 12",
               infoLeft: "Expired: 12",
               route: AddGracePeriod.routeName,
+              routeView: GracePeriodList.routeName,
             ),
             const SizedBox(
               height: 10,
             ),
             CardHome(
               width: width,
-              assetIcon: "assets/svg/IconCharges2.svg",
+              assetIcon: "assets/svg/IconParkingChargesHome.svg",
               backgroundIcon: ColorTheme.lighterSecondary,
               title: "Parking Charges",
               desc:
                   "Parking charges list description Parking charges list description",
               infoRight: "Issued: 12",
-              infoLeft: "Aborted: 12",
+              infoLeft: null,
               route: IssuePCNFirstSeenScreen.routeName,
+              routeView: ParkingChargeList.routeName,
             ),
           ],
         ),

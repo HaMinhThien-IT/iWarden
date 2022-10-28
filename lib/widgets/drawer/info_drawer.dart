@@ -52,20 +52,52 @@ class InfoDrawer extends StatelessWidget {
               email,
               maxLines: 2,
               // overflow: TextOverflow.ellipsis,
-              style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
+              style: CustomTextStyle.caption.copyWith(
+                  color: !isDrawer ? ColorTheme.grey600 : Colors.white),
             ),
-            if (!isDrawer)
-              Text(
-                "Location: ${location!}",
-                overflow: TextOverflow.ellipsis,
-                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
-              ),
-            if (!isDrawer)
-              Text(
-                "Zone: ${zone!}",
-                overflow: TextOverflow.ellipsis,
-                style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
-              ),
+            Row(
+              children: [
+                Text(
+                  "Location: ",
+                  overflow: TextOverflow.ellipsis,
+                  style: CustomTextStyle.caption.copyWith(
+                      color:
+                          !isDrawer ? ColorTheme.grey600 : ColorTheme.primary),
+                ),
+                Text(
+                  location!,
+                  overflow: TextOverflow.ellipsis,
+                  style: CustomTextStyle.caption.copyWith(
+                      fontWeight: !isDrawer ? FontWeight.w600 : FontWeight.w500,
+                      color:
+                          !isDrawer ? ColorTheme.grey600 : ColorTheme.primary),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "Zone: ",
+                  overflow: TextOverflow.ellipsis,
+                  style: CustomTextStyle.caption.copyWith(
+                      color: !isDrawer
+                          ? ColorTheme.grey600
+                          : ColorTheme.secondary),
+                ),
+                Text(
+                  zone!,
+                  overflow: TextOverflow.ellipsis,
+                  style: CustomTextStyle.caption.copyWith(
+                      fontWeight: !isDrawer ? FontWeight.w600 : FontWeight.w500,
+                      color: !isDrawer
+                          ? ColorTheme.grey600
+                          : ColorTheme.secondary),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            )
           ],
         ),
       ),

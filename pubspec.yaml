@@ -111,12 +111,19 @@ flutter:
     - assets/svg/IconCom.svg
     - assets/svg/IconCamera2.svg
     - assets/svg/IconPrinter.svg
+    - assets/svg/IconPrinter2.svg
     - assets/svg/IconStatistic.svg
     - assets/svg/IconCall2.svg
     - assets/svg/IconCall3.svg
     - assets/svg/IconCancel.svg
     - assets/svg/IconAbort.svg
-
+    - assets/svg/LogoHome.svg
+    - assets/svg/IconParkingChargesHome.svg
+    - assets/svg/IconSpotCheck.svg
+    - assets/svg/IconEndShift.svg
+    - assets/svg/IconStartBreak.svg
+    - assets/svg/IconEndBreak.svg
+    - assets/svg/IconComplete2.svg
     - config/
     - assets/
   # An image asset can refer to one or more resolution-specific "variants", see

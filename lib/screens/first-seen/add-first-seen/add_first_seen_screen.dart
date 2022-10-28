@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/add_image.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
@@ -33,7 +36,6 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   @override
   void initState() {
     super.initState();
-
     _anylineService = AnylineServiceImpl();
   }
 
@@ -80,6 +82,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
     _formKey.currentState!.save();
   }
 
+  List<File> arrayImage = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,9 +94,17 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
           onPressed: _saveForm,
+          icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+          label: const Text(
+            'Complete ',
+            style: CustomTextStyle.h6,
+          ),
+        ),
+        BottomNavyBarItem(
+          onPressed: _saveForm,
           icon: SvgPicture.asset('assets/svg/IconSave.svg'),
           label: const Text(
-            'Save',
+            'Save & add',
             style: CustomTextStyle.h6,
           ),
         ),
@@ -156,129 +167,39 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                labelText: "Vehicle make",
-                              ),
-                              hintText: 'Enter vehicle make',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Vehicle make is required.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _locationController.text = value as String;
-                              },
-                            );
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                  labelText: "Vehicle model"),
-                              hintText: 'Enter vehicle model',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Vehicle model is required.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _locationController.text = value as String;
-                              },
-                            );
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                labelText: "Vehicle color",
-                              ),
-                              hintText: 'Enter vehicle color',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Vehicle color is required.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _locationController.text = value as String;
-                              },
-                            );
-                          }),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
                         TextFormField(
                           style: CustomTextStyle.h6,
                           decoration: const InputDecoration(
                             labelText: 'Bay number',
                             hintText: "Enter bay number",
                           ),
+                          keyboardType: TextInputType.number,
                         ),
                       ],
                     ),
                   ),
                 ),
-                const AddImage(
-                  titleCamera: "Add first seen",
+                const SizedBox(
+                  height: 8,
+                ),
+                AddImage(
+                  isCamera: true,
+                  listImage: arrayImage,
+                  onAddImage: () async {
+                    final results =
+                        await Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CameraPicker(
+                                  titleCamera: "Add first seen",
+                                  onDelete: (file) {
+                                    return true;
+                                  },
+                                )));
+                    if (results != null) {
+                      setState(() {
+                        arrayImage = List.from(results);
+                      });
+                    }
+                  },
                 ),
               ],
             ),

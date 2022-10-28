@@ -28,44 +28,31 @@ import 'package:provider/provider.dart';
 const _defaultPreviewHeight = 60.0;
 const _defaultPreviewWidth = 80.0;
 
-/// A CameraPicker.
 class CameraPicker extends HookWidget {
   final Function(dynamic error, dynamic stack)? onError;
 
-  /// Resolution preset of the camera
   final ResolutionPreset resolutionPreset;
 
-  /// Max number of picture allowed, used to enable the continue button
   final int? maxPicture;
 
-  /// Min number of picture allowed, used to enable the continue button
   final int minPicture;
 
-  /// Show or not the cancel button
   final bool showCancelButton;
 
-  /// Show or not the torch button
   final bool showTorchButton;
 
-  /// Show or not the switch camera button
   final bool showSwitchCameraButton;
 
-  /// Color to use for icons
   final Color iconColor;
 
-  /// Height of the preview, default to 60
   final double previewHeight;
 
-  /// Widget of the preview, default to 80
   final double previewWidth;
 
-  /// Callback when an existing picture is asked to be delete, return true or false to continue deletion
   final FutureOr<bool> Function(File file)? onDelete;
 
-  /// Initial selection of images to put in the preview
   final List<File>? initialFiles;
 
-  /// Custom builder to show "no camera" widget
   final WidgetBuilder? noCameraBuilder;
   final String titleCamera;
   final bool? previewImage;
@@ -362,7 +349,6 @@ class CameraPicker extends HookWidget {
                                     InkWell(
                                       onTap: () {
                                         cameraController.dispose();
-                                        Navigator.of(context).pop();
                                         SystemChrome.setPreferredOrientations([
                                           DeviceOrientation.portraitUp,
                                           DeviceOrientation.portraitDown,
@@ -376,6 +362,7 @@ class CameraPicker extends HookWidget {
                                                 Brightness.dark,
                                           ),
                                         );
+                                        Navigator.of(context).pop();
                                       },
                                       child: const BuildIcon(
                                         width: 32,
@@ -396,10 +383,8 @@ class CameraPicker extends HookWidget {
                                           File files = await File(
                                                   '${tempDir.path}/$fileName')
                                               .create();
-
                                           var decodeImg = img.decodeImage(
                                               await file.readAsBytes());
-
                                           img.Image fixed =
                                               img.copyRotate(decodeImg!, -90);
                                           img.drawString(

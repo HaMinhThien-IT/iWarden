@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
+import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/widgets/drawer/model/data.dart';
 import 'package:iWarden/widgets/drawer/model/menu_item.dart';
+import 'package:iWarden/widgets/drawer/model/nav_item.dart';
 import 'package:iWarden/widgets/drawer/nav_item.dart';
 import 'package:provider/provider.dart';
 import '../../theme/color.dart';
@@ -19,6 +22,7 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   final TextEditingController _locationController = TextEditingController();
+  bool check = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +38,31 @@ class _MyDrawerState extends State<MyDrawer> {
           .toList();
     }
 
+    List<NavItemMenu> navItem = [
+      NavItemMenu(
+          'Emerg. call',
+          SvgPicture.asset(
+            'assets/svg/IconCall2.svg',
+          ),
+          HomeOverview.routeName,
+          ColorTheme.grey200,
+          null,
+          null),
+      NavItemMenu('999', SvgPicture.asset('assets/svg/IconCall3.svg'),
+          HomeOverview.routeName, ColorTheme.grey200, null, null),
+      NavItemMenu(
+          'Start break',
+          SvgPicture.asset('assets/svg/IconStartBreak.svg'),
+          HomeOverview.routeName,
+          ColorTheme.lighterSecondary,
+          check, () {
+        setState(() {
+          check = !check;
+        });
+      }),
+    ];
     List<Widget> getListNav() {
-      return DataMenuItem()
-          .navItem
+      return navItem
           .map((e) => NavItem(
                 itemMenu: e,
               ))
@@ -48,7 +74,7 @@ class _MyDrawerState extends State<MyDrawer> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: SizedBox(
-        width: widthScreen > 400 ? widthScreen * 0.45 : widthScreen * 0.85,
+        width: widthScreen > 450 ? widthScreen * 0.45 : widthScreen * 0.85,
         child: Drawer(
           child: SingleChildScrollView(
             child: Column(
@@ -61,79 +87,8 @@ class _MyDrawerState extends State<MyDrawer> {
                           "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
                       email: "tom.smiths@ukparkingcontrol.com",
                       name: "Tom Smiths",
-                    ),
-                    ClipRRect(
-                      child: Container(
-                          width: double.infinity,
-                          height: heightScreen / checkScreen,
-                          color: ColorTheme.darkPrimary,
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Column(
-                              children: <Widget>[
-                                Consumer<Locations>(
-                                  builder: ((_, location, child) {
-                                    return AutoCompleteWidget(
-                                      labelColor: ColorTheme.white,
-                                      fillColor: ColorTheme.darkPrimary,
-                                      hintColor: ColorTheme.grey600,
-                                      floatingLabelColor: ColorTheme.white,
-                                      labelText: const Text('Location'),
-                                      hintText: 'Select location',
-                                      controller: _locationController,
-                                      onSuggestionSelected: (suggestion) {
-                                        setState(() {
-                                          _locationController.text =
-                                              (suggestion as Location).value;
-                                        });
-                                      },
-                                      itemBuilder: (context, locationItem) {
-                                        return ItemDataComplete(
-                                          itemData:
-                                              (locationItem as Location).label,
-                                        );
-                                      },
-                                      suggestionsCallback: (pattern) {
-                                        return location.onSuggest(pattern);
-                                      },
-                                    );
-                                  }),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Consumer<Locations>(
-                                  builder: ((_, location, child) {
-                                    return AutoCompleteWidget(
-                                      labelColor: ColorTheme.white,
-                                      fillColor: ColorTheme.darkPrimary,
-                                      hintColor: ColorTheme.grey600,
-                                      floatingLabelColor: ColorTheme.white,
-                                      labelText: const Text('Zone'),
-                                      hintText: 'Select zone',
-                                      controller: _locationController,
-                                      onSuggestionSelected: (suggestion) {
-                                        setState(() {
-                                          _locationController.text =
-                                              (suggestion as Location).value;
-                                        });
-                                      },
-                                      itemBuilder: (context, locationItem) {
-                                        return ItemDataComplete(
-                                          itemData:
-                                              (locationItem as Location).label,
-                                        );
-                                      },
-                                      suggestionsCallback: (pattern) {
-                                        return location.onSuggest(pattern);
-                                      },
-                                    );
-                                  }),
-                                ),
-                              ],
-                            ),
-                          )),
+                      location: "Castlepoint Shopping centre",
+                      zone: "Car park 1",
                     ),
                     const SizedBox(
                       height: 24,
@@ -144,17 +99,22 @@ class _MyDrawerState extends State<MyDrawer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: getList()),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ItemMenuWidget(
                         itemMenu: ItemMenu(
-                            "Check out", "assets/svg/CheckOut.svg", "checkout"),
+                            "End shift",
+                            SvgPicture.asset("assets/svg/IconEndShift.svg"),
+                            "checkout"),
                       ),
                     ),
-                    SizedBox(height: heightScreen / 5),
+                    SizedBox(height: heightScreen / 3.5),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
+                        horizontal: 30,
                         vertical: 30,
                       ),
                       child: Row(

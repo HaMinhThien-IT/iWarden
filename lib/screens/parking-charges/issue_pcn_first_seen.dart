@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iWarden/common/Camera/camera_picker.dart';
+import 'package:iWarden/common/add_image.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/button_scan.dart';
@@ -11,7 +15,9 @@ import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
+import 'package:iWarden/screens/map-screen/map_screen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -37,6 +43,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
     super.initState();
   }
 
+  List<File> arrayImage = [];
   Future<void> scan(ScanMode mode) async {
     try {
       Result? result = await _anylineService.scan(mode);
@@ -74,6 +81,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SingingCharacter? character = SingingCharacter.lafayette;
     return Scaffold(
         appBar: const MyAppBar(
             title: "Issue parking charge", automaticallyImplyLeading: true),
@@ -221,15 +229,6 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        TextFormField(
-                            style: CustomTextStyle.h6,
-                            decoration: const InputDecoration(
-                              label: LabelRequire(labelText: "Bay number"),
-                              hintText: "Enter bay number",
-                            )),
-                        const SizedBox(
-                          height: 16,
-                        ),
                         Consumer<Locations>(
                           builder: ((_, location, child) {
                             return AutoCompleteWidget(
@@ -256,10 +255,26 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
+                        ListTile(
+                          title: const Text(
+                            'Physical PCN',
+                            style: CustomTextStyle.h5,
+                          ),
+                          leading: Radio<SingingCharacter>(
+                            activeColor: ColorTheme.success,
+                            value: SingingCharacter.lafayette,
+                            groupValue: character,
+                            onChanged: (SingingCharacter? value) {
+                              setState(() {
+                                character = value;
+                              });
+                            },
+                          ),
+                        ),
                         TextFormField(
                             style: CustomTextStyle.h6,
                             keyboardType: TextInputType.multiline,
-                            minLines: 2,
+                            minLines: 3,
                             maxLines: 5,
                             decoration: const InputDecoration(
                               labelText: "Comment",
@@ -269,7 +284,24 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                     ),
                   ),
                 ),
-                const SliderImage(),
+                AddImage(
+                    onAddImage: () async {
+                      final results =
+                          await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CameraPicker(
+                                    titleCamera: "Issue parking charge",
+                                    onDelete: (file) {
+                                      return true;
+                                    },
+                                  )));
+                      if (results != null) {
+                        setState(() {
+                          arrayImage = List.from(results);
+                        });
+                      }
+                    },
+                    listImage: arrayImage,
+                    isCamera: true),
               ],
             ),
           ),

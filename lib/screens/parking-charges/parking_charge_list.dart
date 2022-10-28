@@ -22,6 +22,7 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
     return Scaffold(
       appBar: const MyAppBar(
         title: 'Parking charges',
+        automaticallyImplyLeading: true,
       ),
       drawer: const MyDrawer(),
       bottomSheet: BottomSheet2(buttonList: [
@@ -29,7 +30,10 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
           onPressed: () {
             Navigator.of(context).pushNamed(IssuePCNFirstSeenScreen.routeName);
           },
-          icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
+          icon: SvgPicture.asset(
+            "assets/svg/IconCharges2.svg",
+            width: 16,
+          ),
           label: const Text(
             'Issue PCN',
             style: CustomTextStyle.h6,
@@ -53,51 +57,44 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
               children: [
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
                 const SizedBox(height: 5),
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
                 const SizedBox(height: 5),
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
                 const SizedBox(height: 5),
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
                 const SizedBox(height: 5),
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
                 const SizedBox(height: 5),
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
                 const SizedBox(height: 5),
                 CardItemParkingCharge(
                   title: 'bd5i smr',
-                  contravention: 'Article 27',
+                  contravention: '88 Expired Disabled Badge',
                   created: DateTime.now(),
-                  fineAmount: 35,
                 ),
               ],
             ),

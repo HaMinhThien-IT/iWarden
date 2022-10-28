@@ -16,7 +16,7 @@ class GracePeriodList extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyTabBar(
       labelFuncAdd: "Add grace period",
-      titleAppBar: "Grace period",
+      titleAppBar: "Consideration Period",
       quantityActive: 12,
       quantityExpired: 12,
       funcAdd: () {
@@ -29,50 +29,17 @@ class GracePeriodList extends StatelessWidget {
             child: Container(
           margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
           child: Column(
-            children: [
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Active,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailActiveFirstSeen.routeName,
-              ),
-            ],
+            children: [0, 1, 2, 3, 4, 5]
+                .map(
+                  (e) => CardItem(
+                    type: TypeFirstSeen.Active,
+                    title: "bd5i smr",
+                    expiring: DateTime.now(),
+                    visited: DateTime.now(),
+                    route: DetailActiveFirstSeen.routeName,
+                  ),
+                )
+                .toList(),
           ),
         )),
       ),
@@ -82,50 +49,17 @@ class GracePeriodList extends StatelessWidget {
             child: Container(
           margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
           child: Column(
-            children: [
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-              CardItem(
-                type: TypeFirstSeen.Expired,
-                title: "bd5i smr",
-                expiring: DateTime.now(),
-                visited: DateTime.now(),
-                route: DetailExpriedFirstSeen.routeName,
-              ),
-            ],
+            children: [0, 1, 2, 3, 4, 5]
+                .map(
+                  (_) => CardItem(
+                    type: TypeFirstSeen.Expired,
+                    title: "bd5i smr",
+                    expiring: DateTime.now(),
+                    visited: DateTime.now(),
+                    route: DetailExpriedFirstSeen.routeName,
+                  ),
+                )
+                .toList(),
           ),
         )),
       ),

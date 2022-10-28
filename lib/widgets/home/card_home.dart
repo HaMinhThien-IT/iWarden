@@ -10,9 +10,10 @@ class CardHome extends StatelessWidget {
       required this.assetIcon,
       required this.backgroundIcon,
       required this.desc,
-      required this.infoLeft,
+      this.infoLeft,
       required this.infoRight,
       required this.title,
+      required this.routeView,
       required this.route})
       : super(key: key);
 
@@ -22,127 +23,111 @@ class CardHome extends StatelessWidget {
   final String title;
   final String desc;
   final String infoRight;
-  final String infoLeft;
+  final String? infoLeft;
   final String route;
+  final String routeView;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: <Widget>[
-          Card(
-              semanticContainer: true,
-              elevation: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: 56,
-                        height: 56,
-                        margin: const EdgeInsets.only(right: 10),
+    return InkWell(
+      onTap: () => Navigator.of(context).pushNamed(routeView),
+      child: Container(
+        decoration: const BoxDecoration(color: Colors.white),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+            Card(
+                semanticContainer: true,
+                elevation: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: 56,
+                          height: 56,
+                          margin: const EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                              color: backgroundIcon,
+                              borderRadius: BorderRadius.circular(3)),
+                          child: Container(
+                              padding: const EdgeInsets.all(17),
+                              child: SvgPicture.asset(
+                                assetIcon,
+                              )),
+                        ),
+                        SizedBox(
+                          width: width / 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                title,
+                                style: CustomTextStyle.h5.copyWith(
+                                  color: ColorTheme.textPrimary,
+                                ),
+                              ),
+                              Text(
+                                desc,
+                                style: CustomTextStyle.h6.copyWith(
+                                  color: ColorTheme.grey600,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.start,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, route);
+                      },
+                      child: Container(
                         decoration: BoxDecoration(
-                            color: backgroundIcon,
-                            borderRadius: BorderRadius.circular(3)),
-                        child: Container(
-                            padding: const EdgeInsets.all(20),
-                            child: SvgPicture.asset(
-                              assetIcon,
-                            )),
-                      ),
-                      SizedBox(
-                        width: width / 2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              title,
-                              style: CustomTextStyle.h5.copyWith(
-                                color: ColorTheme.textPrimary,
-                              ),
-                            ),
-                            Text(
-                              desc,
-                              style: CustomTextStyle.h6.copyWith(
-                                color: ColorTheme.grey600,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                            )
-                          ],
+                            borderRadius: BorderRadius.circular(30)),
+                        child: SvgPicture.asset(
+                          "assets/svg/IconPlus.svg",
+                          width: 24.67,
                         ),
-                      )
-                    ],
+                      ),
+                    ),
+                  ],
+                )),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    infoRight,
+                    style: CustomTextStyle.h6.copyWith(
+                      color: ColorTheme.success,
+                    ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, route);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.only(
-                              bottom: 8, left: 8, right: 8, top: 5),
-                          child: SvgPicture.asset(
-                            "assets/svg/IconPlus.svg",
-                          ),
-                        ),
+                  if (infoLeft != null)
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  if (infoLeft != null)
+                    Text(
+                      infoLeft!,
+                      style: CustomTextStyle.h6.copyWith(
+                        color: ColorTheme.danger,
                       ),
-                      InkWell(
-                        onTap: () {
-                          // ignore: avoid_print
-                          print("in");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.only(
-                              bottom: 8, left: 8, right: 0, top: 5),
-                          child: SvgPicture.asset(
-                            "assets/svg/IconView.svg",
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
                 ],
-              )),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  infoRight,
-                  style: CustomTextStyle.h6.copyWith(
-                    color: ColorTheme.success,
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  infoLeft,
-                  style: CustomTextStyle.h6.copyWith(
-                    color: ColorTheme.danger,
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

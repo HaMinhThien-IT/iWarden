@@ -33,17 +33,17 @@ class CardItem extends StatelessWidget {
         elevation: 0,
         semanticContainer: true,
         child: ListTile(
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: SizedBox(
-              width: 72,
-              height: 72,
-              child: Image.network(
-                "https://i.pinimg.com/originals/fa/eb/46/faeb46aac8f388c0b35977d4b0634cc2.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          // leading: ClipRRect(
+          //   borderRadius: BorderRadius.circular(5.0),
+          //   child: SizedBox(
+          //     width: 72,
+          //     height: 72,
+          //     child: Image.network(
+          //       "https://i.pinimg.com/originals/fa/eb/46/faeb46aac8f388c0b35977d4b0634cc2.jpg",
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -58,7 +58,9 @@ class CardItem extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       onPressed: () {},
-                      icon: SvgPicture.asset("assets/svg/IconCharges2.svg"),
+                      icon: SvgPicture.asset(
+                        "assets/svg/IconCharges2.svg",
+                      ),
                     ),
                   if (type == TypeFirstSeen.Expired)
                     const SizedBox(

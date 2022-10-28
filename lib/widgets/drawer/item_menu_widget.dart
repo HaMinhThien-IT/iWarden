@@ -21,22 +21,22 @@ class ItemMenuWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          color: activeRoute() ? ColorTheme.lighterPrimary : null),
+          borderRadius: BorderRadius.circular(3),
+          color: activeRoute()
+              ? ColorTheme.lighterPrimary
+              : itemMenu.route == "checkout"
+                  ? ColorTheme.lightDanger
+                  : null),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushReplacementNamed(itemMenu.route);
+          Navigator.of(context).pushReplacementNamed(itemMenu.route!);
         },
         child: Row(
           children: [
             Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: SvgPicture.asset(itemMenu.assetIcon,
-                    color: itemMenu.route == "checkout"
-                        ? ColorTheme.danger
-                        : activeRoute()
-                            ? ColorTheme.darkPrimary
-                            : ColorTheme.grey600)),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: itemMenu.icon,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
@@ -44,9 +44,7 @@ class ItemMenuWidget extends StatelessWidget {
                 style: CustomTextStyle.h6.copyWith(
                     color: itemMenu.route == "checkout"
                         ? ColorTheme.danger
-                        : activeRoute()
-                            ? ColorTheme.darkPrimary
-                            : ColorTheme.textPrimary),
+                        : ColorTheme.textPrimary),
               ),
             )
           ],
@@ -55,3 +53,8 @@ class ItemMenuWidget extends StatelessWidget {
     );
   }
 }
+//  color: itemMenu.route == "checkout"
+//                         ? ColorTheme.danger
+//                         : activeRoute()
+//                             ? ColorTheme.darkPrimary
+//                             : ColorTheme.grey600)
