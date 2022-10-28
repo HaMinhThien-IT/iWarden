@@ -19,7 +19,7 @@ class DataMenuItem {
         ),
         null),
     ItemMenu('Statistic', SvgPicture.asset('assets/svg/IconStatistic.svg'),
-        StatictisScreen.routeName),
+        StatisticScreen.routeName),
     ItemMenu(
         'Spot check',
         SvgPicture.asset(

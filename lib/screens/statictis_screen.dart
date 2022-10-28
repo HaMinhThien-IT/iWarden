@@ -4,19 +4,21 @@ import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/drop_down_button.dart';
 import 'package:iWarden/common/label_require.dart';
 import 'package:iWarden/models/date_filter.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
+import 'package:iWarden/widgets/statistic/statistic_item.dart';
 
-class StatictisScreen extends StatefulWidget {
+class StatisticScreen extends StatefulWidget {
   static const routeName = '/statictis';
-  const StatictisScreen({super.key});
+  const StatisticScreen({super.key});
 
   @override
-  State<StatictisScreen> createState() => _StatictisScreenState();
+  State<StatisticScreen> createState() => _StatisticScreenState();
 }
 
-class _StatictisScreenState extends State<StatictisScreen> {
+class _StatisticScreenState extends State<StatisticScreen> {
   final TextEditingController _locationController = TextEditingController();
   _buildDevice(String nameDevice, bool stateDevice) {
     return Row(
@@ -39,6 +41,43 @@ class _StatictisScreenState extends State<StatictisScreen> {
   Widget build(BuildContext context) {
     final dataList = DataDateFilter().data.toList();
 
+    Widget listDevice = Container(
+      height: 56,
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDevice("GPS", true),
+                const SizedBox(
+                  height: 8,
+                ),
+                _buildDevice("Bluetooth", true),
+                // _buildDevice("Network status", false),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDevice("Network status", false),
+                const SizedBox(
+                  height: 8,
+                ),
+                _buildDevice("Camera", true),
+                // _buildDevice("Network status", false),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
     return Scaffold(
       appBar: const MyAppBar(
         title: "Statistics",
@@ -87,37 +126,71 @@ class _StatictisScreenState extends State<StatictisScreen> {
                 ],
               ),
             ),
+            listDevice,
             const SizedBox(
               height: 8,
             ),
             Container(
               color: Colors.white,
+              height: MediaQuery.of(context).size.width < 450
+                  ? MediaQuery.of(context).size.height - (58 + 8 + 16 + 55 + 24)
+                  : null,
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
                   Row(
                     children: const [
                       Text("My statistic"),
-                      // AutoCompleteWidget(
-                      //   labelText:
-                      //       const LabelRequire(labelText: "Vehicle make"),
-                      //   hintText: 'Enter vehicle make',
-                      //   controller: _locationController,
-                      //   onSuggestionSelected: (suggestion) {
-                      //     setState(() {
-                      //       // _locationController.text =
-                      //       //     (suggestion as Location).value;
-                      //     });
-                      //   },
-                      //   itemBuilder: (context, locationItem) {
-                      //     return ItemDataComplete(
-                      //       itemData: "a",
-                      //     );
-                      //   },
-                      //   suggestionsCallback: (pattern) {
-                      //     // return location.onSuggest(pattern);
-                      //   },
-                      // )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: StatisticItem(
+                          assetIcon: "assets/svg/IconFirstSeen.svg",
+                          background: ColorTheme.lighterPrimary,
+                          quantity: 100,
+                          title: "First seen",
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 32,
+                      ),
+                      Expanded(
+                        child: StatisticItem(
+                          assetIcon: "assets/svg/IconGrace.svg",
+                          background: ColorTheme.lightDanger,
+                          quantity: 100,
+                          title: "Grace period",
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: StatisticItem(
+                          assetIcon: "assets/svg/IconParkingChargesHome.svg",
+                          background: ColorTheme.lighterSecondary,
+                          quantity: 100,
+                          title: "First seen",
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 32,
+                      ),
+                      const Expanded(
+                        child: StatisticItem(
+                          assetIcon: "assets/svg/IconWarning.svg",
+                          background: ColorTheme.grey200,
+                          quantity: 100,
+                          title: "Aborted PCN",
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(
