@@ -28,7 +28,7 @@ class _MyDrawerState extends State<MyDrawer> {
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
     final widthScreen = MediaQuery.of(context).size.width;
-    final checkScreen = heightScreen < 400 ? 2.5 : 5.0;
+
     List<Widget> getList() {
       return DataMenuItem()
           .data

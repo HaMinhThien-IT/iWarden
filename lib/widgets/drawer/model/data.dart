@@ -2,6 +2,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/grace-period/index.dart';
 import 'package:iWarden/screens/home_overview.dart';
+import 'package:iWarden/screens/statictis_screen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/widgets/drawer/model/menu_item.dart';
 import 'package:iWarden/widgets/drawer/model/nav_item.dart';
@@ -18,7 +19,7 @@ class DataMenuItem {
         ),
         null),
     ItemMenu('Statistic', SvgPicture.asset('assets/svg/IconStatistic.svg'),
-        ActiveFirstSeenScreen.routeName),
+        StatictisScreen.routeName),
     ItemMenu(
         'Spot check',
         SvgPicture.asset(

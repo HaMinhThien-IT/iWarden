@@ -127,6 +127,7 @@ flutter:
     - assets/svg/IconComplete2.svg
     - assets/svg/IconCompleteActive.svg
     - assets/svg/IconCameraPreview.svg
+    - assets/svg/IconDotCom.svg
     
     - config/
     - assets/

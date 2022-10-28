@@ -14,6 +14,7 @@ import 'package:iWarden/screens/parking-charges/preview_photo.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/screens/parking-charges/print_issue.dart';
+import 'package:iWarden/screens/statictis_screen.dart';
 import '../screens/login_screens.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -39,4 +40,5 @@ final Map<String, WidgetBuilder> routes = {
   ParkingChargeList.routeName: (context) => const ParkingChargeList(),
   GracePeriodList.routeName: (context) => const GracePeriodList(),
   AddGracePeriod.routeName: (context) => const AddGracePeriod(),
+  StatictisScreen.routeName: (context) => const StatictisScreen()
 };
