@@ -40,5 +40,5 @@ final Map<String, WidgetBuilder> routes = {
   ParkingChargeList.routeName: (context) => const ParkingChargeList(),
   GracePeriodList.routeName: (context) => const GracePeriodList(),
   AddGracePeriod.routeName: (context) => const AddGracePeriod(),
-  StatictisScreen.routeName: (context) => const StatictisScreen()
+  StatisticScreen.routeName: (context) => const StatisticScreen()
 };
