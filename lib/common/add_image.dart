@@ -59,19 +59,19 @@ class _AddImageState extends State<AddImage> {
               carouselController: _controller,
             ),
           Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(12),
               width: double.infinity,
               decoration: const BoxDecoration(color: Colors.white),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (AddFirstSeenScreen.routeName ==
-                      ModalRoute.of(context)!.settings.name)
-                    Text(
-                      "Evidence photos (${widget.listImage.length})",
-                      style: CustomTextStyle.h5
-                          .copyWith(color: ColorTheme.darkPrimary),
-                    ),
+                  // if (AddFirstSeenScreen.routeName ==
+                  //     ModalRoute.of(context)!.settings.name)
+                  Text(
+                    "Evidence photos (${widget.listImage.length})",
+                    style: CustomTextStyle.h5
+                        .copyWith(color: ColorTheme.darkPrimary),
+                  ),
                   if (AddFirstSeenScreen.routeName ==
                       ModalRoute.of(context)!.settings.name)
                     const SizedBox(
@@ -85,7 +85,7 @@ class _AddImageState extends State<AddImage> {
                           child: Container(
                             height: 56.0,
                             width: widget.listImage.isEmpty
-                                ? MediaQuery.of(context).size.width - (16)
+                                ? MediaQuery.of(context).size.width - (24)
                                 : 56.0,
                             margin: EdgeInsets.only(
                                 right: widget.listImage.isEmpty ? 0 : 15),

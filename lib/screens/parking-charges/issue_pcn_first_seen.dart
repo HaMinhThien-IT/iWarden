@@ -6,6 +6,7 @@ import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/add_image.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
+import 'package:iWarden/common/button_radio.dart';
 import 'package:iWarden/common/button_scan.dart';
 import 'package:iWarden/common/label_require.dart';
 import 'package:iWarden/common/slider_image.dart';
@@ -79,6 +80,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
     }
   }
 
+  int selectedButton = 0;
   @override
   Widget build(BuildContext context) {
     SingingCharacter? character = SingingCharacter.lafayette;
@@ -87,26 +89,28 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
             title: "Issue parking charge", automaticallyImplyLeading: true),
         drawer: const MyDrawer(),
         bottomSheet: BottomSheet2(buttonList: [
-          BottomNavyBarItem(
-            onPressed: () async {
-              Navigator.of(context).pop();
-            },
-            icon: SvgPicture.asset('assets/svg/IconCancel.svg'),
-            label: const Text(
-              'Cancel',
-              style: CustomTextStyle.h6,
+          if (selectedButton == 0)
+            BottomNavyBarItem(
+              onPressed: () {
+                Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+              },
+              icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+              label: const Text(
+                'Complete',
+                style: CustomTextStyle.h6,
+              ),
             ),
-          ),
-          BottomNavyBarItem(
-            onPressed: () {
-              Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
-            },
-            icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
-            label: const Text(
-              'Next',
-              style: CustomTextStyle.h6,
+          if (selectedButton == 1)
+            BottomNavyBarItem(
+              onPressed: () {
+                Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
+              },
+              icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+              label: const Text(
+                'Save & print PCN',
+                style: CustomTextStyle.h6,
+              ),
             ),
-          ),
         ]),
         body: SingleChildScrollView(
           child: Container(
@@ -115,8 +119,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+                  padding: const EdgeInsets.fromLTRB(12, 24, 12, 10),
                   color: Colors.white,
                   child: Form(
                     child: Column(
@@ -255,21 +258,53 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        ListTile(
-                          title: const Text(
-                            'Physical PCN',
-                            style: CustomTextStyle.h5,
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+                          decoration: BoxDecoration(
+                              color: ColorTheme.lighterPrimary,
+                              borderRadius: BorderRadius.circular(3)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(left: 12),
+                                child: Text(
+                                  "Please select type of PCN",
+                                  style: CustomTextStyle.h6,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: OptionRadio(
+                                        text: 'Physical PCN',
+                                        index: 0,
+                                        selectedButton: selectedButton,
+                                        press: (val) {
+                                          selectedButton = val;
+                                          setState(() {});
+                                        }),
+                                  ),
+                                  Expanded(
+                                    child: OptionRadio(
+                                        text: 'Virtual PCN',
+                                        index: 1,
+                                        selectedButton: selectedButton,
+                                        press: (val) {
+                                          selectedButton = val;
+                                          setState(() {});
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          leading: Radio<SingingCharacter>(
-                            activeColor: ColorTheme.success,
-                            value: SingingCharacter.lafayette,
-                            groupValue: character,
-                            onChanged: (SingingCharacter? value) {
-                              setState(() {
-                                character = value;
-                              });
-                            },
-                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
                         ),
                         TextFormField(
                             style: CustomTextStyle.h6,

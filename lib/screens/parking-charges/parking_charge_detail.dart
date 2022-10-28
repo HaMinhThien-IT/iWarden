@@ -39,7 +39,7 @@ class ParkingChargeDetail extends StatelessWidget {
             },
             icon: SvgPicture.asset('assets/svg/IconPrinter.svg'),
             label: const Text(
-              'Print',
+              'Print again',
               style: CustomTextStyle.h6,
             ),
           ),
