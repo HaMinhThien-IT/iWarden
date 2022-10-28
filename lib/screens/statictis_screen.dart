@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
+import 'package:iWarden/common/drop_down_button.dart';
 import 'package:iWarden/common/label_require.dart';
+import 'package:iWarden/models/date_filter.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -16,7 +18,6 @@ class StatictisScreen extends StatefulWidget {
 
 class _StatictisScreenState extends State<StatictisScreen> {
   final TextEditingController _locationController = TextEditingController();
-
   _buildDevice(String nameDevice, bool stateDevice) {
     return Row(
       children: [
@@ -36,6 +37,8 @@ class _StatictisScreenState extends State<StatictisScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final dataList = DataDateFilter().data.toList();
+
     return Scaffold(
       appBar: const MyAppBar(
         title: "Statistics",
@@ -64,7 +67,6 @@ class _StatictisScreenState extends State<StatictisScreen> {
                           height: 8,
                         ),
                         _buildDevice("Bluetooth", true),
-                        // _buildDevice("Network status", false),
                       ],
                     ),
                   ),
@@ -79,7 +81,6 @@ class _StatictisScreenState extends State<StatictisScreen> {
                           height: 8,
                         ),
                         _buildDevice("Camera", true),
-                        // _buildDevice("Network status", false),
                       ],
                     ),
                   ),
@@ -118,7 +119,24 @@ class _StatictisScreenState extends State<StatictisScreen> {
                       //   },
                       // )
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DropDownButtonWidget(
+                    labelText: const Text('Date filter'),
+                    hintText: 'Select one',
+                    item: dataList
+                        .map(
+                          (itemValue) => DropdownMenuItem(
+                            value: itemValue.value,
+                            child: Text(itemValue.label),
+                          ),
+                        )
+                        .toList(),
+                    onchanged: (value) {},
+                    value: dataList[0].value,
+                  ),
                 ],
               ),
             ),
