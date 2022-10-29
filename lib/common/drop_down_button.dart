@@ -4,18 +4,20 @@ import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
 class DropDownButtonWidget extends StatelessWidget {
-  final Widget labelText;
+  final Widget? labelText;
   final String hintText;
   final List<DropdownMenuItem<Object?>>? item;
   final void Function(Object?)? onchanged;
   final Object? value;
+  final String? Function(Object?)? validator;
 
   const DropDownButtonWidget(
-      {required this.labelText,
+      {this.labelText,
       required this.hintText,
       required this.item,
       required this.onchanged,
       required this.value,
+      this.validator,
       super.key});
 
   @override
@@ -23,13 +25,33 @@ class DropDownButtonWidget extends StatelessWidget {
     return DropdownButtonFormField2(
       decoration: InputDecoration(
         label: labelText,
-        labelStyle: CustomTextStyle.h5.copyWith(fontSize: 16),
+        labelStyle:
+            MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+          return TextStyle(
+            color: states.contains(MaterialState.error)
+                ? ColorTheme.danger
+                : ColorTheme.textPrimary,
+            fontSize: 18,
+          );
+        }),
         isDense: true,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 12,
           vertical: 13,
         ),
         hintText: hintText,
+        hintStyle: CustomTextStyle.body2.copyWith(
+          color: ColorTheme.grey400,
+        ),
+        floatingLabelStyle:
+            MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+          return TextStyle(
+            color: states.contains(MaterialState.error)
+                ? ColorTheme.danger
+                : ColorTheme.textPrimary,
+            fontSize: 18,
+          );
+        }),
       ),
       isExpanded: true,
       icon: const Icon(
@@ -41,8 +63,9 @@ class DropDownButtonWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       items: item,
-      // onChanged: onchanged,
+      onChanged: onchanged as dynamic,
       value: value,
+      validator: validator as dynamic,
     );
   }
 }

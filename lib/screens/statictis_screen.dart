@@ -37,10 +37,11 @@ class _StatisticScreenState extends State<StatisticScreen> {
     );
   }
 
+  final dataList = DataDateFilter().data.toList();
+  late String selectedValue = dataList[0].value;
+
   @override
   Widget build(BuildContext context) {
-    final dataList = DataDateFilter().data.toList();
-
     Widget listDevice = Container(
       height: 56,
       color: Colors.white,
@@ -90,42 +91,6 @@ class _StatisticScreenState extends State<StatisticScreen> {
             const SizedBox(
               height: 16,
             ),
-            Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildDevice("GPS", true),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        _buildDevice("Bluetooth", true),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildDevice("Network status", false),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        _buildDevice("Camera", true),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
             listDevice,
             const SizedBox(
               height: 8,
@@ -170,35 +135,34 @@ class _StatisticScreenState extends State<StatisticScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: StatisticItem(
-                          assetIcon: "assets/svg/IconParkingChargesHome.svg",
-                          background: ColorTheme.lighterSecondary,
-                          quantity: 100,
-                          title: "First seen",
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 32,
-                      ),
-                      const Expanded(
-                        child: StatisticItem(
-                          assetIcon: "assets/svg/IconWarning.svg",
-                          background: ColorTheme.grey200,
-                          quantity: 100,
-                          title: "Aborted PCN",
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: StatisticItem(
+                  //         assetIcon: "assets/svg/IconParkingChargesHome.svg",
+                  //         background: ColorTheme.lighterSecondary,
+                  //         quantity: 100,
+                  //         title: "First seen",
+                  //       ),
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 32,
+                  //     ),
+                  //     const Expanded(
+                  //       child: StatisticItem(
+                  //         assetIcon: "assets/svg/IconWarning.svg",
+                  //         background: ColorTheme.grey200,
+                  //         quantity: 100,
+                  //         title: "Aborted PCN",
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
                   DropDownButtonWidget(
-                    labelText: const Text('Date filter'),
-                    hintText: 'Select one',
+                    hintText: 'Date filter',
                     item: dataList
                         .map(
                           (itemValue) => DropdownMenuItem(
@@ -207,8 +171,12 @@ class _StatisticScreenState extends State<StatisticScreen> {
                           ),
                         )
                         .toList(),
-                    onchanged: (value) {},
-                    value: dataList[0].value,
+                    onchanged: (value) {
+                      setState(() {
+                        selectedValue = value as String;
+                      });
+                    },
+                    value: selectedValue,
                   ),
                 ],
               ),
