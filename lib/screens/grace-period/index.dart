@@ -56,7 +56,7 @@ class GracePeriodList extends StatelessWidget {
                     title: "bd5i smr",
                     expiring: DateTime.now(),
                     visited: DateTime.now(),
-                    route: DetailExpriedFirstSeen.routeName,
+                    route: DetailExpiredFirstSeen.routeName,
                   ),
                 )
                 .toList(),

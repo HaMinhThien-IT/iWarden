@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
+import 'package:iWarden/screens/connecting_screen.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/screens/abort-screen/abort_screen.dart';
@@ -36,15 +37,15 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final appSetting = AppSettings();
-    appSetting.settings();
+    // final appSetting = AppSettings();
+    // appSetting.settings();
 
     return MaterialApp(
       title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
-      initialRoute: LoginScreen.routeName,
+      home: const LocationScreen(),
+      initialRoute: LocationScreen.routeName,
       routes: routes,
     );
   }

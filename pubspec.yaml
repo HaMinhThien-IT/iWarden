@@ -130,6 +130,8 @@ flutter:
     - assets/svg/IconCameraPreview.svg
     - assets/svg/IconDotCom.svg
     - assets/svg/IconWarning.svg
+    - assets/svg/IconLocation2.svg
+    - assets/svg/IconMaps.svg
     
     - config/
     - assets/
