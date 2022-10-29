@@ -93,7 +93,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius:
-            BorderRadius.all(Radius.circular(widget.borderRadius ?? 4)),
+            BorderRadius.all(Radius.circular(widget.borderRadius ?? 5)),
         border: Border.all(
           color: _checked ? widget.checkedIconColor : ColorTheme.grey600,
           width: widget.shouldShowBorder ? widget.borderWidth ?? 2.0 : 1.0,
@@ -102,28 +102,33 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       child: Icon(
         iconData,
         color: iconColor,
-        size: widget.checkBoxSize ?? 13,
+        size: widget.checkBoxSize ?? 18,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        IconButton(
-          icon: _buildIcon(),
-          onPressed: () => widget.onChanged(!_checked),
-          splashRadius: widget.splashRadius,
-          splashColor: widget.splashColor,
-          tooltip: widget.tooltip,
-          mouseCursor: widget.mouseCursors ?? SystemMouseCursors.click,
-        ),
-        Text(
-          widget.title,
-          style: CustomTextStyle.h5.copyWith(color: ColorTheme.grey600),
-        )
-      ],
+    return InkWell(
+      onTap: () => widget.onChanged(!_checked),
+      child: Row(
+        children: <Widget>[
+          IconButton(
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            icon: _buildIcon(),
+            onPressed: () => widget.onChanged(!_checked),
+            splashRadius: widget.splashRadius,
+            splashColor: widget.splashColor,
+            tooltip: widget.tooltip,
+            mouseCursor: widget.mouseCursors ?? SystemMouseCursors.click,
+          ),
+          const SizedBox(
+            width: 11,
+          ),
+          Text(widget.title, style: CustomTextStyle.h5)
+        ],
+      ),
     );
   }
 }
