@@ -11,5 +11,6 @@ class DataDateFilter {
     DateFilter(label: "This week", value: '3'),
     DateFilter(label: "Last week", value: '4'),
     DateFilter(label: "This month", value: '5'),
+    DateFilter(label: "This month 2", value: '6'),
   ];
 }

@@ -24,6 +24,7 @@ class ColorTheme {
   static const lightSuccess = Color.fromRGBO(0, 157, 79, 0.1);
   static const boxShadow = Color.fromRGBO(0, 0, 0, 0.1);
   static const boxShadow2 = Color.fromRGBO(0, 0, 0, 0.7);
+  static const boxShadow3 = Color.fromRGBO(0, 0, 0, 0.25);
   static const background = Color.fromRGBO(5, 28, 44, 1);
   static const backdrop = Color.fromRGBO(41, 41, 41, 0.5);
   static const backdrop2 = Color.fromRGBO(0, 0, 0, 0.18);
