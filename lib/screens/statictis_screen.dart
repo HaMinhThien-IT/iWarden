@@ -104,8 +104,31 @@ class _StatisticScreenState extends State<StatisticScreen> {
               child: Column(
                 children: [
                   Row(
-                    children: const [
-                      Text("My statistic"),
+                    children: [
+                      const Expanded(flex: 1, child: Text("My statistic")),
+                      Expanded(
+                        flex: 1,
+                        child: DropDownButtonWidget(
+                          hintText: 'Date filter',
+                          item: dataList
+                              .map(
+                                (itemValue) => DropdownMenuItem(
+                                  value: itemValue.value,
+                                  child: Text(
+                                    itemValue.label,
+                                    style: CustomTextStyle.h5,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          onchanged: (value) {
+                            setState(() {
+                              selectedValue = value as String;
+                            });
+                          },
+                          value: selectedValue,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -135,48 +158,31 @@ class _StatisticScreenState extends State<StatisticScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: StatisticItem(
-                  //         assetIcon: "assets/svg/IconParkingChargesHome.svg",
-                  //         background: ColorTheme.lighterSecondary,
-                  //         quantity: 100,
-                  //         title: "First seen",
-                  //       ),
-                  //     ),
-                  //     const SizedBox(
-                  //       width: 32,
-                  //     ),
-                  //     const Expanded(
-                  //       child: StatisticItem(
-                  //         assetIcon: "assets/svg/IconWarning.svg",
-                  //         background: ColorTheme.grey200,
-                  //         quantity: 100,
-                  //         title: "Aborted PCN",
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: StatisticItem(
+                          assetIcon: "assets/svg/IconParkingChargesHome.svg",
+                          background: ColorTheme.lighterSecondary,
+                          quantity: 100,
+                          title: "First seen",
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 32,
+                      ),
+                      const Expanded(
+                        child: StatisticItem(
+                          assetIcon: "assets/svg/IconWarning.svg",
+                          background: ColorTheme.grey200,
+                          quantity: 100,
+                          title: "Aborted PCN",
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 20,
-                  ),
-                  DropDownButtonWidget(
-                    hintText: 'Date filter',
-                    item: dataList
-                        .map(
-                          (itemValue) => DropdownMenuItem(
-                            value: itemValue.value,
-                            child: Text(itemValue.label),
-                          ),
-                        )
-                        .toList(),
-                    onchanged: (value) {
-                      setState(() {
-                        selectedValue = value as String;
-                      });
-                    },
-                    value: selectedValue,
                   ),
                 ],
               ),
