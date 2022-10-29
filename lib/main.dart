@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
       title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
-      home: const StatisticScreen(),
-      initialRoute: StatisticScreen.routeName,
+      home: const LoginScreen(),
+      initialRoute: LoginScreen.routeName,
       routes: routes,
     );
   }
