@@ -38,7 +38,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
   }
 
   final dataList = DataDateFilter().data.toList();
-  late String selectedValue = dataList[0].value;
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -163,14 +163,15 @@ class _StatisticScreenState extends State<StatisticScreen> {
                   ),
                   DropDownButtonWidget(
                     hintText: 'Date filter',
-                    item: dataList
-                        .map(
-                          (itemValue) => DropdownMenuItem(
-                            value: itemValue.value,
-                            child: Text(itemValue.label),
-                          ),
-                        )
-                        .toList(),
+                    // item: dataList
+                    //     .map(
+                    //       (itemValue) => DropdownMenuItem(
+                    //         value: itemValue.value,
+                    //         child: Text(itemValue.label),
+                    //       ),
+                    //     )
+                    //     .toList(),
+                    item: DropdownMenuItem2().addDividersAfterItems(dataList),
                     onchanged: (value) {
                       setState(() {
                         selectedValue = value as String;
