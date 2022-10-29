@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../theme/color.dart';
 import 'info_drawer.dart';
 import 'item_menu_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -28,7 +29,13 @@ class _MyDrawerState extends State<MyDrawer> {
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
     final widthScreen = MediaQuery.of(context).size.width;
-
+    final Uri smsLaunchUri = Uri(
+      scheme: 'sms',
+      path: '0118 999 881 999 119 7253',
+      queryParameters: <String, String>{
+        'body': Uri.encodeComponent('Example Subject & Symbols are allowed!'),
+      },
+    );
     List<Widget> getList() {
       return DataMenuItem()
           .data
@@ -46,8 +53,14 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
           HomeOverview.routeName,
           ColorTheme.grey200,
-          null,
-          null),
+          null, () async {
+        final call = Uri.parse('tel:0981832226');
+        if (await canLaunchUrl(call)) {
+          launchUrl(call);
+        } else {
+          throw 'Could not launch $call';
+        }
+      }),
       NavItemMenu('999', SvgPicture.asset('assets/svg/IconCall3.svg'),
           HomeOverview.routeName, ColorTheme.grey200, null, null),
       NavItemMenu(
