@@ -138,7 +138,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                           assetIcon: "assets/svg/IconParkingChargesHome.svg",
                           background: ColorTheme.lighterSecondary,
                           quantity: 100,
-                          title: "First seen",
+                          title: "Issued PCN",
                         ),
                       ),
                       const SizedBox(
