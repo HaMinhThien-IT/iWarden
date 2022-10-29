@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
+import 'package:iWarden/common/drop_down_button.dart';
 import 'package:iWarden/common/label_require.dart';
+import 'package:iWarden/models/date_filter.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -18,7 +20,6 @@ class StatisticScreen extends StatefulWidget {
 
 class _StatisticScreenState extends State<StatisticScreen> {
   final TextEditingController _locationController = TextEditingController();
-
   _buildDevice(String nameDevice, bool stateDevice) {
     return Row(
       children: [
@@ -35,6 +36,9 @@ class _StatisticScreenState extends State<StatisticScreen> {
       ],
     );
   }
+
+  final dataList = DataDateFilter().data.toList();
+  late String selectedValue = dataList[0].value;
 
   @override
   Widget build(BuildContext context) {
@@ -131,29 +135,49 @@ class _StatisticScreenState extends State<StatisticScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: StatisticItem(
-                          assetIcon: "assets/svg/IconParkingChargesHome.svg",
-                          background: ColorTheme.lighterSecondary,
-                          quantity: 100,
-                          title: "Issued PCN",
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 32,
-                      ),
-                      const Expanded(
-                        child: StatisticItem(
-                          assetIcon: "assets/svg/IconWarning.svg",
-                          background: ColorTheme.grey200,
-                          quantity: 100,
-                          title: "Aborted PCN",
-                        ),
-                      ),
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: StatisticItem(
+                  //         assetIcon: "assets/svg/IconParkingChargesHome.svg",
+                  //         background: ColorTheme.lighterSecondary,
+                  //         quantity: 100,
+                  //         title: "First seen",
+                  //       ),
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 32,
+                  //     ),
+                  //     const Expanded(
+                  //       child: StatisticItem(
+                  //         assetIcon: "assets/svg/IconWarning.svg",
+                  //         background: ColorTheme.grey200,
+                  //         quantity: 100,
+                  //         title: "Aborted PCN",
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DropDownButtonWidget(
+                    hintText: 'Date filter',
+                    item: dataList
+                        .map(
+                          (itemValue) => DropdownMenuItem(
+                            value: itemValue.value,
+                            child: Text(itemValue.label),
+                          ),
+                        )
+                        .toList(),
+                    onchanged: (value) {
+                      setState(() {
+                        selectedValue = value as String;
+                      });
+                    },
+                    value: selectedValue,
+                  ),
                 ],
               ),
             ),
