@@ -8,12 +8,14 @@ import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/label_require.dart';
 import 'package:iWarden/common/button_scan.dart';
+import 'package:iWarden/common/toast.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
+import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
@@ -75,6 +77,15 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   }
 
   void _saveForm() {
+    CherryToast.error(
+      displayCloseButton: false,
+      title: Text(
+        'Updated successfully',
+        style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+      ),
+      toastPosition: Position.bottom,
+      borderRadius: 5,
+    ).show(context);
     final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -141,17 +152,17 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
                                   label: LabelRequire(labelText: "VRN"),
                                   hintText: "Enter VRN",
                                 ),
-                                validator: ((value) {
-                                  if (value!.isEmpty) {
-                                    return 'VRN is required.';
-                                  }
-                                  return null;
-                                }),
+                                // validator: ((value) {
+                                //   if (value!.isEmpty) {
+                                //     return 'VRN is required.';
+                                //   }
+                                //   return null;
+                                // }),
                                 onSaved: (value) {
                                   vrnText.text = value as String;
                                 },
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                // autovalidateMode:
+                                //     AutovalidateMode.onUserInteraction,
                               ),
                             ),
                             Flexible(

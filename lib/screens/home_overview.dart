@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/motion_toast.dart';
 import 'package:iWarden/common/my_dialog.dart';
+import 'package:iWarden/common/toast.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/screens/grace-period/add_grace_period.dart';
@@ -32,26 +33,7 @@ class HomeOverview extends StatelessWidget {
       drawer: const MyDrawer(),
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
-            onPressed: () {
-              MotionToast.success(
-                title: const Text(
-                  'Updated successfully',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                description: const Text(
-                  "",
-                  style: TextStyle(fontSize: 12),
-                ),
-                layoutOrientation: ToastOrientation.ltr,
-                position: MotionToastPosition.bottom,
-                animationType: AnimationType.fromLeft,
-                dismissable: false,
-                animationDuration: const Duration(milliseconds: 200),
-                animationCurve: Curves.decelerate,
-                toastDuration: const Duration(milliseconds: 1500),
-                borderRadius: 5,
-              ).show(context);
-            },
+            onPressed: () {},
             icon: SvgPicture.asset("assets/svg/IconPrinter.svg"),
             label: const Text(
               "Start lunch",

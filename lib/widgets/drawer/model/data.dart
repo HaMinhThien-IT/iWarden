@@ -10,18 +10,11 @@ import 'package:iWarden/widgets/drawer/model/nav_item.dart';
 
 class DataMenuItem {
   List<ItemMenu> data = [
-    ItemMenu('Home', SvgPicture.asset('assets/svg/LogoHome.svg'),
-        HomeOverview.routeName),
-    ItemMenu('Forms', SvgPicture.asset('assets/svg/IconForm.svg'),
-        SendFormScreen.routeName),
+    ItemMenu('Home', 'assets/svg/LogoHome.svg', HomeOverview.routeName),
+    ItemMenu('Forms', 'assets/svg/IconForm.svg', SendFormScreen.routeName),
+    ItemMenu('Test printer', 'assets/svg/IconPrinter2.svg', null),
     ItemMenu(
-        'Test printer',
-        SvgPicture.asset(
-          'assets/svg/IconPrinter2.svg',
-        ),
-        null),
-    ItemMenu('Statistic', SvgPicture.asset('assets/svg/IconStatistic.svg'),
-        StatisticScreen.routeName),
+        'Statistic', 'assets/svg/IconStatistic.svg', StatisticScreen.routeName),
     // ItemMenu(
     //     'Spot check',
     //     SvgPicture.asset(

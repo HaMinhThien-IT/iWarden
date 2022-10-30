@@ -35,7 +35,14 @@ class ItemMenuWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: itemMenu.icon,
+              child: SvgPicture.asset(
+                itemMenu.icon,
+                color: activeRoute()
+                    ? ColorTheme.darkPrimary
+                    : itemMenu.route == "checkout"
+                        ? ColorTheme.danger
+                        : ColorTheme.grey600,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),

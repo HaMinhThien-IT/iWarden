@@ -32,7 +32,9 @@ class _SendFormScreenState extends State<SendFormScreen> {
       ),
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
             icon: SvgPicture.asset("assets/svg/IconCancel2.svg"),
             label: const Text(
               "Cancel",

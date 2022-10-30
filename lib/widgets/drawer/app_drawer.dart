@@ -123,10 +123,8 @@ class _MyDrawerState extends State<MyDrawer> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ItemMenuWidget(
-                        itemMenu: ItemMenu(
-                            "End shift",
-                            SvgPicture.asset("assets/svg/IconEndShift.svg"),
-                            "checkout"),
+                        itemMenu: ItemMenu("End shift",
+                            'assets/svg/IconEndShift.svg', "checkout"),
                       ),
                     ),
                     SizedBox(height: heightScreen / 3.5),

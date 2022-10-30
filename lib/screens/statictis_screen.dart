@@ -165,7 +165,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                           assetIcon: "assets/svg/IconParkingChargesHome.svg",
                           background: ColorTheme.lighterSecondary,
                           quantity: 100,
-                          title: "First seen",
+                          title: "Issued PCN",
                         ),
                       ),
                       const SizedBox(
@@ -180,26 +180,6 @@ class _StatisticScreenState extends State<StatisticScreen> {
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  DropDownButtonWidget(
-                    hintText: 'Date filter',
-                    item: dataList
-                        .map(
-                          (itemValue) => DropdownMenuItem(
-                            value: itemValue.value,
-                            child: Text(itemValue.label),
-                          ),
-                        )
-                        .toList(),
-                    onchanged: (value) {
-                      setState(() {
-                        selectedValue = value as String;
-                      });
-                    },
-                    value: selectedValue,
                   ),
                 ],
               ),
