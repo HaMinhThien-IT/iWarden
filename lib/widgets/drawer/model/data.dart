@@ -22,12 +22,12 @@ class DataMenuItem {
         null),
     ItemMenu('Statistic', SvgPicture.asset('assets/svg/IconStatistic.svg'),
         StatisticScreen.routeName),
-    ItemMenu(
-        'Spot check',
-        SvgPicture.asset(
-          'assets/svg/IconSpotCheck.svg',
-        ),
-        GracePeriodList.routeName),
+    // ItemMenu(
+    //     'Spot check',
+    //     SvgPicture.asset(
+    //       'assets/svg/IconSpotCheck.svg',
+    //     ),
+    //     GracePeriodList.routeName),
 
     // ItemMenu('Emergency call', 'assets/svg/IconCall.svg', '/route'),
   ];

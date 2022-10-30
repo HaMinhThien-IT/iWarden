@@ -8,6 +8,7 @@ import 'package:iWarden/widgets/drawer/model/data.dart';
 import 'package:iWarden/widgets/drawer/model/menu_item.dart';
 import 'package:iWarden/widgets/drawer/model/nav_item.dart';
 import 'package:iWarden/widgets/drawer/nav_item.dart';
+import 'package:iWarden/widgets/drawer/spot_check.dart';
 import 'package:provider/provider.dart';
 import '../../theme/color.dart';
 import 'info_drawer.dart';
@@ -111,6 +112,10 @@ class _MyDrawerState extends State<MyDrawer> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: getList()),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: SpotCheck(),
                     ),
                     const SizedBox(
                       height: 10,

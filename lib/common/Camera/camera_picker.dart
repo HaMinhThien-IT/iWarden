@@ -56,7 +56,7 @@ class CameraPicker extends HookWidget {
   final WidgetBuilder? noCameraBuilder;
   final String titleCamera;
   final bool? previewImage;
-
+  final bool front;
   const CameraPicker(
       {Key? key,
       this.initialFiles,
@@ -72,6 +72,7 @@ class CameraPicker extends HookWidget {
       this.onError,
       this.maxPicture,
       this.minPicture = 1,
+      this.front = false,
       this.previewImage = false,
       required this.titleCamera})
       : super(key: key);
@@ -227,7 +228,10 @@ class CameraPicker extends HookWidget {
               return HookBuilder(builder: (context) {
                 final cameraControllerState = useState(CameraController(
                   cameras.value!.firstWhereOrNull((element) =>
-                          element.lensDirection == CameraLensDirection.back) ??
+                          element.lensDirection ==
+                          (front
+                              ? CameraLensDirection.front
+                              : CameraLensDirection.back)) ??
                       cameras.value!.first,
                   resolutionPreset,
                   enableAudio: false,
@@ -288,14 +292,30 @@ class CameraPicker extends HookWidget {
                               Container(
                                 color: ColorTheme.backdrop2,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 10),
+                                    horizontal: 30, vertical: 10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(titleCamera,
-                                        style: CustomTextStyle.h4
-                                            .copyWith(color: Colors.white)),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: SvgPicture.asset(
+                                            "assets/svg/IconBack.svg",
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 14,
+                                        ),
+                                        Text(titleCamera,
+                                            style: CustomTextStyle.h4
+                                                .copyWith(color: Colors.white))
+                                      ],
+                                    ),
                                     HookBuilder(builder: (context) {
                                       final mode = useState(FlashMode.auto);
                                       return InkWell(

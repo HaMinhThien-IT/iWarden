@@ -11,7 +11,7 @@ class DropdownMenuItem2 {
       menuItems.addAll(
         [
           DropdownMenuItem<String>(
-            value: item.value,
+            value: item.value.toString(),
             child: Text(
               item.label,
             ),
