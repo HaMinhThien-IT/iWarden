@@ -136,6 +136,7 @@ flutter:
     - assets/svg/IconErrorToast.svg
     - assets/svg/IconCamera3.svg
     - assets/svg/IconPreview.svg
+    - assets/svg/IconNextBottom.svg
     
     - config/
     - assets/

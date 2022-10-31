@@ -64,13 +64,14 @@ class ConnectingScreen extends StatelessWidget {
                       style: CustomTextStyle.h3
                           .copyWith(color: ColorTheme.primary),
                     ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10, left: 2),
-                    child: SpinKitThreeBounce(
-                      color: ColorTheme.primary,
-                      size: 7,
-                    ),
-                  )
+                  if (connected == false)
+                    Container(
+                      margin: const EdgeInsets.only(top: 10, left: 2),
+                      child: SpinKitThreeBounce(
+                        color: ColorTheme.primary,
+                        size: 7,
+                      ),
+                    )
                 ],
               ),
             ),
@@ -101,7 +102,7 @@ class ConnectingScreen extends StatelessWidget {
                   ),
                   onPressed: () {},
                   child: Text(
-                    "Next",
+                    "Start shift",
                     style: CustomTextStyle.h5.copyWith(color: Colors.white),
                   ),
                 ),

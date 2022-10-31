@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/custom_checkbox.dart';
+import 'package:iWarden/common/toast.dart';
 import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
@@ -16,26 +17,46 @@ class ReadRegulationScreen extends StatefulWidget {
 
 class _ReadRegulationScreenState extends State<ReadRegulationScreen> {
   bool checkbox = false;
+  void checkNextPage() {
+    if (!checkbox) {
+      CherryToast.error(
+        displayCloseButton: false,
+        title: Text(
+          'Please tick to confirm and go next',
+          style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+        ),
+        toastPosition: Position.bottom,
+        borderRadius: 5,
+      ).show(context);
+    } else {
+      Navigator.of(context).pushNamed(HomeOverview.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: BottomSheet2(buttonList: [
-        BottomNavyBarItem(
-          onPressed: () {
-            checkbox
-                ? Navigator.of(context).pushNamed(HomeOverview.routeName)
-                : null;
-          },
-          icon: SvgPicture.asset('assets/svg/IconNext.svg'),
+      bottomSheet: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton.icon(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+            ),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          onPressed: checkNextPage,
+          icon: SvgPicture.asset('assets/svg/IconNextBottom.svg'),
           label: Text(
             'Next',
             style: CustomTextStyle.h6.copyWith(
-              color: ColorTheme.grey600,
+              color: Colors.white,
             ),
           ),
         ),
-      ]),
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(

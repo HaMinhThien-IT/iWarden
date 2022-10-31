@@ -34,6 +34,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final vrnText = TextEditingController();
   final _locationController = TextEditingController();
+  List<File> arrayImage = [];
 
   @override
   void initState() {
@@ -77,23 +78,37 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
   }
 
   void _saveForm() {
-    CherryToast.error(
-      displayCloseButton: false,
-      title: Text(
-        'Updated successfully',
-        style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
-      ),
-      toastPosition: Position.bottom,
-      borderRadius: 5,
-    ).show(context);
-    final isValid = _formKey.currentState!.validate();
-    if (!isValid) {
-      return;
+    if (vrnText.text.isEmpty) {
+      CherryToast.error(
+        displayCloseButton: false,
+        title: Text(
+          'Please enter VRN',
+          style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+        ),
+        toastPosition: Position.bottom,
+        borderRadius: 5,
+      ).show(context);
+    } else {
+      if (arrayImage.isEmpty) {
+        CherryToast.error(
+          displayCloseButton: false,
+          title: Text(
+            'Please take at least 1 picture',
+            style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+          ),
+          toastPosition: Position.bottom,
+          borderRadius: 5,
+        ).show(context);
+      }
     }
-    _formKey.currentState!.save();
+
+    // final isValid = _formKey.currentState!.validate();
+    // if (!isValid) {
+    //   return;
+    // }
+    // _formKey.currentState!.save();
   }
 
-  List<File> arrayImage = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

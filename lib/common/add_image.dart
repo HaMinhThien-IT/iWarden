@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/common/my_dialog.dart';
 import 'package:iWarden/screens/first-seen/add-first-seen/add_first_seen_screen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
@@ -29,9 +30,38 @@ class AddImage extends StatefulWidget {
 class _AddImageState extends State<AddImage> {
   final CarouselController _controller = CarouselController();
   void remove(int index) {
-    setState(() {
-      widget.listImage.removeAt(index);
-    });
+    showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: ColorTheme.backdrop,
+      builder: (BuildContext context) {
+        return MyDialog(
+          title: Text(
+            "Confirm",
+            style: CustomTextStyle.h4.copyWith(color: ColorTheme.danger),
+          ),
+          subTitle: const Text(
+            "Are you sure you want to delete this photo?",
+            style: CustomTextStyle.h5,
+          ),
+          func: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: ColorTheme.danger,
+              ),
+              child: Text("Proceed",
+                  style: CustomTextStyle.h5.copyWith(
+                    color: Colors.white,
+                  )),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+        );
+      },
+    );
+    // setState(() {
+    //   widget.listImage.removeAt(index);
+    // });
   }
 
   @override

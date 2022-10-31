@@ -15,6 +15,7 @@ import 'package:iWarden/screens/map-screen/map_screen.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/screens/parking-charges/print_issue.dart' as print;
+import 'package:iWarden/screens/read_regulation_screen.dart';
 import 'package:iWarden/screens/statictis_screen.dart';
 import 'package:iWarden/settings/app_settings.dart';
 import 'package:iWarden/theme/color.dart';

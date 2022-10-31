@@ -59,8 +59,8 @@ class _PrintIssueState extends State<PrintIssue> {
         barrierColor: ColorTheme.backdrop,
         builder: (BuildContext context) {
           return MyDialog(
-            title: "Cannot complete",
-            subTitle: "Please take enough proof photos to complete.",
+            title: Text("Cannot complete"),
+            subTitle: Text("Please take enough proof photos to complete."),
             func: ElevatedButton(child: const Text("Ok"), onPressed: () {}),
           );
         },
