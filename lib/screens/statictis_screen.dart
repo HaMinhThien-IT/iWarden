@@ -9,6 +9,7 @@ import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:iWarden/widgets/statistic/statistic_item.dart';
+import 'package:location/location.dart';
 
 class StatisticScreen extends StatefulWidget {
   static const routeName = '/statictis';
@@ -40,8 +41,20 @@ class _StatisticScreenState extends State<StatisticScreen> {
   final dataList = DataDateFilter().data.toList();
   String? selectedValue;
 
+  Location location = Location();
+
+  bool _serviceEnabled = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    location.serviceEnabled().then((value) => _serviceEnabled = value);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(_serviceEnabled);
     Widget listDevice = Container(
       height: 56,
       color: Colors.white,
