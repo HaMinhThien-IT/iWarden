@@ -127,10 +127,20 @@ class CameraPicker extends HookWidget {
                       // }catch(e){
 
                       // }
-                      await printIssue
-                          .getIdIssue(printIssue.findIssueNoImage().id);
-                      printIssue.addImageToIssue(printIssue.idIssue, img);
-                      Navigator.of(context).pop();
+                      if (!editImage) {
+                        await printIssue
+                            .getIdIssue(printIssue.findIssueNoImage().id);
+                        printIssue.addImageToIssue(printIssue.idIssue, img);
+                        Navigator.of(context).pop();
+                        if (printIssue.findIssueNoImage().id ==
+                            printIssue.data.length) {
+                          Navigator.of(context).pop();
+                        }
+                      } else {
+                        printIssue.addImageToIssue(printIssue.idIssue, img);
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      }
                     },
                     icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
                     label: const Text(
