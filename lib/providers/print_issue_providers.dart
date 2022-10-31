@@ -12,19 +12,18 @@ class PrintIssue {
 class PrintIssueProviders with ChangeNotifier {
   final List<PrintIssue> _data = [
     PrintIssue(id: 1, title: "Screen with ticket on", image: null),
-    PrintIssue(id: 2, title: "Screen with ticket on", image: null),
-    PrintIssue(id: 3, title: "Close up of contravention", image: null),
-    PrintIssue(id: 4, title: "Vehicle & Signage", image: null),
-    PrintIssue(id: 5, title: "Signage", image: null),
-    PrintIssue(id: 6, title: "Optional photo 1", image: null),
-    PrintIssue(id: 7, title: "Optional photo 2", image: null),
-    PrintIssue(id: 8, title: "Optional photo 3", image: null),
-    PrintIssue(id: 9, title: "Optional photo 4", image: null),
+    PrintIssue(id: 2, title: "Screen with ticket ons", image: null),
+    PrintIssue(id: 3, title: "", image: null),
+    // PrintIssue(id: 3, title: "Close up of contravention", image: null),
+    // PrintIssue(id: 4, title: "Vehicle & Signage", image: null),
+    // PrintIssue(id: 5, title: "Signage", image: null),
+    // PrintIssue(id: 6, title: "Optional photo 1", image: null),
+    // PrintIssue(id: 7, title: "Optional photo 2", image: null),
+    // PrintIssue(id: 8, title: "Optional photo 3", image: null),
+    // PrintIssue(id: 9, title: "Optional photo 4", image: null),
   ];
 
   late List<bool> listChecked = List<bool>.filled(_data.length, false);
-
-  late bool checkNullImage = _data.every((element) => element.image == null);
 
   late int idIssue;
 
@@ -47,11 +46,17 @@ class PrintIssueProviders with ChangeNotifier {
   }
 
   void addImageToIssue(int id, File image) {
+    print({
+      id,
+      image,
+    });
+
     final PrintIssue temp = _data.firstWhere((element) => element.id == id);
     temp.image = image;
     notifyListeners();
   }
 
+  late bool checkNullImage = data.every((element) => element.image == null);
   List<PrintIssue> get data {
     return [..._data];
   }

@@ -57,6 +57,7 @@ class CameraPicker extends HookWidget {
   final String titleCamera;
   final bool? previewImage;
   final bool front;
+  final bool editImage;
   const CameraPicker(
       {Key? key,
       this.initialFiles,
@@ -74,6 +75,7 @@ class CameraPicker extends HookWidget {
       this.minPicture = 1,
       this.front = false,
       this.previewImage = false,
+      this.editImage = false,
       required this.titleCamera})
       : super(key: key);
 
@@ -119,10 +121,15 @@ class CameraPicker extends HookWidget {
                     ),
                   ),
                   BottomNavyBarItem(
-                    onPressed: () {
-                      isCamera = false;
+                    onPressed: () async {
+                      // try{
+
+                      // }catch(e){
+
+                      // }
+                      await printIssue
+                          .getIdIssue(printIssue.findIssueNoImage().id);
                       printIssue.addImageToIssue(printIssue.idIssue, img);
-                      Navigator.of(context).pop();
                       Navigator.of(context).pop();
                     },
                     icon: SvgPicture.asset('assets/svg/IconComplete.svg'),
@@ -311,9 +318,14 @@ class CameraPicker extends HookWidget {
                                         const SizedBox(
                                           width: 14,
                                         ),
-                                        Text(titleCamera,
+                                        Text(
+                                            !editImage
+                                                ? printIssue
+                                                    .findIssueNoImage()
+                                                    .title
+                                                : titleCamera,
                                             style: CustomTextStyle.h4
-                                                .copyWith(color: Colors.white))
+                                                .copyWith(color: Colors.white)),
                                       ],
                                     ),
                                     HookBuilder(builder: (context) {

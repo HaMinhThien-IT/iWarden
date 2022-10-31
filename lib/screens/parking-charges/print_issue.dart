@@ -13,7 +13,6 @@ import 'package:iWarden/screens/abort-screen/abort_screen.dart';
 import 'package:iWarden/screens/parking-charges/preview_photo.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
-import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:iWarden/widgets/parking-charge/take_photo_item.dart';
 import 'package:provider/provider.dart';
@@ -37,10 +36,7 @@ class _PrintIssueState extends State<PrintIssue> {
 
   @override
   Widget build(BuildContext context) {
-    final heightScreen = MediaQuery.of(context).size.height;
-
     final printIssue = Provider.of<PrintIssueProviders>(context);
-
     void takeAPhoto() async {
       await printIssue.getIdIssue(printIssue.findIssueNoImage().id);
       await Navigator.of(context).push(
@@ -72,10 +68,6 @@ class _PrintIssueState extends State<PrintIssue> {
     }
 
     return Scaffold(
-      // appBar: const MyAppBar(
-      //   title: "UKPC take picture",
-      //   automaticallyImplyLeading: true,
-      // ),
       drawer: const MyDrawer(),
       bottomSheet: BottomSheet2(padding: 5, buttonList: [
         BottomNavyBarItem(
@@ -88,17 +80,30 @@ class _PrintIssueState extends State<PrintIssue> {
             style: CustomTextStyle.h6,
           ),
         ),
-        BottomNavyBarItem(
-          onPressed: takeAPhoto,
-          icon: SvgPicture.asset(
-            'assets/svg/IconCamera.svg',
-            width: 17,
+        if (!(printIssue.findIssueNoImage().id == printIssue.data.length))
+          BottomNavyBarItem(
+            onPressed: takeAPhoto,
+            icon: SvgPicture.asset(
+              'assets/svg/IconCamera.svg',
+              width: 17,
+            ),
+            label: const Text(
+              'Take a photo',
+              style: CustomTextStyle.h6,
+            ),
           ),
-          label: const Text(
-            'Take a photo',
-            style: CustomTextStyle.h6,
+        if (printIssue.findIssueNoImage().id == printIssue.data.length)
+          BottomNavyBarItem(
+            onPressed: () =>
+                Navigator.of(context).pushNamed(PreviewPhoto.routeName),
+            icon: SvgPicture.asset(
+              'assets/svg/IconPreview.svg',
+            ),
+            label: const Text(
+              'Preview all',
+              style: CustomTextStyle.h6,
+            ),
           ),
-        ),
         BottomNavyBarItem(
           onPressed: () {
             // if (printIssue.checkNullImage) {
@@ -153,12 +158,42 @@ class _PrintIssueState extends State<PrintIssue> {
                                 ),
                               ),
                               Consumer<PrintIssueProviders>(
-                                builder: (_, value, __) => Column(
+                                  builder: (_, value, __) {
+                                return Column(
                                   children: value.data
-                                      .map((e) => const TakePhotoItem())
+                                      .map((e) => TakePhotoItem(
+                                            func: () async {
+                                              await printIssue.getIdIssue(
+                                                  printIssue
+                                                      .findIssueNoImage()
+                                                      .id);
+                                              await Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CameraPicker(
+                                                    titleCamera: printIssue
+                                                        .findIssueNoImage()
+                                                        .title,
+                                                    previewImage: true,
+                                                    onDelete: (file) {
+                                                      return true;
+                                                    },
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            title: e.title,
+                                            image: e.image != null
+                                                ? File(e.image!.path)
+                                                : null,
+                                            state: e.id ==
+                                                printIssue
+                                                    .findIssueNoImage()
+                                                    .id,
+                                          ))
                                       .toList(),
-                                ),
-                              ),
+                                );
+                              }),
                             ]),
                       ),
                       Padding(
