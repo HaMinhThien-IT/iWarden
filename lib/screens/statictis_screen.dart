@@ -53,6 +53,12 @@ class _StatisticScreenState extends State<StatisticScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     print(_serviceEnabled);
     Widget listDevice = Container(
@@ -66,7 +72,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildDevice("GPS", true),
+                _buildDevice("GPS", _serviceEnabled),
                 const SizedBox(
                   height: 8,
                 ),
