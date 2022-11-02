@@ -23,42 +23,48 @@ class ActiveFirstSeenScreen extends StatelessWidget {
       tabBarViewTab1: RefreshIndicator(
         onRefresh: refresh,
         child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
-          margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
-          child: Column(
-            children: [0, 1, 2, 3, 4, 5]
-                .map(
-                  (e) => CardItem(
-                    type: TypeFirstSeen.Active,
-                    title: "bd5i smr",
-                    expiring: DateTime.now(),
-                    visited: DateTime.now(),
-                    route: DetailActiveFirstSeen.routeName,
-                  ),
-                )
-                .toList(),
-          ),
-        )),
+              margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
+              child: Column(
+                children: [0, 1, 2, 3, 4, 5]
+                    .map(
+                      (e) => CardItem(
+                        type: TypeFirstSeen.Active,
+                        title: "bd5i smr",
+                        expiring: DateTime.now(),
+                        visited: DateTime.now(),
+                        route: DetailActiveFirstSeen.routeName,
+                      ),
+                    )
+                    .toList(),
+              ),
+            )),
       ),
       tabBarViewTab2: RefreshIndicator(
         onRefresh: refresh,
         child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
-          margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
-          child: Column(
-            children: [0, 1, 2, 3, 5]
-                .map(
-                  (e) => CardItem(
-                    type: TypeFirstSeen.Expired,
-                    title: "bd5i smr",
-                    expiring: DateTime.now(),
-                    visited: DateTime.now(),
-                    route: DetailExpiredFirstSeen.routeName,
-                  ),
-                )
-                .toList(),
-          ),
-        )),
+              margin: const EdgeInsets.only(bottom: ConstSpacing.bottom),
+              child: Column(
+                children: [
+                  0,
+                  1,
+                  2,
+                ]
+                    .map(
+                      (e) => CardItem(
+                        type: TypeFirstSeen.Expired,
+                        title: "bd5i smr",
+                        expiring: DateTime.now(),
+                        visited: DateTime.now(),
+                        route: DetailExpiredFirstSeen.routeName,
+                      ),
+                    )
+                    .toList(),
+              ),
+            )),
       ),
       quantityActive: 12,
       quantityExpired: 15,

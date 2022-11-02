@@ -45,8 +45,8 @@ class MyApp extends StatelessWidget {
       title: 'iWarden',
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
-      home: const HomeOverview(),
-      initialRoute: HomeOverview.routeName,
+      home: const LocationScreen(),
+      initialRoute: LocationScreen.routeName,
       routes: routes,
     );
   }

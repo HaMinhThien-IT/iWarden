@@ -40,22 +40,15 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
             style: CustomTextStyle.h6,
           ),
         ),
-        BottomNavyBarItem(
-          onPressed: () {},
-          icon: SvgPicture.asset("assets/svg/IconRefresh.svg"),
-          label: const Text(
-            'Refresh list',
-            style: CustomTextStyle.h6,
-          ),
-        ),
       ]),
       body: RefreshIndicator(
         onRefresh: refresh,
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Container(
             margin: const EdgeInsets.only(top: 15, bottom: 100),
             child: Column(
-              children: [0, 1, 2, 3, 4]
+              children: [0, 1, 2, 3, 4, 6, 7, 8, 9, 2]
                   .map(
                     (e) => InkWell(
                       onTap: () {

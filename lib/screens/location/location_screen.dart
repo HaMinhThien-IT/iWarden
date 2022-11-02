@@ -8,6 +8,7 @@ import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/read_regulation_screen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
+import 'package:iWarden/widgets/drawer/info_drawer.dart';
 import 'package:iWarden/widgets/location/tab_bar_item.dart';
 import 'package:provider/provider.dart';
 
@@ -50,31 +51,15 @@ class _LocationScreenState extends State<LocationScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Card(
-                elevation: 0,
-                margin: EdgeInsets.only(top: heightStatusBar),
-                child: ListTile(
-                  leading: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: CircleAvatar(
-                      child: Image.asset('assets/images/avatar.png'),
-                    ),
-                  ),
-                  title: Text(
-                    'Hi, Tom Smiths!',
-                    style: CustomTextStyle.h6.copyWith(
-                      color: ColorTheme.textPrimary,
-                    ),
-                  ),
-                  subtitle: Text(
-                    'Email: tom.smiths@ukparkingcontrol.com',
-                    style: CustomTextStyle.chart.copyWith(
-                      color: ColorTheme.grey600,
-                    ),
-                  ),
-                ),
+              const SizedBox(
+                height: 8,
               ),
+              const InfoDrawer(
+                  assetImage: "assets/images/avatar.png",
+                  name: "Hello Tom Smiths",
+                  location: null,
+                  zone: null,
+                  isDrawer: false),
               Container(
                 margin: const EdgeInsets.only(top: 8),
                 color: Colors.white,

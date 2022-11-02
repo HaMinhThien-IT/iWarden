@@ -97,9 +97,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     const InfoDrawer(
                       isDrawer: true,
-                      assetImage:
-                          "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
-                      email: "tom.smiths@ukparkingcontrol.com",
+                      assetImage: "assets/images/avatar.png",
                       name: "Tom Smiths",
                       location: "Castlepoint Shopping centre",
                       zone: "Car park 1",

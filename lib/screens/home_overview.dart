@@ -20,11 +20,16 @@ import 'package:iWarden/widgets/drawer/info_drawer.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:iWarden/widgets/home/card_home.dart';
 
-class HomeOverview extends StatelessWidget {
+class HomeOverview extends StatefulWidget {
   static const routeName = '/home';
   const HomeOverview({Key? key}) : super(key: key);
-  // ignore: unused_element
 
+  @override
+  State<HomeOverview> createState() => _HomeOverviewState();
+}
+
+class _HomeOverviewState extends State<HomeOverview> {
+  bool stateLunch = false;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -33,17 +38,26 @@ class HomeOverview extends StatelessWidget {
       drawer: const MyDrawer(),
       bottomSheet: BottomSheet2(buttonList: [
         BottomNavyBarItem(
-            onPressed: () {},
-            icon: SvgPicture.asset("assets/svg/IconPrinter.svg"),
-            label: const Text(
-              "Start lunch",
+            onPressed: () {
+              setState(() {
+                stateLunch = !stateLunch;
+              });
+            },
+            icon: SvgPicture.asset(
+              stateLunch
+                  ? "assets/svg/IconEndBreak.svg"
+                  : "assets/svg/IconStartBreak.svg",
+              color: ColorTheme.grey600,
+            ),
+            label: Text(
+              !stateLunch ? "Start lunch" : "End lunch",
               style: CustomTextStyle.h6,
             )),
         BottomNavyBarItem(
             onPressed: () {},
             icon: SvgPicture.asset("assets/svg/CheckOut.svg"),
             label: Text(
-              "End shift",
+              "Check out",
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.danger),
             )),
       ]),
@@ -55,9 +69,7 @@ class HomeOverview extends StatelessWidget {
             ),
             const InfoDrawer(
               isDrawer: false,
-              assetImage:
-                  "https://i.pinimg.com/originals/4d/86/5e/4d865ea47a8675d682ff35ad904a0af6.png",
-              email: "tom.smiths@ukparkingcontrol.com",
+              assetImage: "assets/images/avatar.png",
               name: "Tom Smiths",
               location: "Castlepoint Shopping centre",
               zone: "Car park 1",
@@ -84,7 +96,7 @@ class HomeOverview extends StatelessWidget {
               width: width,
               assetIcon: "assets/svg/IconGrace.svg",
               backgroundIcon: ColorTheme.lightDanger,
-              title: "Grace period",
+              title: "Consideration Period",
               desc:
                   "Grace period list description Grace period list description...",
               infoRight: "Active: 12",

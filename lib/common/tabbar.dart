@@ -54,14 +54,6 @@ class _MyTabBarState extends State<MyTabBar> {
               style: CustomTextStyle.h6,
             ),
           ),
-          BottomNavyBarItem(
-            onPressed: () {},
-            icon: SvgPicture.asset('assets/svg/IconRefresh.svg'),
-            label: const Text(
-              'Refresh',
-              style: CustomTextStyle.h6,
-            ),
-          ),
         ]),
         drawer: const MyDrawer(),
         body: Column(

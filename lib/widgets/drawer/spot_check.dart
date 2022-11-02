@@ -18,14 +18,17 @@ class SpotCheck extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () async {
-          final results = await Navigator.of(context).push(MaterialPageRoute(
+          final results = await Navigator.of(context).push(
+            MaterialPageRoute(
               builder: (context) => CameraPicker(
-                    titleCamera: "Spot check",
-                    front: true,
-                    onDelete: (file) {
-                      return true;
-                    },
-                  )));
+                titleCamera: "Spot check",
+                front: true,
+                onDelete: (file) {
+                  return true;
+                },
+              ),
+            ),
+          );
           if (results != null) {}
         },
         child: Row(
