@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/models/location.dart';
+import 'package:iWarden/providers/auth.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/home_overview.dart';
+import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/widgets/drawer/model/data.dart';
 import 'package:iWarden/widgets/drawer/model/menu_item.dart';
 import 'package:iWarden/widgets/drawer/model/nav_item.dart';
@@ -42,6 +44,8 @@ class _MyDrawerState extends State<MyDrawer> {
           .data
           .map((e) => ItemMenuWidget(
                 itemMenu: e,
+                onTap: () =>
+                    Navigator.of(context).pushReplacementNamed(e.route!),
               ))
           .toList();
     }
@@ -83,6 +87,8 @@ class _MyDrawerState extends State<MyDrawer> {
           .toList();
     }
 
+    final authProvider = Provider.of<Auth>(context);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -108,8 +114,9 @@ class _MyDrawerState extends State<MyDrawer> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: getList()),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: getList(),
+                      ),
                     ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -121,8 +128,17 @@ class _MyDrawerState extends State<MyDrawer> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ItemMenuWidget(
-                        itemMenu: ItemMenu("End shift",
-                            'assets/svg/IconEndShift.svg', "checkout"),
+                        itemMenu: ItemMenu(
+                          "End shift",
+                          'assets/svg/IconEndShift.svg',
+                          null,
+                        ),
+                        onTap: () {
+                          authProvider.logout();
+                          Navigator.of(context).pushReplacementNamed(
+                            LoginScreen.routeName,
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: heightScreen / 3.5),

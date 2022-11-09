@@ -6,9 +6,11 @@ import 'package:iWarden/widgets/drawer/model/menu_item.dart';
 
 class ItemMenuWidget extends StatelessWidget {
   final ItemMenu itemMenu;
+  final void Function()? onTap;
 
   const ItemMenuWidget({
     required this.itemMenu,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -21,16 +23,15 @@ class ItemMenuWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3),
-          color: activeRoute()
-              ? ColorTheme.lighterPrimary
-              : itemMenu.route == "checkout"
-                  ? ColorTheme.lightDanger
-                  : null),
+        borderRadius: BorderRadius.circular(3),
+        color: activeRoute()
+            ? ColorTheme.lighterPrimary
+            : itemMenu.route == null
+                ? ColorTheme.lightDanger
+                : null,
+      ),
       child: InkWell(
-        onTap: () {
-          Navigator.of(context).pushReplacementNamed(itemMenu.route!);
-        },
+        onTap: onTap,
         child: Row(
           children: [
             Padding(
@@ -39,7 +40,7 @@ class ItemMenuWidget extends StatelessWidget {
                 itemMenu.icon,
                 color: activeRoute()
                     ? ColorTheme.darkPrimary
-                    : itemMenu.route == "checkout"
+                    : itemMenu.route == null
                         ? ColorTheme.danger
                         : ColorTheme.grey600,
               ),
@@ -49,7 +50,7 @@ class ItemMenuWidget extends StatelessWidget {
               child: Text(
                 itemMenu.title,
                 style: CustomTextStyle.h6.copyWith(
-                    color: itemMenu.route == "checkout"
+                    color: itemMenu.route == null
                         ? ColorTheme.danger
                         : ColorTheme.textPrimary),
               ),
@@ -60,8 +61,3 @@ class ItemMenuWidget extends StatelessWidget {
     );
   }
 }
-//  color: itemMenu.route == "checkout"
-//                         ? ColorTheme.danger
-//                         : activeRoute()
-//                             ? ColorTheme.darkPrimary
-//                             : ColorTheme.grey600)

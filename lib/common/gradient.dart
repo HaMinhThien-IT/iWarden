@@ -13,11 +13,11 @@ class CustomOutlineButton extends StatelessWidget {
     required Gradient gradient,
     required Widget child,
     required VoidCallback onPressed,
-  })  : this._painter = _GradientPainter(
+  })  : _painter = _GradientPainter(
             strokeWidth: strokeWidth, radius: radius, gradient: gradient),
-        this._child = child,
-        this._callback = onPressed,
-        this._radius = radius;
+        _child = child,
+        _callback = onPressed,
+        _radius = radius;
 
   @override
   Widget build(BuildContext context) {

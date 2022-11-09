@@ -152,110 +152,110 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                         const SizedBox(
                           height: 16,
                         ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText:
-                                  const LabelRequire(labelText: "Vehicle make"),
-                              hintText: 'Enter vehicle make',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                            );
-                          }),
-                        ),
+                        // Consumer<Locations>(
+                        //   builder: ((_, location, child) {
+                        //     return AutoCompleteWidget(
+                        //       labelText:
+                        //           const LabelRequire(labelText: "Vehicle make"),
+                        //       hintText: 'Enter vehicle make',
+                        //       controller: _locationController,
+                        //       onSuggestionSelected: (suggestion) {
+                        //         setState(() {
+                        //           _locationController.text =
+                        //               (suggestion as Location).value;
+                        //         });
+                        //       },
+                        //       itemBuilder: (context, locationItem) {
+                        //         return ItemDataComplete(
+                        //           itemData: (locationItem as Location).label,
+                        //         );
+                        //       },
+                        //       suggestionsCallback: (pattern) {
+                        //         return location.onSuggest(pattern);
+                        //       },
+                        //     );
+                        //   }),
+                        // ),
                         const SizedBox(
                           height: 16,
                         ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                  labelText: "Vehicle model"),
-                              hintText: 'Enter vehicle model',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                            );
-                          }),
-                        ),
+                        // Consumer<Locations>(
+                        //   builder: ((_, location, child) {
+                        //     return AutoCompleteWidget(
+                        //       labelText: const LabelRequire(
+                        //           labelText: "Vehicle model"),
+                        //       hintText: 'Enter vehicle model',
+                        //       controller: _locationController,
+                        //       onSuggestionSelected: (suggestion) {
+                        //         setState(() {
+                        //           _locationController.text =
+                        //               (suggestion as Location).value;
+                        //         });
+                        //       },
+                        //       itemBuilder: (context, locationItem) {
+                        //         return ItemDataComplete(
+                        //           itemData: (locationItem as Location).label,
+                        //         );
+                        //       },
+                        //       suggestionsCallback: (pattern) {
+                        //         return location.onSuggest(pattern);
+                        //       },
+                        //     );
+                        //   }),
+                        // ),
                         const SizedBox(
                           height: 16,
                         ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const LabelRequire(
-                                  labelText: "Vehicle color"),
-                              hintText: 'Enter vehicle color',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                            );
-                          }),
-                        ),
+                        // Consumer<Locations>(
+                        //   builder: ((_, location, child) {
+                        //     return AutoCompleteWidget(
+                        //       labelText: const LabelRequire(
+                        //           labelText: "Vehicle color"),
+                        //       hintText: 'Enter vehicle color',
+                        //       controller: _locationController,
+                        //       onSuggestionSelected: (suggestion) {
+                        //         setState(() {
+                        //           _locationController.text =
+                        //               (suggestion as Location).value;
+                        //         });
+                        //       },
+                        //       itemBuilder: (context, locationItem) {
+                        //         return ItemDataComplete(
+                        //           itemData: (locationItem as Location).label,
+                        //         );
+                        //       },
+                        //       suggestionsCallback: (pattern) {
+                        //         return location.onSuggest(pattern);
+                        //       },
+                        //     );
+                        //   }),
+                        // ),
                         const SizedBox(
                           height: 16,
                         ),
-                        Consumer<Locations>(
-                          builder: ((_, location, child) {
-                            return AutoCompleteWidget(
-                              labelText: const Text("Contravention"),
-                              hintText: 'Overstaying time',
-                              controller: _locationController,
-                              onSuggestionSelected: (suggestion) {
-                                setState(() {
-                                  _locationController.text =
-                                      (suggestion as Location).value;
-                                });
-                              },
-                              itemBuilder: (context, locationItem) {
-                                return ItemDataComplete(
-                                  itemData: (locationItem as Location).label,
-                                );
-                              },
-                              suggestionsCallback: (pattern) {
-                                return location.onSuggest(pattern);
-                              },
-                            );
-                          }),
-                        ),
+                        // Consumer<Locations>(
+                        //   builder: ((_, location, child) {
+                        //     return AutoCompleteWidget(
+                        //       labelText: const Text("Contravention"),
+                        //       hintText: 'Overstaying time',
+                        //       controller: _locationController,
+                        //       onSuggestionSelected: (suggestion) {
+                        //         setState(() {
+                        //           _locationController.text =
+                        //               (suggestion as Location).value;
+                        //         });
+                        //       },
+                        //       itemBuilder: (context, locationItem) {
+                        //         return ItemDataComplete(
+                        //           itemData: (locationItem as Location).label,
+                        //         );
+                        //       },
+                        //       suggestionsCallback: (pattern) {
+                        //         return location.onSuggest(pattern);
+                        //       },
+                        //     );
+                        //   }),
+                        // ),
                         const SizedBox(
                           height: 16,
                         ),

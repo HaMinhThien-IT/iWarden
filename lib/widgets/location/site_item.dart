@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/models/site.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
 class SiteItem extends StatelessWidget {
-  final Site siteItem;
+  final dynamic siteItem;
   const SiteItem({required this.siteItem, super.key});
 
   @override

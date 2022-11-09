@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/circle.dart';
 import 'package:iWarden/common/dot.dart';
+import 'package:iWarden/screens/location/location_screen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
@@ -100,13 +101,15 @@ class ConnectingScreen extends StatelessWidget {
                     elevation: 0.0,
                     shadowColor: Colors.transparent,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(LocationScreen.routeName);
+                  },
                   child: Text(
                     "Start shift",
                     style: CustomTextStyle.h5.copyWith(color: Colors.white),
                   ),
                 ),
-              )
+              ),
           ],
         ),
       ),

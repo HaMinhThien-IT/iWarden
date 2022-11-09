@@ -1,7 +1,13 @@
+import 'package:aad_oauth/model/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:iWarden/configs/configs.dart';
+import 'package:iWarden/controllers/user_controller.dart';
+import 'package:iWarden/providers/auth.dart';
 import 'package:iWarden/theme/text_theme.dart';
+import 'package:provider/provider.dart';
 import '../theme/color.dart';
+import 'package:aad_oauth/aad_oauth.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -12,8 +18,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final userController = UserController();
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<Auth>(context);
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -46,12 +56,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24,
               ),
               OutlinedButton.icon(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(width: 1.0, color: ColorTheme.primary),
-                  ),
-                  icon: SvgPicture.asset("assets/svg/IconMicrosoft.svg"),
-                  label: const Text("Sign in with Microsoft"))
+                onPressed: () {
+                  authProvider.loginWithMicrosoft();
+                },
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(width: 1.0, color: ColorTheme.primary),
+                ),
+                icon: SvgPicture.asset("assets/svg/IconMicrosoft.svg"),
+                label: const Text(
+                  "Sign in with Microsoft",
+                ),
+              ),
             ],
           ),
         ),

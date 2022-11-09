@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iWarden/models/site.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/location/site_item.dart';
 
 class TabbarItem extends StatefulWidget {
-  final List<Site> sites;
+  final List<dynamic> sites;
   const TabbarItem({required this.sites, super.key});
 
   @override

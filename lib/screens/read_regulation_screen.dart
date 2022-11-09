@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/custom_checkbox.dart';
 import 'package:iWarden/common/toast.dart';
 import 'package:iWarden/screens/home_overview.dart';
@@ -37,6 +36,7 @@ class _ReadRegulationScreenState extends State<ReadRegulationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: SizedBox(
+        height: 42,
         width: double.infinity,
         child: ElevatedButton.icon(
           style: ButtonStyle(
@@ -50,7 +50,7 @@ class _ReadRegulationScreenState extends State<ReadRegulationScreen> {
           onPressed: checkNextPage,
           icon: SvgPicture.asset('assets/svg/IconNextBottom.svg'),
           label: Text(
-            'Next',
+            'Check in',
             style: CustomTextStyle.h6.copyWith(
               color: Colors.white,
             ),

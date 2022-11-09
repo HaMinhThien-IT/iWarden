@@ -4,6 +4,7 @@
     "autofocus",
     "autovalidate",
     "cupertino",
+    "dotenv",
     "fluttertoast",
     "Goku",
     "Goteta",

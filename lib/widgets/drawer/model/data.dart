@@ -12,7 +12,7 @@ class DataMenuItem {
   List<ItemMenu> data = [
     ItemMenu('Home', 'assets/svg/LogoHome.svg', HomeOverview.routeName),
     ItemMenu('Forms', 'assets/svg/IconForm.svg', SendFormScreen.routeName),
-    ItemMenu('Test printer', 'assets/svg/IconPrinter2.svg', null),
+    ItemMenu('Test printer', 'assets/svg/IconPrinter2.svg', 'test-printer'),
     ItemMenu(
         'Statistic', 'assets/svg/IconStatistic.svg', StatisticScreen.routeName),
     // ItemMenu(

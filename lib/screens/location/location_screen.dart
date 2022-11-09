@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/models/location.dart';
-import 'package:iWarden/models/site.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/read_regulation_screen.dart';
 import 'package:iWarden/theme/color.dart';
@@ -26,7 +25,6 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final siteList = SiteList().sites.toList();
     var heightStatusBar = MediaQuery.of(context).viewPadding.top;
 
     return Scaffold(
@@ -83,12 +81,15 @@ class _LocationScreenState extends State<LocationScreen> {
                             onSuggestionSelected: (suggestion) {
                               setState(() {
                                 _typeAheadController.text =
-                                    (suggestion as Location).value;
+                                    (suggestion as LocationWithZones)
+                                        .Id
+                                        .toString();
                               });
                             },
                             itemBuilder: (context, locationItem) {
                               return ItemDataComplete(
-                                itemData: (locationItem as Location).label,
+                                itemData:
+                                    (locationItem as LocationWithZones).Name,
                               );
                             },
                             suggestionsCallback: (pattern) {
@@ -101,31 +102,31 @@ class _LocationScreenState extends State<LocationScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
-                      child: Consumer<Locations>(
-                        builder: ((_, location, child) {
-                          return AutoCompleteWidget(
-                            labelText: const Text('Zone'),
-                            hintText: 'Select zone',
-                            controller: _typeAheadController,
-                            onSuggestionSelected: (suggestion) {
-                              setState(() {
-                                _typeAheadController.text =
-                                    (suggestion as Location).value;
-                              });
-                            },
-                            itemBuilder: (context, locationItem) {
-                              return ItemDataComplete(
-                                itemData: (locationItem as Location).label,
-                              );
-                            },
-                            suggestionsCallback: (pattern) {
-                              return location.onSuggest(pattern);
-                            },
-                          );
-                        }),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   child: Consumer<Locations>(
+                    //     builder: ((_, location, child) {
+                    //       return AutoCompleteWidget(
+                    //         labelText: const Text('Zone'),
+                    //         hintText: 'Select zone',
+                    //         controller: _typeAheadController,
+                    //         onSuggestionSelected: (suggestion) {
+                    //           setState(() {
+                    //             _typeAheadController.text =
+                    //                 (suggestion as Location).value;
+                    //           });
+                    //         },
+                    //         itemBuilder: (context, locationItem) {
+                    //           return ItemDataComplete(
+                    //             itemData: (locationItem as Location).label,
+                    //           );
+                    //         },
+                    //         suggestionsCallback: (pattern) {
+                    //           return location.onSuggest(pattern);
+                    //         },
+                    //       );
+                    //     }),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 24,
                     ),
