@@ -1,36 +1,38 @@
-import 'package:iWarden/models/address.dart';
+import 'dart:convert';
+
 import 'package:iWarden/models/base_model.dart';
 import 'package:iWarden/models/operational_period.dart';
 import 'package:iWarden/models/zone.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class LocationPattern {
-  final String static;
-  final String mobile;
-
-  const LocationPattern({required this.static, required this.mobile});
-}
-
-class Location extends BaseModel with AddressLocation {
+class Location extends BaseModel {
   final String Name;
-  final LocationPattern? LocationType;
+  final String? LocationType;
   final int? Revenue;
   final int? CountryRegionId;
   final int CountrySubRegionId;
   final int? ClusterId;
-  final int? Longitude;
-  final int? Latitude;
+  final num? Longitude;
+  final num? Latitude;
+  final String? Address;
+  final String? Address1;
+  final String? Address2;
+  final String? Address3;
+  final String? Town;
+  final String? Country;
+  final String? Postcode;
 
   Location({
-    Id,
-    Created,
-    Deleted,
-    Address,
-    Address1,
-    Address2,
-    Address3,
-    Town,
-    Country,
-    Postcode,
+    int? Id,
+    DateTime? Created,
+    DateTime? Deleted,
+    this.Address,
+    this.Address1,
+    this.Address2,
+    this.Address3,
+    this.Town,
+    this.Country,
+    this.Postcode,
     required this.Name,
     this.LocationType,
     this.Revenue,
@@ -40,13 +42,9 @@ class Location extends BaseModel with AddressLocation {
     this.Longitude,
     this.Latitude,
   }) : super(Id: Id, Created: Created, Deleted: Deleted);
-
-  // Location.fromJson(Map<String, dynamic> json)
-  //     : id = json['id'],
-  //       label = json['label'],
-  //       value = json['value'];
 }
 
+@JsonSerializable()
 class LocationWithZones extends Location {
   final List<Zone>? Zones;
   final List<OperationalPeriod>? OperationalPeriods;
@@ -54,11 +52,24 @@ class LocationWithZones extends Location {
   final int? TimeLimit;
 
   LocationWithZones({
-    Id,
-    Created,
-    Deleted,
-    Name,
-    CountrySubRegionId,
+    int? Id,
+    DateTime? Created,
+    DateTime? Deleted,
+    String? Address,
+    String? Address1,
+    String? Address2,
+    String? Address3,
+    String? Town,
+    String? Country,
+    String? Postcode,
+    required String Name,
+    String? LocationType,
+    int? Revenue,
+    int? CountryRegionId,
+    required int CountrySubRegionId,
+    int? ClusterId,
+    num? Longitude,
+    num? Latitude,
     this.Zones,
     this.OperationalPeriods,
     this.GracePeriod,
@@ -67,13 +78,43 @@ class LocationWithZones extends Location {
           Id: Id,
           Created: Created,
           Deleted: Deleted,
+          Address: Address,
           Name: Name,
           CountrySubRegionId: CountrySubRegionId,
+          Postcode: Postcode,
         );
 
-  // LocationWithZones.fromJson(Map<String, dynamic> json)
-  //     : Zones = json['Zones'],
-  //       OperationalPeriods = json['OperationalPeriods'],
-  //       GracePeriod = json['GracePeriod'],
-  //       TimeLimit = json['TimeLimit'];
+  factory LocationWithZones.fromJson(Map<String, dynamic> json) =>
+      _$LocationWithZonesFromJson(json);
+}
+
+LocationWithZones _$LocationWithZonesFromJson(Map<String, dynamic> json) {
+  var zonesFromJson = json['Zones'] as List<dynamic>;
+  List<Zone> zonesList =
+      zonesFromJson.map((model) => Zone.fromJson(model)).toList();
+
+  return LocationWithZones(
+    Id: json['Id'],
+    Created: json['Created'] == null ? null : DateTime.parse(json['Created']),
+    Deleted: json['Deleted'] == null ? null : DateTime.parse(json['Deleted']),
+    Address: json['Address'],
+    Address1: json['Address1'],
+    Address2: json['Address2'],
+    Address3: json['Address3'],
+    Town: json['Town'],
+    Country: json['Country'],
+    Postcode: json['Postcode'],
+    Name: json['Name'],
+    LocationType: json['LocationType'],
+    Revenue: json['Revenue'],
+    CountryRegionId: json['CountryRegionId'],
+    CountrySubRegionId: json['CountrySubRegionId'],
+    ClusterId: json['ClusterId'],
+    Longitude: json['Longitude'],
+    Latitude: json['Latitude'],
+    Zones: zonesList,
+    OperationalPeriods: json['OperationalPeriods'],
+    GracePeriod: json['GracePeriod'],
+    TimeLimit: json['TimeLimit'],
+  );
 }

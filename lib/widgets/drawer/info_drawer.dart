@@ -41,16 +41,16 @@ class InfoDrawer extends StatelessWidget {
           width: 64,
           height: 64,
           alignment: Alignment.center,
-          decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [
-            BoxShadow(
-                color: ColorTheme.grey600, blurRadius: 0, spreadRadius: -2.5),
-            BoxShadow(
-              color: Colors.white,
-              offset: Offset(-10, 15),
-              blurRadius: 18,
-              spreadRadius: 18,
-            ),
-          ]),
+          // decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [
+          //   BoxShadow(
+          //       color: ColorTheme.grey600, blurRadius: 0, spreadRadius: -2.5),
+          //   BoxShadow(
+          //     color: Colors.white,
+          //     offset: Offset(-10, 15),
+          //     blurRadius: 18,
+          //     spreadRadius: 18,
+          //   ),
+          // ]),
           child: SizedBox(
             width: 48,
             height: 48,

@@ -1,14 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/Camera/camera_picker.dart';
+import 'package:iWarden/controllers/evidence_photo_controller.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/drawer/model/menu_item.dart';
 
-class SpotCheck extends StatelessWidget {
+class SpotCheck extends StatefulWidget {
   const SpotCheck({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<SpotCheck> createState() => _SpotCheckState();
+}
+
+class _SpotCheckState extends State<SpotCheck> {
+  final evidencePhotoController = EvidencePhotoController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +39,10 @@ class SpotCheck extends StatelessWidget {
               ),
             ),
           );
-          if (results != null) {}
+          if (results != null) {
+            // print(results[0]);
+            await evidencePhotoController.uploadImage(results[0]);
+          }
         },
         child: Row(
           children: [

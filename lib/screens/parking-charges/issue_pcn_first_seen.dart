@@ -11,8 +11,9 @@ import 'package:iWarden/common/button_scan.dart';
 import 'package:iWarden/common/label_require.dart';
 import 'package:iWarden/common/slider_image.dart';
 import 'package:iWarden/configs/const.dart';
+import 'package:iWarden/controllers/contravention_controller.dart';
+import 'package:iWarden/models/ContraventionService.dart';
 import 'package:iWarden/models/location.dart';
-import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
@@ -81,6 +82,8 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
     }
   }
 
+  final contraventionController = ContraventionController();
+
   int selectedButton = 0;
   @override
   Widget build(BuildContext context) {
@@ -89,30 +92,51 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
         appBar:
             const MyAppBar(title: "Issue PCN", automaticallyImplyLeading: true),
         drawer: const MyDrawer(),
-        bottomSheet: BottomSheet2(buttonList: [
-          if (selectedButton == 1)
-            BottomNavyBarItem(
-              onPressed: () {
-                Navigator.of(context).pushNamed(ParkingChargeDetail.routeName);
-              },
-              icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
-              label: const Text(
-                'Complete',
-                style: CustomTextStyle.h6,
+        bottomSheet: BottomSheet2(
+          buttonList: [
+            if (selectedButton == 1)
+              BottomNavyBarItem(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(ParkingChargeDetail.routeName);
+                },
+                icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+                label: const Text(
+                  'Complete',
+                  style: CustomTextStyle.h6,
+                ),
               ),
-            ),
-          if (selectedButton == 0)
-            BottomNavyBarItem(
-              onPressed: () {
-                Navigator.of(context).pushNamed(PrintPCN.routeName);
-              },
-              icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
-              label: const Text(
-                'Save & print PCN',
-                style: CustomTextStyle.h6,
+            if (selectedButton == 0)
+              BottomNavyBarItem(
+                onPressed: () async {
+                  // Navigator.of(context).pushNamed(PrintPCN.routeName);
+                  ContraventionCreateWardenCommand pcn =
+                      ContraventionCreateWardenCommand(
+                    ExternalReference: 'a',
+                    ContraventionReference: 'b',
+                    Plate: 'b1',
+                    VehicleMake: 'Mec',
+                    VehicleColour: 'black',
+                    ContraventionReasonCode: 'b1610',
+                    EventDateTime: DateTime.now(),
+                    FirstObservedDateTime: DateTime.now(),
+                    WardenId: 1,
+                    Bad: 'no bad',
+                    Longitude: 16,
+                    Latitude: 10,
+                    LocationAccuracy: 1,
+                    WardenComments: 'ao ma',
+                  );
+                  await contraventionController.createPCN(pcn);
+                },
+                icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+                label: const Text(
+                  'Save & print PCN',
+                  style: CustomTextStyle.h6,
+                ),
               ),
-            ),
-        ]),
+          ],
+        ),
         body: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(

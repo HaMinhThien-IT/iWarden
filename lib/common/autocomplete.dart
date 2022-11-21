@@ -50,22 +50,23 @@ class AutoCompleteWidget extends StatelessWidget {
   Color? hintColor = ColorTheme.grey400;
   Color? floatingLabelColor = ColorTheme.textPrimary;
 
-  AutoCompleteWidget(
-      {required this.labelText,
-      this.hintText,
-      required this.onSuggestionSelected,
-      required this.itemBuilder,
-      required this.suggestionsCallback,
-      this.initialValue,
-      this.validator,
-      this.errorBuilder,
-      this.controller,
-      this.onSaved,
-      this.labelColor,
-      this.fillColor,
-      this.hintColor,
-      this.floatingLabelColor,
-      super.key});
+  AutoCompleteWidget({
+    required this.labelText,
+    this.hintText,
+    required this.onSuggestionSelected,
+    required this.itemBuilder,
+    required this.suggestionsCallback,
+    this.initialValue,
+    this.validator,
+    this.errorBuilder,
+    this.controller,
+    this.onSaved,
+    this.labelColor,
+    this.fillColor,
+    this.hintColor,
+    this.floatingLabelColor,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +142,7 @@ class AutoCompleteWidget extends StatelessWidget {
         child: suggestionsBox,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      enabled: false,
     );
   }
 }

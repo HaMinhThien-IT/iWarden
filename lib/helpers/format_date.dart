@@ -36,7 +36,7 @@ class FormatDate {
     return DateFormat('dd/MM/yyyy hh:mm a').format(date);
   }
 
-  // getLocalTime(DateTime date) {
-  //   return DateFormat('dd/MM/yyyy hh:mm a').format(date);
-  // }
+  getLocalDate2(DateTime date) {
+    return DateFormat('HH:mm:ss dd/MM/yyyy').format(date);
+  }
 }

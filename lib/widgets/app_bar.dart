@@ -5,9 +5,15 @@ import 'package:iWarden/theme/text_theme.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool automaticallyImplyLeading;
-  const MyAppBar(
-      {Key? key, required this.title, this.automaticallyImplyLeading = false})
-      : super(key: key);
+  final VoidCallback? onRedirect;
+
+  const MyAppBar({
+    Key? key,
+    required this.title,
+    this.automaticallyImplyLeading = false,
+    this.onRedirect,
+  }) : super(key: key);
+
   @override
   Size get preferredSize => const Size.fromHeight(54);
   @override
@@ -34,7 +40,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: automaticallyImplyLeading
           ? IconButton(
               icon: SvgPicture.asset("assets/svg/IconBack.svg"),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: onRedirect ?? () => Navigator.of(context).pop(),
             )
           : null,
       actions: [

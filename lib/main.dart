@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iWarden/configs/configs.dart';
-import 'package:iWarden/helpers/shared_preferences_helper.dart';
+import 'package:iWarden/core/services/api.dart';
 import 'package:iWarden/providers/auth.dart';
+import 'package:iWarden/providers/vehicle_info.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
 import 'package:iWarden/screens/connecting_screen.dart';
@@ -16,16 +18,17 @@ import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/screens/map-screen/map_screen.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
-import 'package:iWarden/screens/parking-charges/print_issue.dart' as printIssue;
 import 'package:iWarden/screens/read_regulation_screen.dart';
 import 'package:iWarden/screens/statictis_screen.dart';
 import 'package:iWarden/settings/app_settings.dart';
 import 'package:iWarden/theme/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart' as riverpod;
+
+final apiProvider = riverpod.Provider((ref) => Api());
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,8 +39,9 @@ Future main() async {
         ChangeNotifierProvider.value(value: Locations()),
         ChangeNotifierProvider.value(value: PrintIssueProviders()),
         ChangeNotifierProvider.value(value: Auth()),
+        ChangeNotifierProvider.value(value: VehicleInfo()),
       ],
-      child: MyApp(),
+      child: riverpod.ProviderScope(child: MyApp()),
     ),
   );
 }

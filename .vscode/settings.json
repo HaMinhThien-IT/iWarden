@@ -13,12 +13,14 @@
     "onchanged",
     "prefs",
     "RGBO",
+    "riverpod",
     "syspaths",
     "Tabbar",
     "timeago",
     "timego",
     "typeahead",
     "UKPC",
+    "upsert",
     "Vegeto"
   ]
 }

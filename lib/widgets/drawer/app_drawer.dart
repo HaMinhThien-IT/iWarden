@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/models/location.dart';
 import 'package:iWarden/providers/auth.dart';
-import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/widgets/drawer/model/data.dart';

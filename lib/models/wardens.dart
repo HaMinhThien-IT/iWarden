@@ -1,5 +1,8 @@
-class Wardens {
-  final int Id;
+import 'package:iWarden/models/base_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
+class Wardens extends BaseModel {
   final String ExternalId;
   final int CountrySubRegionId;
   final String FistName;
@@ -11,13 +14,13 @@ class Wardens {
   final String IWardenNumber;
   final int ContractHours;
   final DateTime StartDate;
-  final int Latitude;
-  final int Longitude;
-  final DateTime? CreatedAt;
-  final DateTime? DeletedAt;
+  final num Latitude;
+  final num Longitude;
 
   const Wardens({
-    required this.Id,
+    Id,
+    Created,
+    Deleted,
     required this.ExternalId,
     required this.CountrySubRegionId,
     required this.FistName,
@@ -31,9 +34,27 @@ class Wardens {
     required this.StartDate,
     required this.Latitude,
     required this.Longitude,
-    this.CreatedAt,
-    this.DeletedAt,
-  });
+  }) : super(Id: Id, Created: Created, Deleted: Deleted);
 
-  // Wardens.fromJson(Map<String, dynamic> json) : Id = json['Id'], ExternalId = json['ExternalId'], CountrySubRegionId = json['CountrySubRegionId'], FistName = json['FistName'], LastName = json['']
+  factory Wardens.fromJson(Map<String, dynamic> json) =>
+      _$WardensFromJson(json);
 }
+
+Wardens _$WardensFromJson(Map<String, dynamic> json) => Wardens(
+      Id: json['Id'],
+      Created: json['Created'],
+      Deleted: json['Deleted'],
+      ExternalId: json['ExternalId'],
+      CountrySubRegionId: json['CountrySubRegionId'],
+      FistName: json['FistName'],
+      LastName: json['LastName'],
+      Email: json['Email'],
+      PhoneNumber: json['PhoneNumber'],
+      Postcode: json['Postcode'],
+      Picture: json['Picture'],
+      IWardenNumber: json['IWardenNumber'],
+      ContractHours: json['ContractHours'],
+      StartDate: json['StartDate'],
+      Latitude: json['Latitude'],
+      Longitude: json['Longitude'],
+    );

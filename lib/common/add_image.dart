@@ -45,23 +45,24 @@ class _AddImageState extends State<AddImage> {
             style: CustomTextStyle.h5,
           ),
           func: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: ColorTheme.danger,
-              ),
-              child: Text("Proceed",
-                  style: CustomTextStyle.h5.copyWith(
-                    color: Colors.white,
-                  )),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              backgroundColor: ColorTheme.danger,
+            ),
+            child: Text("Proceed",
+                style: CustomTextStyle.h5.copyWith(
+                  color: Colors.white,
+                )),
+            onPressed: () {
+              setState(() {
+                widget.listImage.removeAt(index);
+              });
+              Navigator.of(context).pop();
+            },
+          ),
         );
       },
     );
-    // setState(() {
-    //   widget.listImage.removeAt(index);
-    // });
   }
 
   @override

@@ -1,6 +1,7 @@
 library camera_picker;
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -418,6 +419,7 @@ class CameraPicker extends HookWidget {
                                         try {
                                           final file = await cameraController
                                               .takePicture();
+                                          log(file.path.toString());
                                           final tempDir = await syspaths
                                               .getTemporaryDirectory();
                                           final fileName =

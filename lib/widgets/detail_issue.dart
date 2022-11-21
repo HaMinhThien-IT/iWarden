@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/helpers/format_date.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
 class DetailIssue extends StatelessWidget {
   final bool borderBottom;
+  final String plate;
+  final DateTime createdAt;
+  final String bayNumber;
 
-  const DetailIssue({Key? key, this.borderBottom = false}) : super(key: key);
+  const DetailIssue({
+    Key? key,
+    this.borderBottom = false,
+    required this.plate,
+    required this.createdAt,
+    required this.bayNumber,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +34,7 @@ class DetailIssue extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "bd5i smr".toUpperCase(),
+                plate.toUpperCase(),
                 style: CustomTextStyle.h4,
               ),
             ],
@@ -34,12 +44,15 @@ class DetailIssue extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Created at: 12/08/2022 12:20 pm ",
+                "Created at: ${FormatDate().getLocalDate(createdAt)}",
                 style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
               ),
-              Text("Bay: 12",
-                  style:
-                      CustomTextStyle.h6.copyWith(color: ColorTheme.grey600)),
+              Text(
+                "Bay: $bayNumber",
+                style: CustomTextStyle.h6.copyWith(
+                  color: ColorTheme.grey600,
+                ),
+              ),
             ],
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
+import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
@@ -10,7 +11,6 @@ class MyTabBar extends StatefulWidget {
   final String titleAppBar;
   final Function funcAdd;
   final String labelFuncAdd;
-  final Function funcRefresh;
   final Widget tabBarViewTab1;
   final Widget tabBarViewTab2;
   final int quantityActive;
@@ -19,7 +19,6 @@ class MyTabBar extends StatefulWidget {
       {Key? key,
       required this.titleAppBar,
       required this.funcAdd,
-      required this.funcRefresh,
       required this.tabBarViewTab1,
       required this.tabBarViewTab2,
       required this.quantityActive,
@@ -42,6 +41,9 @@ class _MyTabBarState extends State<MyTabBar> {
         appBar: MyAppBar(
           title: widget.titleAppBar,
           automaticallyImplyLeading: true,
+          onRedirect: () {
+            Navigator.of(context).pushNamed(HomeOverview.routeName);
+          },
         ),
         bottomSheet: BottomSheet2(buttonList: [
           BottomNavyBarItem(

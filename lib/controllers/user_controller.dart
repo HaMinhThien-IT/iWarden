@@ -22,6 +22,7 @@ class UserController {
       },
     );
     final responseData = jsonDecode(response.body);
+    log(responseData);
     return responseData;
   }
 }
