@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable()
 class ContraventionCreateWardenCommand {
   final String ExternalReference;
   final String ContraventionReference;
@@ -12,7 +10,7 @@ class ContraventionCreateWardenCommand {
   final DateTime EventDateTime;
   final DateTime FirstObservedDateTime;
   final int WardenId;
-  final String Bad;
+  final String BadgeNumber;
   final num Longitude;
   final num Latitude;
   final int LocationAccuracy;
@@ -28,7 +26,7 @@ class ContraventionCreateWardenCommand {
     required this.EventDateTime,
     required this.FirstObservedDateTime,
     required this.WardenId,
-    required this.Bad,
+    required this.BadgeNumber,
     required this.Longitude,
     required this.Latitude,
     required this.LocationAccuracy,
@@ -55,7 +53,7 @@ ContraventionCreateWardenCommand _$ContraventionCreateWardenCommandFromJson(
     EventDateTime: DateTime.parse(json['EventDateTime']),
     FirstObservedDateTime: DateTime.parse(json['FirstObservedDateTime']),
     WardenId: json['WardenId'],
-    Bad: json['Bad'],
+    BadgeNumber: json['BadgeNumber'],
     Longitude: json['Longitude'],
     Latitude: json['Latitude'],
     LocationAccuracy: json['LocationAccuracy'],
@@ -75,7 +73,7 @@ Map<String, dynamic> _$ContraventionCreateWardenCommandToJson(
     'EventDateTime': instance.EventDateTime.toIso8601String(),
     'FirstObservedDateTime': instance.FirstObservedDateTime.toIso8601String(),
     'WardenId': instance.WardenId,
-    'Bad': instance.Bad,
+    'Bad': instance.BadgeNumber,
     'Longitude': instance.Longitude,
     'Latitude': instance.Latitude,
     'LocationAccuracy': instance.LocationAccuracy,

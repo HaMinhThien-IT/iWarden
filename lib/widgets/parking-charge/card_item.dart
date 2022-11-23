@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:iWarden/helpers/format_date.dart';
+import 'package:iWarden/models/contravention.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
+final azureContainerImageUrl = dotenv.get(
+  'AZURE_CONTAINER_IMAGE_URL',
+  fallback: 'https://iwardendev.blob.core.windows.net/wardentest',
+);
+
 class CardItemParkingCharge extends StatelessWidget {
-  final String title;
-  final String contravention;
+  final String? image;
+  final String plate;
+  final List<ContraventionReasonTranslations> contraventions;
   final DateTime created;
 
   const CardItemParkingCharge({
     Key? key,
-    required this.title,
-    required this.contravention,
+    required this.image,
+    required this.plate,
+    required this.contraventions,
     required this.created,
   }) : super(key: key);
 
@@ -30,20 +39,24 @@ class CardItemParkingCharge extends StatelessWidget {
             width: 72,
             height: 72,
             child: Image.network(
-              "https://i.pinimg.com/originals/fa/eb/46/faeb46aac8f388c0b35977d4b0634cc2.jpg",
+              "$azureContainerImageUrl/$image",
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.error,
+                color: ColorTheme.danger,
+              ),
             ),
           ),
         ),
         title: Text(
-          title.toUpperCase(),
+          plate.toUpperCase(),
           style: CustomTextStyle.h4,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Contravention: $contravention",
+              "Contravention: ${contraventions.map((item) => item.detail).toString()}",
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
             ),
             const SizedBox(height: 5),

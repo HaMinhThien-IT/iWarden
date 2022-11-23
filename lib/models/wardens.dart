@@ -1,7 +1,5 @@
 import 'package:iWarden/models/base_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable()
 class Wardens extends BaseModel {
   final String ExternalId;
   final int CountrySubRegionId;

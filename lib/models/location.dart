@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:iWarden/models/base_model.dart';
 import 'package:iWarden/models/operational_period.dart';
 import 'package:iWarden/models/zone.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 class Location extends BaseModel {
   final String Name;
@@ -44,7 +43,6 @@ class Location extends BaseModel {
   }) : super(Id: Id, Created: Created, Deleted: Deleted);
 }
 
-@JsonSerializable()
 class LocationWithZones extends Location {
   final List<Zone>? Zones;
   final List<OperationalPeriod>? OperationalPeriods;

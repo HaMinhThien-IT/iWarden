@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:iWarden/helpers/format_date.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
 class DetailCar extends StatelessWidget {
+  final String plate;
+  final DateTime created;
+  final String? color;
+  final String? model;
+
   const DetailCar({
+    required this.plate,
+    required this.created,
+    this.color,
+    this.model,
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,10 +32,10 @@ class DetailCar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "bd5i smr".toUpperCase(),
+                plate.toUpperCase(),
                 style: CustomTextStyle.h3,
               ),
-              Text("Color: White",
+              Text("Color: $color",
                   style:
                       CustomTextStyle.h6.copyWith(color: ColorTheme.grey600)),
             ],
@@ -34,10 +45,10 @@ class DetailCar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Created at: 12/08/2022 12:20 pm ",
+                "Created at: ${FormatDate().getLocalDate(created)}",
                 style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
               ),
-              Text("Bay: 12",
+              Text("Model: ${model ?? "No data"}",
                   style:
                       CustomTextStyle.h6.copyWith(color: ColorTheme.grey600)),
             ],

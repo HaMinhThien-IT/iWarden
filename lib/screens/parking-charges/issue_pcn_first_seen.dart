@@ -121,7 +121,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                     EventDateTime: DateTime.now(),
                     FirstObservedDateTime: DateTime.now(),
                     WardenId: 1,
-                    Bad: 'no bad',
+                    BadgeNumber: 'no bad',
                     Longitude: 16,
                     Latitude: 10,
                     LocationAccuracy: 1,

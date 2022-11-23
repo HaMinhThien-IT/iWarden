@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
+import 'package:iWarden/models/contravention.dart';
+import 'package:iWarden/providers/contraventions.dart';
+import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:iWarden/widgets/parking-charge/card_item.dart';
+import 'package:provider/provider.dart';
 
 class ParkingChargeList extends StatefulWidget {
   static const routeName = 'parking-charges-list';
@@ -17,9 +21,34 @@ class ParkingChargeList extends StatefulWidget {
 }
 
 class _ParkingChargeListState extends State<ParkingChargeList> {
-  Future refresh() async {}
+  List<Contravention> contraventionList = [];
+
+  void getContraventionList(Contraventions contraventionProvider) {
+    contraventionProvider.getContraventionList().then((value) {
+      setState(() {
+        contraventionList = value;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final contraventionProvider =
+          Provider.of<Contraventions>(context, listen: false);
+      getContraventionList(contraventionProvider);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final contraventions = Provider.of<Contraventions>(context, listen: false);
+
+    Future<void> refresh() async {
+      getContraventionList(contraventions);
+    }
+
     return Scaffold(
       appBar: const MyAppBar(
         title: 'Parking charges',
@@ -43,28 +72,53 @@ class _ParkingChargeListState extends State<ParkingChargeList> {
       ]),
       body: RefreshIndicator(
         onRefresh: refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Container(
-            margin: const EdgeInsets.only(top: 15, bottom: 100),
-            child: Column(
-              children: [0, 1, 2, 3, 4, 6, 7, 8, 9, 2]
-                  .map(
-                    (e) => InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(ParkingChargeDetail.routeName);
-                      },
-                      child: CardItemParkingCharge(
-                        title: 'bd5i smr',
-                        contravention: '88 Expired Disabled Badge',
-                        created: DateTime.now(),
+        child: FutureBuilder(
+          future: contraventions.getContraventionList(),
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              return contraventionList.isNotEmpty
+                  ? SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 15, bottom: 100),
+                        child: Column(
+                          children: contraventionList
+                              .map(
+                                (item) => InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                      ParkingChargeDetail.routeName,
+                                      arguments: item,
+                                    );
+                                  },
+                                  child: CardItemParkingCharge(
+                                    image: item.contraventionPhotos!.isNotEmpty
+                                        ? item.contraventionPhotos![0].blobName
+                                        : "",
+                                    plate: item.plate as String,
+                                    contraventions: item.reason
+                                            ?.contraventionReasonTranslations ??
+                                        [],
+                                    created: item.created as DateTime,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
+                    )
+                  : const Center(
+                      child: Text(
+                        'No data!',
+                        style: CustomTextStyle.body1,
+                      ),
+                    );
+            } else if (snapshot.hasError) {
+              return const ServerError();
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
         ),
       ),
     );

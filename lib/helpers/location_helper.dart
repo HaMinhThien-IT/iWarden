@@ -1,5 +1,5 @@
 // ignore: constant_identifier_names
-const GOOGLE_API_KEY = 'AIzaSyCeR7YV7SU_0rjZgzMA-5tl3HO1brNH3q4';
+const GOOGLE_API_KEY = 'AIzaSyDWb27PuihbFAdxkKn2RMu7y_GKpQypeCA';
 
 class LocationHelper {
   static String generateLocationPreviewImage(

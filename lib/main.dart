@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iWarden/configs/configs.dart';
 import 'package:iWarden/core/services/api.dart';
 import 'package:iWarden/providers/auth.dart';
+import 'package:iWarden/providers/contraventions.dart';
 import 'package:iWarden/providers/vehicle_info.dart';
 import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/providers/print_issue_providers.dart';
@@ -26,9 +27,6 @@ import 'package:provider/provider.dart';
 import '../routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart' as riverpod;
-
-final apiProvider = riverpod.Provider((ref) => Api());
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,8 +38,9 @@ Future main() async {
         ChangeNotifierProvider.value(value: PrintIssueProviders()),
         ChangeNotifierProvider.value(value: Auth()),
         ChangeNotifierProvider.value(value: VehicleInfo()),
+        ChangeNotifierProvider.value(value: Contraventions()),
       ],
-      child: riverpod.ProviderScope(child: MyApp()),
+      child: MyApp(),
     ),
   );
 }

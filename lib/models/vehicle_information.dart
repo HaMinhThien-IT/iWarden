@@ -1,5 +1,4 @@
 import 'package:iWarden/models/base_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 enum VehicleInformationType { FIRST_SEEN, GRACE_PERIOD }
 
@@ -36,7 +35,6 @@ Map<String, dynamic> _$EvidencePhotoToJson(EvidencePhoto instance) {
   };
 }
 
-@JsonSerializable()
 class VehicleInformation extends BaseModel {
   final DateTime ExpiredAt;
   final String Plate;
