@@ -39,4 +39,45 @@ class FormatDate {
   getLocalDate2(DateTime date) {
     return DateFormat('HH:mm:ss dd/MM/yyyy').format(date);
   }
+
+  startOfDay(DateTime date) {
+    return DateTime(date.year, date.month, date.day, 0, 00, 00, 000, 000);
+  }
+
+  endOfDay(DateTime date) {
+    return DateTime(date.year, date.month, date.day, 23, 59, 59, 000, 000);
+  }
+
+  startOfWeek() {
+    return startOfDay(
+        DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)));
+  }
+
+  endOfWeek() {
+    return endOfDay(DateTime.now()
+        .add(Duration(days: DateTime.daysPerWeek - DateTime.now().weekday)));
+  }
+
+  startOfMonth() {
+    return DateTime.utc(DateTime.now().year, DateTime.now().month, 1);
+  }
+
+  endOfMonth() {
+    return endOfDay(DateTime.utc(
+      DateTime.now().year,
+      DateTime.now().month + 1,
+    ).subtract(const Duration(days: 1)));
+  }
+
+  startLastWeek() {
+    return startOfDay(
+        DateTime.now().subtract(Duration(days: DateTime.now().weekday + 6)));
+  }
+
+  endLastWeek() {
+    return endOfDay(
+        DateTime.now().subtract(Duration(days: DateTime.now().weekday)));
+  }
 }
+
+final formatDate = FormatDate();
