@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
       theme: themeMain(),
       debugShowCheckedModeBanner: false,
       navigatorKey: NavigationService.navigatorKey,
-      initialRoute: StatisticScreen.routeName,
       home: FutureBuilder(
         future: _fbApp,
         builder: ((context, snapshot) {
@@ -69,9 +68,8 @@ class MyApp extends StatelessWidget {
             return const Text('Something went wrong!');
           } else if (snapshot.hasData) {
             return Consumer<Auth>(
-              builder: (ctx, auth, _) => auth.isAuth
-                  ? const StatisticScreen()
-                  : const StatisticScreen(),
+              builder: (ctx, auth, _) =>
+                  auth.isAuth ? const LocationScreen() : const LocationScreen(),
             );
           } else {
             return const Center(
