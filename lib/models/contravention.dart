@@ -128,24 +128,25 @@ class Contravention {
 }
 
 class Reason {
-  String? created;
-  Null? deleted;
+  DateTime? created;
+  DateTime? deleted;
   int? id;
   String? code;
   int? rateTypeId;
   List<ContraventionReasonTranslations>? contraventionReasonTranslations;
 
-  Reason(
-      {this.created,
-      this.deleted,
-      this.id,
-      this.code,
-      this.rateTypeId,
-      this.contraventionReasonTranslations});
+  Reason({
+    this.created,
+    this.deleted,
+    this.id,
+    this.code,
+    this.rateTypeId,
+    this.contraventionReasonTranslations,
+  });
 
   Reason.fromJson(Map<String, dynamic> json) {
-    created = json['Created'];
-    deleted = json['Deleted'];
+    created = json['Created'] == null ? null : DateTime.parse(json['Created']);
+    deleted = json['Deleted'] == null ? null : DateTime.parse(json['Deleted']);
     id = json['Id'];
     code = json['Code'];
     rateTypeId = json['RateTypeId'];
@@ -153,7 +154,7 @@ class Reason {
       contraventionReasonTranslations = <ContraventionReasonTranslations>[];
       json['ContraventionReasonTranslations'].forEach((v) {
         contraventionReasonTranslations!
-            .add(new ContraventionReasonTranslations.fromJson(v));
+            .add(ContraventionReasonTranslations.fromJson(v));
       });
     }
   }
@@ -174,28 +175,34 @@ class Reason {
 }
 
 class ContraventionReasonTranslations {
-  String? created;
-  Null? deleted;
+  DateTime? created;
+  DateTime? deleted;
   int? id;
   int? contraventionReasonId;
   String? summary;
   String? detail;
+  Reason? contraventionReason;
 
-  ContraventionReasonTranslations(
-      {this.created,
-      this.deleted,
-      this.id,
-      this.contraventionReasonId,
-      this.summary,
-      this.detail});
+  ContraventionReasonTranslations({
+    this.created,
+    this.deleted,
+    this.id,
+    this.contraventionReasonId,
+    this.summary,
+    this.detail,
+    this.contraventionReason,
+  });
 
   ContraventionReasonTranslations.fromJson(Map<String, dynamic> json) {
-    created = json['Created'];
-    deleted = json['Deleted'];
+    created = json['Created'] == null ? null : DateTime.parse(json['Created']);
+    deleted = json['Deleted'] == null ? null : DateTime.parse(json['Deleted']);
     id = json['Id'];
     contraventionReasonId = json['ContraventionReasonId'];
     summary = json['Summary'];
     detail = json['Detail'];
+    if (json['ContraventionReason'] != null) {
+      contraventionReason = Reason.fromJson(json['ContraventionReason']);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -310,4 +317,12 @@ class ContraventionPhotos {
     data['SizeInBytes'] = this.sizeInBytes;
     return data;
   }
+}
+
+enum ContraventionStatus {
+  Open,
+  Paid,
+  Cancelled,
+  Timeout,
+  Paused,
 }

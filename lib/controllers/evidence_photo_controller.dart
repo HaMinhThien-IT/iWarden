@@ -26,3 +26,5 @@ class EvidencePhotoController {
     return jsonDecode(respStr);
   }
 }
+
+final evidencePhotoController = EvidencePhotoController();

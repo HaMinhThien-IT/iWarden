@@ -73,7 +73,7 @@ Map<String, dynamic> _$ContraventionCreateWardenCommandToJson(
     'EventDateTime': instance.EventDateTime.toIso8601String(),
     'FirstObservedDateTime': instance.FirstObservedDateTime.toIso8601String(),
     'WardenId': instance.WardenId,
-    'Bad': instance.BadgeNumber,
+    'BadgeNumber': instance.BadgeNumber,
     'Longitude': instance.Longitude,
     'Latitude': instance.Latitude,
     'LocationAccuracy': instance.LocationAccuracy,
@@ -163,4 +163,17 @@ class ContraventionCreatePhoto {
     required this.capturedDateTime,
     this.file,
   });
+
+  Map<String, dynamic> toJson() => _$ContraventionCreatePhotoToJson(this);
+}
+
+Map<String, dynamic> _$ContraventionCreatePhotoToJson(
+    ContraventionCreatePhoto instance) {
+  return <String, dynamic>{
+    'contraventionReference': instance.contraventionReference,
+    'photoType': instance.photoType,
+    'originalFileName': instance.originalFileName,
+    'capturedDateTime': instance.capturedDateTime.toIso8601String(),
+    'file': instance.file,
+  };
 }

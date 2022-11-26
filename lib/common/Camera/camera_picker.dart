@@ -123,21 +123,21 @@ class CameraPicker extends HookWidget {
                   ),
                   BottomNavyBarItem(
                     onPressed: () async {
-                      // try{
-
-                      // }catch(e){
-
-                      // }
-                      if (!editImage) {
-                        await printIssue
-                            .getIdIssue(printIssue.findIssueNoImage().id);
-                        printIssue.addImageToIssue(printIssue.idIssue, img);
-                        Navigator.of(context).pop();
-                        if (printIssue.findIssueNoImage().id ==
-                            printIssue.data.length) {
+                      if (printIssue.findIssueNoImage().id !=
+                          printIssue.data.length) {
+                        if (!editImage) {
+                          await printIssue
+                              .getIdIssue(printIssue.findIssueNoImage().id);
+                          printIssue.addImageToIssue(printIssue.idIssue, img);
+                          Navigator.of(context).pop();
+                        } else {
+                          printIssue.addImageToIssue(printIssue.idIssue, img);
+                          Navigator.of(context).pop();
                           Navigator.of(context).pop();
                         }
                       } else {
+                        await printIssue
+                            .getIdIssue(printIssue.findIssueNoImage().id);
                         printIssue.addImageToIssue(printIssue.idIssue, img);
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();

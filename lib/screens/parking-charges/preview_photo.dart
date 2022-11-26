@@ -16,8 +16,6 @@ class PreviewPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     final printIssue = Provider.of<PrintIssueProviders>(context);
     void editPhotoIssue(int id, String title) {
-      print("object");
-      print({id, title});
       printIssue.getIdIssue(id);
       Navigator.of(context).push(
         MaterialPageRoute(

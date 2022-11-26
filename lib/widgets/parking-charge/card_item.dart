@@ -50,13 +50,15 @@ class CardItemParkingCharge extends StatelessWidget {
         ),
         title: Text(
           plate.toUpperCase(),
-          style: CustomTextStyle.h4,
+          style: CustomTextStyle.h4.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Contravention: ${contraventions.map((item) => item.detail).toString()}",
+              "Contravention: ${contraventions.map((item) => item.detail).toString().replaceAll('(', '').replaceAll(')', '')}",
               style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
             ),
             const SizedBox(height: 5),

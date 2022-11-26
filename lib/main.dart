@@ -6,7 +6,7 @@ import 'package:iWarden/providers/auth.dart';
 import 'package:iWarden/providers/contraventions.dart';
 import 'package:iWarden/providers/vehicle_info.dart';
 import 'package:iWarden/providers/locations.dart';
-import 'package:iWarden/providers/print_issue_providers.dart';
+import 'package:iWarden/providers/print_issue_providers.dart' as print_pro;
 import 'package:iWarden/screens/connecting_screen.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
 import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
@@ -17,8 +17,9 @@ import 'package:iWarden/screens/home_overview.dart';
 import 'package:iWarden/screens/location/location_screen.dart';
 import 'package:iWarden/screens/login_screens.dart';
 import 'package:iWarden/screens/map-screen/map_screen.dart';
-import 'package:iWarden/screens/parking-charges/print_pcn.dart';
+
 import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
+import 'package:iWarden/screens/parking-charges/print_issue.dart' as pr;
 import 'package:iWarden/screens/read_regulation_screen.dart';
 import 'package:iWarden/screens/statictis_screen.dart';
 import 'package:iWarden/settings/app_settings.dart';
@@ -35,7 +36,7 @@ Future main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Locations()),
-        ChangeNotifierProvider.value(value: PrintIssueProviders()),
+        ChangeNotifierProvider.value(value: print_pro.PrintIssueProviders()),
         ChangeNotifierProvider.value(value: Auth()),
         ChangeNotifierProvider.value(value: VehicleInfo()),
         ChangeNotifierProvider.value(value: Contraventions()),

@@ -22,9 +22,9 @@ class DetailParkingCommon extends StatefulWidget {
 }
 
 class _DetailParkingCommonState extends State<DetailParkingCommon> {
-  final List<String> imgList = [];
   @override
   Widget build(BuildContext context) {
+    final List<String> imgList = [];
     List<ContraventionPhotos> contraventionImage =
         widget.contravention!.contraventionPhotos!.toList();
     for (int i = 0; i < contraventionImage.length; i++) {
@@ -81,14 +81,14 @@ class _DetailParkingCommonState extends State<DetailParkingCommon> {
                   height: 4,
                 ),
                 Text(
-                  "Type: ${widget.contravention?.reason?.contraventionReasonTranslations?.map((item) => item.detail).toString()}",
+                  "Type: ${widget.contravention?.reason?.contraventionReasonTranslations?.map((item) => item.detail).toString().replaceAll('(', '').replaceAll(')', '')}",
                   style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
                 ),
                 const SizedBox(
                   height: 4,
                 ),
                 Text(
-                  "Comment: ${widget.contravention?.contraventionEvents?.map((item) => item.detail).toString()}",
+                  "Comment: ${widget.contravention?.contraventionEvents?.map((item) => item.detail).toString().replaceAll('(', '').replaceAll(')', '')}",
                   style: CustomTextStyle.h6.copyWith(color: ColorTheme.grey600),
                 ),
                 const SizedBox(

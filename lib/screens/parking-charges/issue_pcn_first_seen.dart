@@ -1,30 +1,37 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iWarden/common/Camera/camera_picker.dart';
 import 'package:iWarden/common/add_image.dart';
-import 'package:iWarden/common/autocomplete.dart';
 import 'package:iWarden/common/bottom_sheet_2.dart';
 import 'package:iWarden/common/button_radio.dart';
 import 'package:iWarden/common/button_scan.dart';
+import 'package:iWarden/common/drop_down_button.dart';
 import 'package:iWarden/common/label_require.dart';
-import 'package:iWarden/common/slider_image.dart';
+import 'package:iWarden/common/toast.dart';
 import 'package:iWarden/configs/const.dart';
 import 'package:iWarden/controllers/contravention_controller.dart';
+import 'package:iWarden/helpers/debouncer.dart';
 import 'package:iWarden/models/ContraventionService.dart';
-import 'package:iWarden/models/location.dart';
+import 'package:iWarden/models/contravention.dart';
+import 'package:iWarden/models/vehicle_information.dart';
+import 'package:iWarden/providers/contraventions.dart';
+import 'package:iWarden/providers/locations.dart';
 import 'package:iWarden/screens/demo-ocr/anyline_service.dart';
 import 'package:iWarden/screens/demo-ocr/result.dart';
 import 'package:iWarden/screens/demo-ocr/scan_modes.dart';
-import 'package:iWarden/screens/map-screen/map_screen.dart';
 import 'package:iWarden/screens/parking-charges/parking_charge_detail.dart';
+import 'package:iWarden/screens/parking-charges/parking_charge_list.dart';
 import 'package:iWarden/screens/parking-charges/print_pcn.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 import 'package:iWarden/widgets/app_bar.dart';
 import 'package:iWarden/widgets/drawer/app_drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as p;
 
 class IssuePCNFirstSeenScreen extends StatefulWidget {
   static const routeName = '/issue-pcn';
@@ -37,16 +44,40 @@ class IssuePCNFirstSeenScreen extends StatefulWidget {
 }
 
 class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
-  final TextEditingController _locationController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late AnylineService _anylineService;
-  final TextEditingController vrnText = TextEditingController();
-  @override
-  void initState() {
-    _anylineService = AnylineServiceImpl();
-    super.initState();
+  final TextEditingController _vrnController = TextEditingController();
+  final TextEditingController _vehicleMakeController = TextEditingController();
+  final TextEditingController _vehicleColorController = TextEditingController();
+  final TextEditingController _contraventionReasonController =
+      TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
+  List<ContraventionReasonTranslations> contraventionReasonList = [];
+  int selectedButton = 0;
+  List<File> arrayImage = [];
+  List<EvidencePhoto> evidencePhotoList = [];
+  final _debouncer = Debouncer(milliseconds: 500);
+
+  void getContraventionReasonListFrProvider(
+      Contraventions contraventionProvider) async {
+    await contraventionProvider.getContraventionReasonList().then((value) {
+      setState(() {
+        contraventionReasonList = value;
+      });
+    });
   }
 
-  List<File> arrayImage = [];
+  @override
+  void initState() {
+    super.initState();
+    _anylineService = AnylineServiceImpl();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final contraventionProvider =
+          Provider.of<Contraventions>(context, listen: false);
+      getContraventionReasonListFrProvider(contraventionProvider);
+    });
+  }
+
   Future<void> scan(ScanMode mode) async {
     try {
       Result? result = await _anylineService.scan(mode);
@@ -57,7 +88,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
             .split(',')[1]
             .replaceAll(' ', '');
         setState(() {
-          vrnText.text = resultText.substring(0, resultText.length - 1);
+          _vrnController.text = resultText.substring(0, resultText.length - 1);
         });
       }
     } catch (e, s) {
@@ -82,269 +113,372 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
     }
   }
 
-  final contraventionController = ContraventionController();
+  @override
+  void dispose() {
+    _vrnController.dispose();
+    _vehicleMakeController.dispose();
+    _vehicleColorController.dispose();
+    _commentController.dispose();
+    _contraventionReasonController.dispose();
+    super.dispose();
+  }
 
-  int selectedButton = 0;
   @override
   Widget build(BuildContext context) {
-    SingingCharacter? character = SingingCharacter.lafayette;
-    return Scaffold(
-        appBar:
-            const MyAppBar(title: "Issue PCN", automaticallyImplyLeading: true),
-        drawer: const MyDrawer(),
-        bottomSheet: BottomSheet2(
-          buttonList: [
-            if (selectedButton == 1)
-              BottomNavyBarItem(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(ParkingChargeDetail.routeName);
-                },
-                icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
-                label: const Text(
-                  'Complete',
-                  style: CustomTextStyle.h6,
-                ),
+    final locationProvider = Provider.of<Locations>(context);
+    final contraventions = Provider.of<Contraventions>(context);
+    var rng = Random();
+    var anyNumber = rng.nextInt(900) + 100;
+
+    ContraventionCreateWardenCommand pcn = ContraventionCreateWardenCommand(
+      ExternalReference: locationProvider.zone!.ExternalReference,
+      ContraventionReference: '1234567890$anyNumber',
+      Plate: _vrnController.text,
+      VehicleMake: _vehicleMakeController.text,
+      VehicleColour: _vehicleColorController.text,
+      ContraventionReasonCode: _contraventionReasonController.text,
+      EventDateTime: DateTime.now(),
+      FirstObservedDateTime: DateTime.now(), // missing
+      WardenId: 1,
+      Longitude: 16,
+      Latitude: 10,
+      WardenComments:
+          _commentController.text == '' ? ' ' : _commentController.text,
+      BadgeNumber: 'test',
+      LocationAccuracy: 0,
+    );
+
+    void onSearchVehicleInfoByPlate(String plate) {
+      contraventionController
+          .getVehicleDetailByPlate(plate: plate)
+          .then((value) {
+        setState(() {
+          _vehicleMakeController.text = value['make'] ?? '';
+          _vehicleColorController.text = value['colour'] ?? '';
+        });
+      });
+    }
+
+    void showLoading() {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          return WillPopScope(
+            onWillPop: () async => false,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
               ),
-            if (selectedButton == 0)
-              BottomNavyBarItem(
-                onPressed: () async {
-                  // Navigator.of(context).pushNamed(PrintPCN.routeName);
-                  ContraventionCreateWardenCommand pcn =
-                      ContraventionCreateWardenCommand(
-                    ExternalReference: 'a',
-                    ContraventionReference: 'b',
-                    Plate: 'b1',
-                    VehicleMake: 'Mec',
-                    VehicleColour: 'black',
-                    ContraventionReasonCode: 'b1610',
-                    EventDateTime: DateTime.now(),
-                    FirstObservedDateTime: DateTime.now(),
-                    WardenId: 1,
-                    BadgeNumber: 'no bad',
-                    Longitude: 16,
-                    Latitude: 10,
-                    LocationAccuracy: 1,
-                    WardenComments: 'ao ma',
-                  );
-                  await contraventionController.createPCN(pcn);
-                },
-                icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
-                label: const Text(
-                  'Save & print PCN',
-                  style: CustomTextStyle.h6,
-                ),
+            ),
+          );
+        },
+      );
+    }
+
+    Future<void> createPCN() async {
+      final isValid = _formKey.currentState!.validate();
+      anyNumber = rng.nextInt(900) + 100;
+      Contravention? contravention;
+      bool check = false;
+
+      if (arrayImage.isEmpty) {
+        CherryToast.error(
+          displayCloseButton: false,
+          title: Text(
+            'Please take at least 1 picture',
+            style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+          ),
+          toastPosition: Position.bottom,
+          borderRadius: 5,
+        ).show(context);
+        return;
+      }
+      if (!isValid) {
+        return;
+      } else {
+        showLoading();
+        await contraventionController.createPCN(pcn).then((value) {
+          contravention = value;
+        });
+        if (arrayImage.isNotEmpty) {
+          for (int i = 0; i < arrayImage.length; i++) {
+            await contraventionController.uploadContraventionImage(
+              ContraventionCreatePhoto(
+                contraventionReference: pcn.ContraventionReference,
+                originalFileName: arrayImage[i].path.split('/').last,
+                capturedDateTime: DateTime.now(),
+                file: arrayImage[i],
               ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.only(
-                bottom: ConstSpacing.bottom + 20, top: 20),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.fromLTRB(12, 24, 12, 10),
-                  color: Colors.white,
-                  child: Form(
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Flexible(
-                              flex: 8,
-                              child: TextFormField(
-                                  controller: vrnText,
+            );
+            if (i == arrayImage.length - 1) {
+              check = true;
+            }
+          }
+        }
+      }
+
+      if (contravention != null && check == true) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pop();
+        // ignore: use_build_context_synchronously
+        Navigator.of(context)
+            .pushNamed(PrintPCN.routeName, arguments: contravention);
+      }
+
+      _formKey.currentState!.save();
+    }
+
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          appBar: MyAppBar(
+            title: "Issue PCN",
+            automaticallyImplyLeading: true,
+            onRedirect: () {
+              Navigator.of(context)
+                  .popAndPushNamed(ParkingChargeList.routeName);
+            },
+          ),
+          drawer: const MyDrawer(),
+          bottomSheet: BottomSheet2(
+            buttonList: [
+              if (selectedButton == 1)
+                BottomNavyBarItem(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(ParkingChargeDetail.routeName);
+                  },
+                  icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+                  label: const Text(
+                    'Complete',
+                    style: CustomTextStyle.h6,
+                  ),
+                ),
+              if (selectedButton == 0)
+                BottomNavyBarItem(
+                  onPressed: () async {
+                    // Navigator.of(context).pushNamed(PrintPCN.routeName);
+                    createPCN();
+                  },
+                  icon: SvgPicture.asset('assets/svg/IconComplete2.svg'),
+                  label: const Text(
+                    'Save & print PCN',
+                    style: CustomTextStyle.h6,
+                  ),
+                ),
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.only(
+                  bottom: ConstSpacing.bottom + 20, top: 20),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(12, 24, 12, 10),
+                    color: Colors.white,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Flexible(
+                                flex: 8,
+                                child: TextFormField(
+                                  controller: _vrnController,
                                   style: CustomTextStyle.h5,
                                   decoration: const InputDecoration(
                                     label: LabelRequire(labelText: "VRN"),
                                     hintText: "Enter VRN",
-                                  )),
-                            ),
-                            Flexible(
-                              flex: 2,
-                              child: ButtonScan(
-                                onTap: () {
-                                  scan(ScanMode.LicensePlate);
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        // Consumer<Locations>(
-                        //   builder: ((_, location, child) {
-                        //     return AutoCompleteWidget(
-                        //       labelText:
-                        //           const LabelRequire(labelText: "Vehicle make"),
-                        //       hintText: 'Enter vehicle make',
-                        //       controller: _locationController,
-                        //       onSuggestionSelected: (suggestion) {
-                        //         setState(() {
-                        //           _locationController.text =
-                        //               (suggestion as Location).value;
-                        //         });
-                        //       },
-                        //       itemBuilder: (context, locationItem) {
-                        //         return ItemDataComplete(
-                        //           itemData: (locationItem as Location).label,
-                        //         );
-                        //       },
-                        //       suggestionsCallback: (pattern) {
-                        //         return location.onSuggest(pattern);
-                        //       },
-                        //     );
-                        //   }),
-                        // ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        // Consumer<Locations>(
-                        //   builder: ((_, location, child) {
-                        //     return AutoCompleteWidget(
-                        //       labelText: const LabelRequire(
-                        //           labelText: "Vehicle model"),
-                        //       hintText: 'Enter vehicle model',
-                        //       controller: _locationController,
-                        //       onSuggestionSelected: (suggestion) {
-                        //         setState(() {
-                        //           _locationController.text =
-                        //               (suggestion as Location).value;
-                        //         });
-                        //       },
-                        //       itemBuilder: (context, locationItem) {
-                        //         return ItemDataComplete(
-                        //           itemData: (locationItem as Location).label,
-                        //         );
-                        //       },
-                        //       suggestionsCallback: (pattern) {
-                        //         return location.onSuggest(pattern);
-                        //       },
-                        //     );
-                        //   }),
-                        // ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        // Consumer<Locations>(
-                        //   builder: ((_, location, child) {
-                        //     return AutoCompleteWidget(
-                        //       labelText: const LabelRequire(
-                        //           labelText: "Vehicle color"),
-                        //       hintText: 'Enter vehicle color',
-                        //       controller: _locationController,
-                        //       onSuggestionSelected: (suggestion) {
-                        //         setState(() {
-                        //           _locationController.text =
-                        //               (suggestion as Location).value;
-                        //         });
-                        //       },
-                        //       itemBuilder: (context, locationItem) {
-                        //         return ItemDataComplete(
-                        //           itemData: (locationItem as Location).label,
-                        //         );
-                        //       },
-                        //       suggestionsCallback: (pattern) {
-                        //         return location.onSuggest(pattern);
-                        //       },
-                        //     );
-                        //   }),
-                        // ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        // Consumer<Locations>(
-                        //   builder: ((_, location, child) {
-                        //     return AutoCompleteWidget(
-                        //       labelText: const Text("Contravention"),
-                        //       hintText: 'Overstaying time',
-                        //       controller: _locationController,
-                        //       onSuggestionSelected: (suggestion) {
-                        //         setState(() {
-                        //           _locationController.text =
-                        //               (suggestion as Location).value;
-                        //         });
-                        //       },
-                        //       itemBuilder: (context, locationItem) {
-                        //         return ItemDataComplete(
-                        //           itemData: (locationItem as Location).label,
-                        //         );
-                        //       },
-                        //       suggestionsCallback: (pattern) {
-                        //         return location.onSuggest(pattern);
-                        //       },
-                        //     );
-                        //   }),
-                        // ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(7, 16, 16, 4),
-                          decoration: BoxDecoration(
-                              color: ColorTheme.lighterPrimary,
-                              borderRadius: BorderRadius.circular(3)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 12),
-                                child: Text(
-                                  "Please select type of PCN",
-                                  style: CustomTextStyle.h6,
+                                  ),
+                                  validator: ((value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter VRN';
+                                    }
+                                    return null;
+                                  }),
+                                  onSaved: (value) {
+                                    _vrnController.text = value as String;
+                                  },
+                                  onChanged: (value) {
+                                    _debouncer.run(() {
+                                      onSearchVehicleInfoByPlate(value);
+                                    });
+                                  },
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: OptionRadio(
-                                        text: 'Physical PCN',
-                                        index: 0,
-                                        selectedButton: selectedButton,
-                                        press: (val) {
-                                          selectedButton = val;
-                                          setState(() {});
-                                        }),
-                                  ),
-                                  Expanded(
-                                    child: OptionRadio(
-                                        text: 'Virtual PCN',
-                                        index: 1,
-                                        selectedButton: selectedButton,
-                                        press: (val) {
-                                          selectedButton = val;
-                                          setState(() {});
-                                        }),
-                                  ),
-                                ],
-                              ),
+                              Flexible(
+                                flex: 2,
+                                child: ButtonScan(
+                                  onTap: () {
+                                    scan(ScanMode.LicensePlate);
+                                  },
+                                ),
+                              )
                             ],
                           ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        TextFormField(
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            style: CustomTextStyle.h5,
+                            controller: _vehicleMakeController,
+                            decoration: const InputDecoration(
+                              label: LabelRequire(labelText: "Vehicle make"),
+                              hintText: "Enter vehicle make",
+                            ),
+                            validator: ((value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter vehicle make';
+                              }
+                              return null;
+                            }),
+                            onSaved: (value) {
+                              _vehicleMakeController.text = value as String;
+                            },
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            style: CustomTextStyle.h5,
+                            controller: _vehicleColorController,
+                            decoration: const InputDecoration(
+                              label: LabelRequire(labelText: "Vehicle color"),
+                              hintText: "Enter vehicle color",
+                            ),
+                            validator: ((value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter vehicle color';
+                              }
+                              return null;
+                            }),
+                            onSaved: (value) {
+                              _vehicleColorController.text = value as String;
+                            },
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          SizedBox(
+                            child: DropDownButtonWidget(
+                              labelText: const LabelRequire(
+                                labelText: 'Contravention',
+                              ),
+                              hintText: 'Select contravention',
+                              item: contraventionReasonList
+                                  .map(
+                                    (itemValue) => DropdownMenuItem(
+                                      value:
+                                          itemValue.contraventionReason!.code,
+                                      child: Text(
+                                        itemValue.summary as String,
+                                        style: CustomTextStyle.h5,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                              onchanged: (value) {
+                                setState(() {
+                                  _contraventionReasonController.text =
+                                      value as String;
+                                });
+                              },
+                              value:
+                                  _contraventionReasonController.text.isNotEmpty
+                                      ? _contraventionReasonController.text
+                                      : null,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(7, 16, 16, 4),
+                            decoration: BoxDecoration(
+                                color: ColorTheme.lighterPrimary,
+                                borderRadius: BorderRadius.circular(3)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 12),
+                                  child: Text(
+                                    "Please select type of PCN",
+                                    style: CustomTextStyle.h6,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: OptionRadio(
+                                          text: 'Physical PCN',
+                                          index: 0,
+                                          selectedButton: selectedButton,
+                                          press: (val) {
+                                            selectedButton = val;
+                                            setState(() {});
+                                          }),
+                                    ),
+                                    Expanded(
+                                      child: OptionRadio(
+                                          text: 'Virtual PCN',
+                                          index: 1,
+                                          selectedButton: selectedButton,
+                                          press: (val) {
+                                            selectedButton = val;
+                                            setState(() {});
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            controller: _commentController,
                             style: CustomTextStyle.h6,
                             keyboardType: TextInputType.multiline,
                             minLines: 3,
                             maxLines: 5,
                             decoration: const InputDecoration(
                               labelText: "Comment",
-                              hintText: "Enter bay comment",
-                            )),
-                      ],
+                              hintText: "Enter comment",
+                            ),
+                            onSaved: (value) {
+                              _commentController.text = value as String;
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                AddImage(
+                  AddImage(
                     onAddImage: () async {
                       final results =
                           await Navigator.of(context).push(MaterialPageRoute(
@@ -361,10 +495,14 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
                       }
                     },
                     listImage: arrayImage,
-                    isCamera: true),
-              ],
+                    isCamera: true,
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

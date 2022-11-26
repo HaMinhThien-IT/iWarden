@@ -146,6 +146,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
           toastPosition: Position.bottom,
           borderRadius: 5,
         ).show(context);
+        return false;
       }
       final isValid = _formKey.currentState!.validate();
       if (!isValid) {
