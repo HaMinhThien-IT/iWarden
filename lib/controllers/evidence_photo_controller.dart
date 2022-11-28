@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:iWarden/configs/configs.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:iWarden/helpers/dio_helper.dart';
 
 final serviceURL = dotenv.get(
   'SERVICE_URL',
@@ -12,18 +14,17 @@ final serviceURL = dotenv.get(
 );
 
 class EvidencePhotoController {
-  Future<Map<String, dynamic>> uploadImage(File image) async {
-    final uri = Uri.parse('$serviceURL/evidencePhoto/upload');
-    var request = http.MultipartRequest("POST", uri);
-    request.headers['Authorization'] = Headers.jwt;
-    request.files.add(await http.MultipartFile.fromPath(
-      'photo',
-      image.path,
-      contentType: MediaType('image', 'jpeg'),
-    ));
-    final response = await request.send();
-    final respStr = await response.stream.bytesToString();
-    return jsonDecode(respStr);
+  final dio = DioHelper.defaultApiClient;
+  Future<dynamic> uploadImage(File image) async {
+    String fileName = image.path;
+    var formData = FormData.fromMap({
+      'photo': await MultipartFile.fromFile(
+        fileName,
+        contentType: MediaType('image', 'jpeg'),
+      ),
+    });
+    var response = await dio.post('/evidencePhoto/upload', data: formData);
+    return response.data;
   }
 }
 

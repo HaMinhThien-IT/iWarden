@@ -1,30 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:iWarden/configs/configs.dart';
+import 'package:iWarden/helpers/dio_helper.dart';
 import 'package:iWarden/models/ContraventionService.dart';
 import 'package:http/http.dart' as http;
 import 'package:iWarden/models/contravention.dart';
 import 'package:iWarden/models/pagination.dart';
 import 'package:http_parser/http_parser.dart';
 
-final serviceURL = dotenv.get(
-  'SERVICE_URL',
-  fallback: 'http://192.168.1.200:7003',
-);
-
 class ContraventionController {
+  final dio = DioHelper.defaultApiClient;
   Future<Contravention> createPCN(ContraventionCreateWardenCommand pcn) async {
     try {
-      final response = await http.post(
-        Uri.parse('$serviceURL/contravention/create-pcn'),
-        body: jsonEncode(pcn.toJson()),
-        headers: Headers.headers,
+      final response = await dio.post(
+        '/contravention/create-pcn',
+        data: pcn.toJson(),
       );
-      final responseData = jsonDecode(response.body);
-      Contravention contraventionResult = Contravention.fromJson(responseData);
-      print(responseData);
+      Contravention contraventionResult = Contravention.fromJson(response.data);
       return contraventionResult;
     } catch (error) {
       rethrow;
@@ -33,12 +28,10 @@ class ContraventionController {
 
   Future<Contravention> getContraventionDetail(int id) async {
     try {
-      final response = await http.get(
-        Uri.parse('$serviceURL/contravention/$id'),
-        headers: Headers.headers,
+      final response = await dio.get(
+        '/contravention/$id',
       );
-      final responseData = jsonDecode(response.body);
-      Contravention contraventionResult = Contravention.fromJson(responseData);
+      Contravention contraventionResult = Contravention.fromJson(response.data);
       return contraventionResult;
     } catch (error) {
       rethrow;
@@ -47,22 +40,19 @@ class ContraventionController {
 
   Future<Pagination> getContraventionServiceList(
       {int? page, int? pageSize}) async {
-    final bodyRequest = jsonEncode({
-      "page": page,
-      "pageSize": pageSize,
-      "sorts": ["-Created"],
-      "filter": {
-        "status": ContraventionStatus.Open.index,
-      }
-    });
     try {
-      final response = await http.post(
-        Uri.parse('$serviceURL/contravention/filter'),
-        body: bodyRequest,
-        headers: Headers.headers,
+      final response = await dio.post(
+        '/contravention/filter',
+        data: {
+          "page": page,
+          "pageSize": pageSize,
+          "sorts": ["-Created"],
+          "filter": {
+            "status": ContraventionStatus.Open.index,
+          }
+        },
       );
-      final responseData = jsonDecode(response.body);
-      Pagination contraventionPagination = Pagination.fromJson(responseData);
+      Pagination contraventionPagination = Pagination.fromJson(response.data);
       return contraventionPagination;
     } catch (error) {
       rethrow;
@@ -70,20 +60,16 @@ class ContraventionController {
   }
 
   Future<Pagination> getContraventionReasonServiceList() async {
-    final bodyRequest = jsonEncode({
-      "page": 1,
-      "pageSize": 1000,
-    });
-
     try {
-      final response = await http.post(
-        Uri.parse('$serviceURL/contravention-reason-translation/filter'),
-        headers: Headers.headers,
-        body: bodyRequest,
+      final response = await dio.post(
+        '/contravention-reason-translation/filter',
+        data: {
+          "page": 1,
+          "pageSize": 1000,
+        },
       );
-      final responseData = jsonDecode(response.body);
       Pagination contraventionReasonPagination =
-          Pagination.fromJson(responseData);
+          Pagination.fromJson(response.data);
       return contraventionReasonPagination;
     } catch (error) {
       rethrow;
@@ -93,40 +79,32 @@ class ContraventionController {
   Future<Map<String, dynamic>> getVehicleDetailByPlate(
       {required String plate}) async {
     try {
-      final response = await http.get(
-        Uri.parse('$serviceURL/contravention/vehicle-details/$plate'),
-        headers: Headers.headers,
+      final response = await dio.get(
+        '/contravention/vehicle-details/$plate',
       );
-      final responseData = jsonDecode(response.body);
-      return responseData;
+      return response.data;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<Map<String, dynamic>> uploadContraventionImage(
+  Future<dynamic> uploadContraventionImage(
       ContraventionCreatePhoto contraventionCreatePhoto) async {
-    final uri = Uri.parse('$serviceURL/contravention/create-photo-pcn');
-    var request = http.MultipartRequest(
-      "POST",
-      uri,
-    );
-    request.headers['Authorization'] = Headers.jwt;
-    request.fields['contraventionReference'] =
-        contraventionCreatePhoto.contraventionReference;
-    request.fields['photoType'] = contraventionCreatePhoto.photoType.toString();
-    request.fields['originalFileName'] =
-        contraventionCreatePhoto.originalFileName;
-    request.fields['capturedDateTime'] =
-        contraventionCreatePhoto.capturedDateTime.toIso8601String();
-    request.files.add(await http.MultipartFile.fromPath(
-      'file',
-      contraventionCreatePhoto.file!.path,
-      contentType: MediaType('image', 'jpeg'),
-    ));
-    final response = await request.send();
-    final respStr = await response.stream.bytesToString();
-    return jsonDecode(respStr);
+    String fileName = contraventionCreatePhoto.file!.path;
+    var formData = FormData.fromMap({
+      'contraventionReference': contraventionCreatePhoto.contraventionReference,
+      'photoType': contraventionCreatePhoto.photoType.toString(),
+      'originalFileName': contraventionCreatePhoto.originalFileName,
+      'capturedDateTime':
+          contraventionCreatePhoto.capturedDateTime.toIso8601String(),
+      'file': await MultipartFile.fromFile(
+        fileName,
+        contentType: MediaType('image', 'jpeg'),
+      ),
+    });
+    var response =
+        await dio.post('/contravention/create-photo-pcn', data: formData);
+    return response.data;
   }
 }
 

@@ -194,6 +194,7 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
           });
         }
       } catch (error) {
+        print(error);
         Navigator.of(context).pop();
         // ignore: use_build_context_synchronously
         CherryToast.error(
