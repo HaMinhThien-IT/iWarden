@@ -1,18 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
-import 'package:iWarden/configs/configs.dart';
 import 'package:iWarden/helpers/dio_helper.dart';
 import 'package:iWarden/models/pagination.dart';
 import 'package:iWarden/models/vehicle_information.dart';
-
-final serviceURL = dotenv.get(
-  'SERVICE_URL',
-  fallback: 'http://192.168.1.200:7003',
-);
 
 class VehicleInfoController {
   final dio = DioHelper.defaultApiClient;

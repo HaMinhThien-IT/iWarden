@@ -3,29 +3,22 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:iWarden/configs/configs.dart';
+import 'package:iWarden/helpers/dio_helper.dart';
 import 'package:iWarden/models/abort_pcn.dart';
 import 'package:flutter/foundation.dart';
 
-final serviceURL = dotenv.get(
-  'SERVICE_URL',
-  fallback: 'http://192.168.1.200:7003',
-);
-
 class AbortController {
-  static List<CancellationReason> parseCancellationReason(String responseBody) {
-    var list = jsonDecode(responseBody) as List<dynamic>;
-    List<CancellationReason> cancellationReasons =
-        list.map((model) => CancellationReason.fromJson(model)).toList();
-    return cancellationReasons;
-  }
+  final dio = DioHelper.defaultApiClient;
 
   Future<List<CancellationReason>> getCancellationReasonList() async {
     try {
-      final response = await http.get(
-        Uri.parse('$serviceURL/contravention/list-cancellation-reason'),
-        headers: Headers.headers,
+      final response = await dio.get(
+        '/contravention/list-cancellation-reason',
       );
-      return compute(parseCancellationReason, response.body);
+      List<dynamic> temp = response.data;
+      List<CancellationReason> locations =
+          temp.map((model) => CancellationReason.fromJson(model)).toList();
+      return locations;
     } catch (error) {
       rethrow;
     }
@@ -33,10 +26,9 @@ class AbortController {
 
   Future<void> abortPCN(AbortPCN abortPcn) async {
     try {
-      await http.post(
-        Uri.parse('$serviceURL/contravention/abort-pcn'),
-        body: jsonEncode(abortPcn.toJson()),
-        headers: Headers.headers,
+      await dio.post(
+        '/contravention/abort-pcn',
+        data: abortPcn.toJson(),
       );
     } catch (error) {
       rethrow;
