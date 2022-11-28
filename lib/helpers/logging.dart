@@ -23,8 +23,9 @@ class Logging extends Interceptor {
       'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
     );
     if (err.response?.statusCode == 401) {
-      NavigationService.navigatorKey.currentState!
-          .pushReplacementNamed(LoginScreen.routeName);
+      // NavigationService.navigatorKey.currentState!
+      //     .pushReplacementNamed(LoginScreen.routeName);
+      print('ao ma');
     }
     return super.onError(err, handler);
   }

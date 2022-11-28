@@ -36,11 +36,6 @@ class _LocationScreenState extends State<LocationScreen> {
   static const _destination = LatLng(12.679866, 108.044662);
   Directions? _info;
 
-  static const CameraPosition _kLake = CameraPosition(
-    target: LatLng(12.675572, 108.03541),
-    zoom: 17.0,
-  );
-
   void getLocationList(Locations locations) async {
     await locations.getLocationList().then((value) {
       setState(() {
@@ -49,9 +44,8 @@ class _LocationScreenState extends State<LocationScreen> {
     });
   }
 
-  Future<void> _goToTheLake() async {
+  Future<void> _goToDestination() async {
     final GoogleMapController controller = await _mapController.future;
-    // controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
     controller.animateCamera(
       CameraUpdate.newLatLngBounds(
         LatLngBounds(
@@ -251,16 +245,18 @@ class _LocationScreenState extends State<LocationScreen> {
                                       width: 14,
                                     ),
                                     Text(
-                                      "15min (4.6km)",
-                                      style: CustomTextStyle.h4
-                                          .copyWith(color: ColorTheme.primary),
+                                      "${_info?.totalDuration ?? '0 mins'} (${_info?.totalDistance ?? '0 km'})",
+                                      style: CustomTextStyle.h4.copyWith(
+                                        color: ColorTheme.primary,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     )
                                   ],
                                 ),
                               ),
                             ),
                             GestureDetector(
-                              onTap: _goToTheLake,
+                              onTap: _goToDestination,
                               child: Container(
                                 padding: const EdgeInsets.all(14),
                                 color: ColorTheme.darkPrimary,
