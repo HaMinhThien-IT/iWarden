@@ -166,8 +166,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     width: ((widthScreen / divisor) - padding) - divisor2,
                     child: TextButton.icon(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(IssuePCNFirstSeenScreen.routeName);
+                          Navigator.of(context).pushNamed(
+                            IssuePCNFirstSeenScreen.routeName,
+                            arguments: args,
+                          );
                         },
                         icon: SvgPicture.asset(
                           "assets/svg/IconCharges2.svg",

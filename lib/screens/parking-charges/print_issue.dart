@@ -129,6 +129,7 @@ class _PrintIssueState extends State<PrintIssue> {
                 if (printIssue.findIssueNoImage().title != 'null') {
                   _showMyDialog();
                 } else {
+                  printIssue.resetData();
                   Navigator.of(context).pushNamed(ParkingChargeList.routeName);
                 }
               },

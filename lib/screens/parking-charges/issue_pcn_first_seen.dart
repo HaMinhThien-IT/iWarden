@@ -67,6 +67,15 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
     });
   }
 
+  void onSearchVehicleInfoByPlate(String plate) {
+    contraventionController.getVehicleDetailByPlate(plate: plate).then((value) {
+      setState(() {
+        _vehicleMakeController.text = value['make'] ?? '';
+        _vehicleColorController.text = value['colour'] ?? '';
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +84,11 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
       final contraventionProvider =
           Provider.of<Contraventions>(context, listen: false);
       getContraventionReasonListFrProvider(contraventionProvider);
+      final args = ModalRoute.of(context)!.settings.arguments as dynamic;
+      _vrnController.text = args != null ? args.Plate : '';
+      if (args != null) {
+        onSearchVehicleInfoByPlate(args.Plate);
+      }
     });
   }
 
@@ -126,9 +140,9 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<Locations>(context);
-    final contraventions = Provider.of<Contraventions>(context);
     var rng = Random();
     var anyNumber = rng.nextInt(900) + 100;
+    final args = ModalRoute.of(context)!.settings.arguments as dynamic;
 
     ContraventionCreateWardenCommand pcn = ContraventionCreateWardenCommand(
       ExternalReference: locationProvider.zone!.ExternalReference,
@@ -138,26 +152,15 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
       VehicleColour: _vehicleColorController.text,
       ContraventionReasonCode: _contraventionReasonController.text,
       EventDateTime: DateTime.now(),
-      FirstObservedDateTime: DateTime.now(), // missing
-      WardenId: 1,
-      Longitude: 16,
-      Latitude: 10,
+      FirstObservedDateTime: args != null ? args.Created : DateTime.now(),
+      WardenId: 1, // missing
+      Longitude: 16, // missing
+      Latitude: 10, // missing
       WardenComments:
           _commentController.text == '' ? ' ' : _commentController.text,
       BadgeNumber: 'test',
       LocationAccuracy: 0,
     );
-
-    void onSearchVehicleInfoByPlate(String plate) {
-      contraventionController
-          .getVehicleDetailByPlate(plate: plate)
-          .then((value) {
-        setState(() {
-          _vehicleMakeController.text = value['make'] ?? '';
-          _vehicleColorController.text = value['colour'] ?? '';
-        });
-      });
-    }
 
     void showLoading() {
       showDialog(
@@ -184,6 +187,7 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
     Future<void> createPCN() async {
       final isValid = _formKey.currentState!.validate();
       anyNumber = rng.nextInt(900) + 100;
+      pcn.ContraventionReference = '1234567890$anyNumber';
       Contravention? contravention;
       bool check = false;
 
@@ -203,6 +207,8 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
         return;
       } else {
         showLoading();
+      }
+      try {
         await contraventionController.createPCN(pcn).then((value) {
           contravention = value;
         });
@@ -221,14 +227,26 @@ class _IssuePCNFirstSeenScreenState extends State<IssuePCNFirstSeenScreen> {
             }
           }
         }
-      }
-
-      if (contravention != null && check == true) {
-        // ignore: use_build_context_synchronously
+        if (contravention != null && check == true) {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pop();
+          // ignore: use_build_context_synchronously
+          Navigator.of(context)
+              .pushNamed(PrintPCN.routeName, arguments: contravention);
+        }
+      } catch (error) {
         Navigator.of(context).pop();
         // ignore: use_build_context_synchronously
-        Navigator.of(context)
-            .pushNamed(PrintPCN.routeName, arguments: contravention);
+        CherryToast.error(
+          displayCloseButton: false,
+          title: Text(
+            'Error creating! Please try again!',
+            style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
+          ),
+          toastPosition: Position.bottom,
+          borderRadius: 5,
+        ).show(context);
+        return;
       }
 
       _formKey.currentState!.save();

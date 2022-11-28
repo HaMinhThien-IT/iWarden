@@ -31,10 +31,7 @@ class _ActiveFirstSeenScreenState extends State<ActiveFirstSeenScreen> {
   final calculateTime = CalculateTime();
 
   Future<void> getFirstSeenList(VehicleInfo firstSeenProvider) async {
-    firstSeenProvider
-        .getFirstSeenList(
-            vehicleInfoType: VehicleInformationType.FIRST_SEEN.index)
-        .then((value) {
+    firstSeenProvider.getFirstSeenList().then((value) {
       setState(() {
         firstSeenActive = value.where((i) {
           return calculateTime.daysBetween(
@@ -159,8 +156,7 @@ class _ActiveFirstSeenScreenState extends State<ActiveFirstSeenScreen> {
         tabBarViewTab1: RefreshIndicator(
           onRefresh: refresh,
           child: FutureBuilder(
-              future: vehicleProvider.getFirstSeenList(
-                  vehicleInfoType: VehicleInformationType.FIRST_SEEN.index),
+              future: vehicleProvider.getFirstSeenList(),
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   return firstSeenActive.isNotEmpty
@@ -212,8 +208,7 @@ class _ActiveFirstSeenScreenState extends State<ActiveFirstSeenScreen> {
         tabBarViewTab2: RefreshIndicator(
           onRefresh: refresh,
           child: FutureBuilder(
-              future: vehicleProvider.getFirstSeenList(
-                  vehicleInfoType: VehicleInformationType.FIRST_SEEN.index),
+              future: vehicleProvider.getFirstSeenList(),
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   return firstSeenExpired.isNotEmpty

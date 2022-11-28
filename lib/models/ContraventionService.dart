@@ -2,7 +2,7 @@ import 'dart:io';
 
 class ContraventionCreateWardenCommand {
   final String ExternalReference;
-  final String ContraventionReference;
+  String ContraventionReference;
   final String Plate;
   final String VehicleMake;
   final String VehicleColour;

@@ -79,7 +79,7 @@ class _AddImageState extends State<AddImage> {
                     image: (item.runtimeType == String) == false
                         ? NetworkImage(item)
                         : NetworkImage(item),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ));
               }).toList(),

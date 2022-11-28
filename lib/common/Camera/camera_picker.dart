@@ -431,13 +431,6 @@ class CameraPicker extends HookWidget {
                                               await file.readAsBytes());
                                           img.Image fixed =
                                               img.copyRotate(decodeImg!, -90);
-                                          img.drawString(
-                                              fixed,
-                                              img.arial_24,
-                                              1030,
-                                              680,
-                                              FormatDate().getLocalDate(
-                                                  DateTime.now()));
                                           var encodeImage = img.encodeJpg(fixed,
                                               quality: 100);
                                           var finalImage = files

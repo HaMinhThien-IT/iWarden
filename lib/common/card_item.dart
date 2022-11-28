@@ -4,6 +4,7 @@ import 'package:iWarden/helpers/format_date.dart';
 import 'package:iWarden/models/first_seen.dart';
 import 'package:iWarden/models/vehicle_information.dart';
 import 'package:iWarden/screens/first-seen/active_first_seen_screen.dart';
+import 'package:iWarden/screens/parking-charges/issue_pcn_first_seen.dart';
 import 'package:iWarden/theme/color.dart';
 import 'package:iWarden/theme/text_theme.dart';
 
@@ -51,8 +52,14 @@ class CardItem extends StatelessWidget {
                   if (type == TypeFirstSeen.Expired)
                     IconButton(
                       padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: () {},
+                      constraints:
+                          const BoxConstraints(minWidth: 40, minHeight: 40),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          IssuePCNFirstSeenScreen.routeName,
+                          arguments: vehicleInfo,
+                        );
+                      },
                       icon: SvgPicture.asset(
                         "assets/svg/IconCharges2.svg",
                       ),
@@ -63,16 +70,20 @@ class CardItem extends StatelessWidget {
                     ),
                   IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
+                    constraints:
+                        const BoxConstraints(minWidth: 40, minHeight: 40),
                     onPressed: () {},
-                    icon: SvgPicture.asset("assets/svg/IconLocation.svg"),
+                    icon: SvgPicture.asset(
+                      "assets/svg/IconLocation.svg",
+                    ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
+                    constraints:
+                        const BoxConstraints(minWidth: 40, minHeight: 40),
                     onPressed: () {
                       onCarLeft();
                     },

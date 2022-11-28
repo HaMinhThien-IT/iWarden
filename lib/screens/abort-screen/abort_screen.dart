@@ -29,6 +29,7 @@ class _AbortScreenState extends State<AbortScreen> {
   List<CancellationReason> cancellationReasonList = [];
   final TextEditingController _cancellationReasonController =
       TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
 
   void getCancellationReasonList() async {
     await abortController.getCancellationReasonList().then((value) {
@@ -45,6 +46,13 @@ class _AbortScreenState extends State<AbortScreen> {
   }
 
   @override
+  void dispose() {
+    _cancellationReasonController.dispose();
+    _commentController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
     final args = ModalRoute.of(context)!.settings.arguments as Contravention;
@@ -54,6 +62,7 @@ class _AbortScreenState extends State<AbortScreen> {
       cancellationReasonId: _cancellationReasonController.text != ''
           ? int.tryParse(_cancellationReasonController.text) as int
           : 0,
+      comment: _commentController.text,
     );
 
     Future<void> abortPCN() async {
@@ -157,6 +166,7 @@ class _AbortScreenState extends State<AbortScreen> {
                         ),
                         TextFormField(
                           style: CustomTextStyle.h5,
+                          controller: _commentController,
                           decoration: const InputDecoration(
                             hintText: 'Enter comment',
                             label: Text(
@@ -165,6 +175,9 @@ class _AbortScreenState extends State<AbortScreen> {
                             hintMaxLines: 1,
                           ),
                           maxLines: 3,
+                          onSaved: (value) {
+                            _commentController.text = value as String;
+                          },
                         ),
                         const SizedBox(
                           height: 4,

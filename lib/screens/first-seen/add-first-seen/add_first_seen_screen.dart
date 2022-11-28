@@ -104,8 +104,8 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
       LocationId: locationProvider.location!.Id as int,
       BayNumber: _bayNumberController.text,
       Type: VehicleInformationType.FIRST_SEEN.index,
-      Latitude: 16,
-      Longitude: 10,
+      Latitude: 16, // missing
+      Longitude: 10, // missing
       CarLeft: false,
       EvidencePhotos: evidencePhotoList,
     );
@@ -133,6 +133,8 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
     }
 
     Future<bool> saveForm() async {
+      final isValid = _formKey.currentState!.validate();
+      bool check = false;
       setState(() {
         evidencePhotoList.clear();
       });
@@ -148,11 +150,12 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
         ).show(context);
         return false;
       }
-      final isValid = _formKey.currentState!.validate();
       if (!isValid) {
         return false;
       } else {
         showLoading();
+      }
+      try {
         if (arrayImage.isNotEmpty) {
           for (int i = 0; i < arrayImage.length; i++) {
             await evidencePhotoController
@@ -162,26 +165,48 @@ class _AddFirstSeenScreenState extends State<AddFirstSeenScreen> {
             });
           }
         }
-      }
-      await vehicleInfoController.upsertVehicleInfo(vehicleInfo).then((value) {
+
+        await vehicleInfoController
+            .upsertVehicleInfo(vehicleInfo)
+            .then((value) {
+          check = true;
+        });
+
+        if (check == true) {
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).pop();
+          // ignore: use_build_context_synchronously
+          CherryToast.success(
+            displayCloseButton: false,
+            title: Text(
+              'Add successfully!',
+              style: CustomTextStyle.h5.copyWith(color: ColorTheme.success),
+            ),
+            toastPosition: Position.bottom,
+            borderRadius: 5,
+          ).show(context);
+
+          setState(() {
+            _vrnController.text = '';
+            _bayNumberController.text = '';
+            arrayImage.clear();
+            evidencePhotoList.clear();
+          });
+        }
+      } catch (error) {
         Navigator.of(context).pop();
-        CherryToast.success(
+        // ignore: use_build_context_synchronously
+        CherryToast.error(
           displayCloseButton: false,
           title: Text(
-            'Add successfully!',
-            style: CustomTextStyle.h5.copyWith(color: ColorTheme.success),
+            'Error creating! Please try again!',
+            style: CustomTextStyle.h5.copyWith(color: ColorTheme.danger),
           ),
           toastPosition: Position.bottom,
           borderRadius: 5,
         ).show(context);
-
-        setState(() {
-          _vrnController.text = '';
-          _bayNumberController.text = '';
-          arrayImage.clear();
-          evidencePhotoList.clear();
-        });
-      });
+        return false;
+      }
 
       _formKey.currentState!.save();
       return true;

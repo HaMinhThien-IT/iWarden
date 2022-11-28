@@ -35,6 +35,8 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>LSApplicationQueriesSchemes</key>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 	<array>
 	<string>sms</string>
 	<string>tel</string>

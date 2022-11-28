@@ -28,11 +28,8 @@ class _GracePeriodListState extends State<GracePeriodList> {
   List<VehicleInformation> gracePeriodExpired = [];
   final calculateTime = CalculateTime();
 
-  Future<void> getFirstSeenList(VehicleInfo firstSeenProvider) async {
-    firstSeenProvider
-        .getFirstSeenList(
-            vehicleInfoType: VehicleInformationType.GRACE_PERIOD.index)
-        .then((value) {
+  Future<void> getGracePeriodList(VehicleInfo firstSeenProvider) async {
+    firstSeenProvider.getGracePeriodList().then((value) {
       setState(() {
         gracePeriodActive = value.where((i) {
           return calculateTime.daysBetween(
@@ -73,7 +70,7 @@ class _GracePeriodListState extends State<GracePeriodList> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final firstSeenProvider =
           Provider.of<VehicleInfo>(context, listen: false);
-      getFirstSeenList(firstSeenProvider);
+      getGracePeriodList(firstSeenProvider);
     });
   }
 
@@ -131,7 +128,7 @@ class _GracePeriodListState extends State<GracePeriodList> {
                         .upsertVehicleInfo(vehicleInfoToUpdate)
                         .then((value) {
                       Navigator.of(context).pop();
-                      getFirstSeenList(vehicleProvider);
+                      getGracePeriodList(vehicleProvider);
                     });
                   },
                 ),
@@ -143,7 +140,7 @@ class _GracePeriodListState extends State<GracePeriodList> {
     }
 
     Future<void> refresh() async {
-      getFirstSeenList(vehicleProvider);
+      getGracePeriodList(vehicleProvider);
     }
 
     return WillPopScope(
@@ -157,8 +154,7 @@ class _GracePeriodListState extends State<GracePeriodList> {
         tabBarViewTab1: RefreshIndicator(
           onRefresh: refresh,
           child: FutureBuilder(
-              future: vehicleProvider.getFirstSeenList(
-                  vehicleInfoType: VehicleInformationType.GRACE_PERIOD.index),
+              future: vehicleProvider.getGracePeriodList(),
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   return gracePeriodActive.isNotEmpty
@@ -210,8 +206,7 @@ class _GracePeriodListState extends State<GracePeriodList> {
         tabBarViewTab2: RefreshIndicator(
           onRefresh: refresh,
           child: FutureBuilder(
-              future: vehicleProvider.getFirstSeenList(
-                  vehicleInfoType: VehicleInformationType.GRACE_PERIOD.index),
+              future: vehicleProvider.getGracePeriodList(),
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   return gracePeriodExpired.isNotEmpty
