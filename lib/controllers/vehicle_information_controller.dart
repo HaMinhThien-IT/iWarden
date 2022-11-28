@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:iWarden/configs/configs.dart';
+import 'package:iWarden/helpers/dio_helper.dart';
 import 'package:iWarden/models/pagination.dart';
 import 'package:iWarden/models/vehicle_information.dart';
 
@@ -14,6 +15,7 @@ final serviceURL = dotenv.get(
 );
 
 class VehicleInfoController {
+  final dio = DioHelper.defaultApiClient;
   Future<Pagination> getVehicleInfoList(
       {required int vehicleInfoType, int? page, int? pageSize}) async {
     final bodyRequest = jsonEncode({
@@ -26,13 +28,9 @@ class VehicleInfoController {
       "sorts": ["-ExpiredAt"],
     });
     try {
-      final response = await http.post(
-        Uri.parse('$serviceURL/vehicleInformation/filter'),
-        body: bodyRequest,
-        headers: Headers.headers,
-      );
-      final responseData = jsonDecode(response.body);
-      Pagination vehicleInfoPagination = Pagination.fromJson(responseData);
+      final response =
+          await dio.post('/vehicleInformation/filter', data: bodyRequest);
+      Pagination vehicleInfoPagination = Pagination.fromJson(response.data);
       return vehicleInfoPagination;
     } catch (error) {
       rethrow;
@@ -42,13 +40,11 @@ class VehicleInfoController {
   Future<VehicleInformation> upsertVehicleInfo(
       VehicleInformation vehicleInfo) async {
     try {
-      final response = await http.post(
-        Uri.parse('$serviceURL/vehicleInformation'),
-        body: jsonEncode(vehicleInfo.toJson()),
-        headers: Headers.headers,
+      final response = await dio.post(
+        '/vehicleInformation',
+        data: vehicleInfo.toJson(),
       );
-      final responseData = jsonDecode(response.body);
-      final vehicleFromJson = VehicleInformation.fromJson(responseData);
+      final vehicleFromJson = VehicleInformation.fromJson(response.data);
       return vehicleFromJson;
     } catch (error) {
       rethrow;
@@ -57,13 +53,10 @@ class VehicleInfoController {
 
   Future<VehicleInformation> getVehicleInfoDetail(int vehicleId) async {
     try {
-      final response = await http.get(
-        Uri.parse('$serviceURL/$vehicleId'),
-        headers: Headers.headers,
+      final response = await dio.get(
+        vehicleId.toString(),
       );
-      final responseData = jsonDecode(response.body);
-      print(responseData);
-      final vehicleFromJson = VehicleInformation.fromJson(responseData);
+      final vehicleFromJson = VehicleInformation.fromJson(response.data);
       return vehicleFromJson;
     } catch (error) {
       rethrow;

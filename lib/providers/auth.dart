@@ -10,6 +10,7 @@ import 'dart:async';
 
 import 'package:iWarden/configs/configs.dart';
 import 'package:iWarden/controllers/user_controller.dart';
+import 'package:iWarden/helpers/shared_preferences_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final serviceURL = dotenv.get(
@@ -33,6 +34,8 @@ class Auth with ChangeNotifier {
     final AadOAuth oauth = AadOAuth(OAuthConfig.config);
     await oauth.login();
     final accessToken = await oauth.getIdToken();
+    SharedPreferencesHelper.setStringValue(
+        PreferencesKeys.accessToken, accessToken);
     loginWithJwt(accessToken ?? '');
   }
 
@@ -41,7 +44,7 @@ class Auth with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     try {
       final userController = UserController();
-      final responseData = await userController.getMe(jwt);
+      final responseData = await userController.getMe();
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
@@ -63,6 +66,7 @@ class Auth with ChangeNotifier {
     final AadOAuth oauth = AadOAuth(OAuthConfig.config);
     await oauth.logout();
     final prefs = await SharedPreferences.getInstance();
+    SharedPreferencesHelper.removeStringValue(PreferencesKeys.accessToken);
     prefs.clear();
     print('Logout successfully!');
   }

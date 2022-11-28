@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:iWarden/configs/configs.dart';
+import 'package:iWarden/helpers/dio_helper.dart';
 import 'package:iWarden/models/pagination.dart';
 import 'package:iWarden/models/statistic.dart';
 import 'package:iWarden/models/vehicle_information.dart';
@@ -15,6 +16,7 @@ final serviceURL = dotenv.get(
 );
 
 class StatisticController {
+  final dio = DioHelper.defaultApiClient;
   Future<StatisticWardenPropsData> getDataStatistic(
       StatisticWardenPropsFilter filter) async {
     final bodyRequest = jsonEncode({
@@ -23,15 +25,10 @@ class StatisticController {
       "timeEnd": filter.timeEnd.toString(),
     });
     try {
-      final response = await http.post(
-        Uri.parse('$serviceURL/vehicleInformation/statistics'),
-        body: bodyRequest,
-        headers: Headers.headers,
-      );
-      final responseData = jsonDecode(response.body);
-      print(response.body);
+      final response = await DioHelper.defaultApiClient
+          .post('/vehicleInformation/statistics', data: bodyRequest);
       StatisticWardenPropsData statisticData =
-          StatisticWardenPropsData.fromJson(responseData);
+          StatisticWardenPropsData.fromJson(response.data);
       return statisticData;
     } catch (error) {
       rethrow;
